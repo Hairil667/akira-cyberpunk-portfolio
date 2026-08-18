@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="100%" height="100%">
+  <defs>
+    <linearGradient id="droneGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FDE047"/>
+      <stop offset="60%" stop-color="#D97706"/>
+      <stop offset="100%" stop-color="#78350F"/>
+    </linearGradient>
+    <filter id="droneGlow">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Rotor Rings / Anti-Gravity Propulsors -->
+  <!-- Top Left -->
+  <circle cx="160" cy="180" r="80" fill="none" stroke="url(#droneGold)" stroke-width="3"/>
+  <circle cx="160" cy="180" r="60" fill="none" stroke="#00f0ff" stroke-width="2" stroke-dasharray="8 4"/>
+  <circle cx="160" cy="180" r="10" fill="#f59e0b"/>
+
+  <!-- Top Right -->
+  <circle cx="440" cy="180" r="80" fill="none" stroke="url(#droneGold)" stroke-width="3"/>
+  <circle cx="440" cy="180" r="60" fill="none" stroke="#00f0ff" stroke-width="2" stroke-dasharray="8 4"/>
+  <circle cx="440" cy="180" r="10" fill="#f59e0b"/>
+
+  <!-- Bottom Left -->
+  <circle cx="180" cy="420" r="70" fill="none" stroke="url(#droneGold)" stroke-width="3"/>
+  <circle cx="180" cy="420" r="50" fill="none" stroke="#00f0ff" stroke-width="2" stroke-dasharray="8 4"/>
+  <circle cx="180" cy="420" r="10" fill="#f59e0b"/>
+
+  <!-- Bottom Right -->
+  <circle cx="420" cy="420" r="70" fill="none" stroke="url(#droneGold)" stroke-width="3"/>
+  <circle cx="420" cy="420" r="50" fill="none" stroke="#00f0ff" stroke-width="2" stroke-dasharray="8 4"/>
+  <circle cx="420" cy="420" r="10" fill="#f59e0b"/>
+
+  <!-- Structural Booms -->
+  <line x1="160" y1="180" x2="300" y2="300" stroke="#334155" stroke-width="12"/>
+  <line x1="440" y1="180" x2="300" y2="300" stroke="#334155" stroke-width="12"/>
+  <line x1="180" y1="420" x2="300" y2="300" stroke="#334155" stroke-width="12"/>
+  <line x1="420" y1="420" x2="300" y2="300" stroke="#334155" stroke-width="12"/>
+
+  <!-- Central Drone Chassis -->
+  <polygon points="300,180 390,240 390,360 300,420 210,360 210,240" fill="#0f172a" stroke="url(#droneGold)" stroke-width="4"/>
+  <polygon points="300,210 365,255 365,345 300,390 235,345 235,255" fill="#1e293b"/>
+
+  <!-- AI Autonomous Optical Eye -->
+  <circle cx="300" cy="300" r="42" fill="#020617" stroke="#f59e0b" stroke-width="3"/>
+  <circle cx="300" cy="300" r="28" fill="#ff0055" filter="url(#droneGlow)"/>
+  <circle cx="300" cy="300" r="12" fill="#ffffff"/>
+  <polygon points="290,265 310,265 300,280" fill="#00f0ff"/>
+
+  <!-- Underslung Pulse Laser Turret -->
+  <polygon points="270,420 330,420 315,480 285,480" fill="url(#droneGold)"/>
+  <line x1="300" y1="480" x2="300" y2="520" stroke="#00f0ff" stroke-width="4" filter="url(#droneGlow)"/>
+</svg>

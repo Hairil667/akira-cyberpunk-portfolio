@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 360" width="100%" height="100%">
+  <defs>
+    <linearGradient id="railGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FDE047"/>
+      <stop offset="50%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#92400E"/>
+    </linearGradient>
+    <linearGradient id="railChassis" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#090d16"/>
+    </linearGradient>
+    <filter id="railGlow">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Stock & Power Cell -->
+  <polygon points="60,180 160,140 240,140 220,240 100,260 60,220" fill="url(#railChassis)" stroke="url(#railGold)" stroke-width="3"/>
+  <rect x="120" y="160" width="70" height="60" rx="4" fill="#020617" stroke="#00f0ff" stroke-width="2"/>
+  <text x="130" y="195" fill="#00f0ff" font-family="'Courier New', monospace" font-size="12" font-weight="bold">CELL 98%</text>
+
+  <!-- Receiver & Grip -->
+  <polygon points="240,140 450,140 430,220 280,220" fill="url(#railChassis)" stroke="url(#railGold)" stroke-width="3"/>
+  <polygon points="300,220 340,220 320,310 280,300" fill="#0f172a" stroke="url(#railGold)" stroke-width="2.5"/>
+  <!-- Trigger -->
+  <path d="M 330 240 Q 320 260 340 260" stroke="#f59e0b" stroke-width="3" fill="none"/>
+  <path d="M 310 230 Q 310 280 345 280" stroke="#475569" stroke-width="2" fill="none"/>
+
+  <!-- Holographic Smart Scope -->
+  <rect x="280" y="80" width="160" height="45" rx="4" fill="url(#railChassis)" stroke="url(#railGold)" stroke-width="2.5"/>
+  <polygon points="260,105 280,95 280,115" fill="#00f0ff" opacity="0.6"/>
+  <polygon points="440,95 470,85 470,125 440,115" fill="url(#railGold)"/>
+  <line x1="300" y1="102" x2="420" y2="102" stroke="#00f0ff" stroke-width="2" filter="url(#railGlow)"/>
+  <!-- Scope Mounts -->
+  <rect x="310" y="125" width="20" height="15" fill="#475569"/>
+  <rect x="390" y="125" width="20" height="15" fill="#475569"/>
+
+  <!-- Twin Accelerator Rail Barrels -->
+  <rect x="450" y="135" width="460" height="25" fill="url(#railChassis)" stroke="url(#railGold)" stroke-width="3"/>
+  <rect x="450" y="180" width="460" height="25" fill="url(#railChassis)" stroke="url(#railGold)" stroke-width="3"/>
+
+  <!-- Electromagnetic Acceleration Channel -->
+  <line x1="450" y1="170" x2="930" y2="170" stroke="#00f0ff" stroke-width="6" filter="url(#railGlow)"/>
+  <line x1="450" y1="170" x2="930" y2="170" stroke="#ffffff" stroke-width="2"/>
+
+  <!-- Magnetic Induction Coils (Gold Glitch Rings) -->
+  <g fill="none" stroke="url(#railGold)" stroke-width="5">
+    <rect x="480" y="125" width="20" height="90" rx="3"/>
+    <rect x="540" y="125" width="20" height="90" rx="3"/>
+    <rect x="600" y="125" width="20" height="90" rx="3"/>
+    <rect x="660" y="125" width="20" height="90" rx="3"/>
+    <rect x="720" y="125" width="20" height="90" rx="3"/>
+    <rect x="780" y="125" width="20" height="90" rx="3"/>
+    <rect x="840" y="125" width="20" height="90" rx="3"/>
+  </g>
+
+  <!-- Muzzle Shroud & Stabilizer Prongs -->
+  <polygon points="910,120 950,110 960,150 910,160" fill="url(#railGold)"/>
+  <polygon points="910,180 960,190 950,230 910,220" fill="url(#railGold)"/>
+
+  <!-- Laser Fore-End Guide -->
+  <line x1="450" y1="215" x2="650" y2="215" stroke="#f59e0b" stroke-width="8"/>
+
+  <!-- Telemetry Text -->
+  <g font-family="'Courier New', monospace" font-size="12" fill="#00f0ff">
+    <text x="480" y="60">[ CANNON: APEX-9000 HEAVY RAILGUN ]</text>
+    <text x="480" y="85">[ PROJECTILE SPEED: MACH 14.2 ]</text>
+    <text x="480" y="270">[ CALIBER: 25mm SOLID TUNGSTEN-GOLD SABOT ]</text>
+  </g>
+</svg>

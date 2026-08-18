@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="maskGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFE066"/>
+      <stop offset="50%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#B45309"/>
+    </linearGradient>
+    <linearGradient id="maskDark" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#090d16"/>
+    </linearGradient>
+    <filter id="neonGlow">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Cybernetic Oni Helmet Base -->
+  <polygon points="250,50 350,110 390,240 350,380 250,450 150,380 110,240 150,110" fill="url(#maskDark)" stroke="url(#maskGold)" stroke-width="4"/>
+  
+  <!-- Horns / Cyber Crest -->
+  <polygon points="250,90 180,20 220,100" fill="url(#maskGold)"/>
+  <polygon points="250,90 320,20 280,100" fill="url(#maskGold)"/>
+  <polygon points="250,60 210,10 250,30 290,10" fill="#ff0055" filter="url(#neonGlow)"/>
+
+  <!-- Forehead Neural Node -->
+  <polygon points="250,120 275,150 250,180 225,150" fill="#020617" stroke="#00f0ff" stroke-width="2"/>
+  <circle cx="250" cy="150" r="10" fill="#00f0ff" filter="url(#neonGlow)"/>
+
+  <!-- Eyes Visor (Fierce Cyber Slits) -->
+  <polygon points="170,210 230,225 220,245 160,230" fill="#00f0ff" filter="url(#neonGlow)"/>
+  <polygon points="330,210 270,225 280,245 340,230" fill="#00f0ff" filter="url(#neonGlow)"/>
+  <line x1="165" y1="220" x2="225" y2="235" stroke="#ffffff" stroke-width="2"/>
+  <line x1="335" y1="220" x2="275" y2="235" stroke="#ffffff" stroke-width="2"/>
+
+  <!-- Cheek Armor & Neural Circuits -->
+  <polygon points="150,260 210,275 190,340 140,310" fill="url(#maskGold)"/>
+  <polygon points="350,260 290,275 310,340 360,310" fill="url(#maskGold)"/>
+
+  <!-- Breathing Mask / Fangs Grill -->
+  <polygon points="215,310 285,310 275,390 225,390" fill="#020617" stroke="url(#maskGold)" stroke-width="2"/>
+  <!-- Fangs -->
+  <polygon points="230,320 240,350 245,320" fill="#ffffff"/>
+  <polygon points="270,320 260,350 255,320" fill="#ffffff"/>
+  <polygon points="235,380 245,355 250,380" fill="#ffffff"/>
+  <polygon points="265,380 255,355 250,380" fill="#ffffff"/>
+
+  <!-- Collar / Neck Harness -->
+  <polygon points="200,430 300,430 320,480 180,480" fill="url(#maskDark)" stroke="url(#maskGold)" stroke-width="3"/>
+  <circle cx="250" cy="455" r="8" fill="#f59e0b" filter="url(#neonGlow)"/>
+</svg>

@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 900" width="100%" height="100%">
+  <defs>
+    <linearGradient id="valkGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FEF08A"/>
+      <stop offset="50%" stop-color="#EAB308"/>
+      <stop offset="100%" stop-color="#A16207"/>
+    </linearGradient>
+    <linearGradient id="valkMetal" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e1b4b"/>
+      <stop offset="50%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#020617"/>
+    </linearGradient>
+    <filter id="valkGlow">
+      <feGaussianBlur stdDeviation="7" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- High-Speed Aerodynamic Wings / Plasma Solar Sails -->
+  <g id="valk-wings">
+    <!-- Left Wing swept upward -->
+    <polygon points="320,300 80,80 50,150 160,380 280,360" fill="url(#valkMetal)" stroke="url(#valkGold)" stroke-width="2.5"/>
+    <polygon points="80,80 50,150 140,260 220,180" fill="url(#valkGold)" opacity="0.85"/>
+    <line x1="80" y1="80" x2="280" y2="360" stroke="#00f0ff" stroke-width="3" filter="url(#valkGlow)"/>
+    <polygon points="260,340 70,400 120,460 270,420" fill="url(#valkMetal)" stroke="url(#valkGold)" stroke-width="2"/>
+    
+    <!-- Right Wing swept upward -->
+    <polygon points="480,300 720,80 750,150 640,380 520,360" fill="url(#valkMetal)" stroke="url(#valkGold)" stroke-width="2.5"/>
+    <polygon points="720,80 750,150 660,260 580,180" fill="url(#valkGold)" opacity="0.85"/>
+    <line x1="720" y1="80" x2="520" y2="360" stroke="#00f0ff" stroke-width="3" filter="url(#valkGlow)"/>
+    <polygon points="540,340 730,400 680,460 530,420" fill="url(#valkMetal)" stroke="url(#valkGold)" stroke-width="2"/>
+  </g>
+
+  <!-- Slender Aerodynamic Torso -->
+  <g id="valk-torso">
+    <polygon points="360,200 440,200 460,380 400,480 340,380" fill="url(#valkMetal)" stroke="url(#valkGold)" stroke-width="3"/>
+    <!-- Solar Energy Core -->
+    <circle cx="400" cy="290" r="24" fill="#020617" stroke="#00f0ff" stroke-width="2"/>
+    <circle cx="400" cy="290" r="15" fill="#00f0ff" filter="url(#valkGlow)"/>
+    <polygon points="400,270 410,290 400,310 390,290" fill="#ffffff"/>
+  </g>
+
+  <!-- Interceptor Head & Visor -->
+  <g id="valk-head">
+    <polygon points="400,100 370,160 400,195 430,160" fill="url(#valkMetal)" stroke="url(#valkGold)" stroke-width="2"/>
+    <!-- Swept Back Fin -->
+    <polygon points="400,70 388,140 400,150 412,140" fill="url(#valkGold)"/>
+    <!-- Holographic Aero Visor -->
+    <polygon points="380,165 420,165 400,185" fill="#00f0ff" filter="url(#valkGlow)"/>
+  </g>
+
+  <!-- Limbs & Plasma Lance -->
+  <g id="valk-limbs">
+    <!-- Legs -->
+    <polygon points="360,470 340,640 380,630 390,480" fill="url(#valkMetal)" stroke="url(#valkGold)" stroke-width="2"/>
+    <polygon points="340,640 320,830 360,830 380,640" fill="url(#valkMetal)" stroke="url(#valkGold)" stroke-width="2"/>
+    <polygon points="440,470 460,640 420,630 410,480" fill="url(#valkMetal)" stroke="url(#valkGold)" stroke-width="2"/>
+    <polygon points="460,640 480,830 440,830 420,640" fill="url(#valkMetal)" stroke="url(#valkGold)" stroke-width="2"/>
+    <!-- Twin Plasma Lance / Rail Carbine -->
+    <line x1="280" y1="200" x2="280" y2="700" stroke="#f59e0b" stroke-width="6"/>
+    <line x1="280" y1="140" x2="280" y2="760" stroke="#00f0ff" stroke-width="2" filter="url(#valkGlow)"/>
+  </g>
+
+  <g id="hud-stats-valk" font-family="'Courier New', monospace" font-size="12" fill="#00f0ff">
+    <text x="50" y="80">[ FRAME: VX-03 VALKYRIE ]</text>
+    <text x="50" y="105">[ CLASS: ORBITAL INTERCEPTOR ]</text>
+    <text x="50" y="130">[ VELOCITY: MACH 8.4 ]</text>
+    <text x="560" y="80">[ SOLAR THRUST: ONLINE ]</text>
+    <text x="560" y="105">[ WEAPON: PLASMA LANCE ]</text>
+  </g>
+</svg>

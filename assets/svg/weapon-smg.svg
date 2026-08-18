@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="100%" height="100%">
+  <defs>
+    <linearGradient id="smgGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FDE047"/>
+      <stop offset="50%" stop-color="#D97706"/>
+      <stop offset="100%" stop-color="#78350F"/>
+    </linearGradient>
+    <linearGradient id="smgBody" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#334155"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Stock Folded -->
+  <polygon points="80,180 180,180 180,240 100,240 60,200" fill="url(#smgBody)" stroke="url(#smgGold)" stroke-width="2.5"/>
+  <rect x="80" y="160" width="90" height="15" fill="url(#smgGold)"/>
+
+  <!-- Upper Receiver & Barrel Shroud -->
+  <polygon points="180,120 540,120 560,180 500,240 180,240" fill="url(#smgBody)" stroke="url(#smgGold)" stroke-width="3"/>
+  <polygon points="260,140 480,140 450,210 230,210" fill="#020617" stroke="#00f0ff" stroke-width="1.5"/>
+
+  <!-- Smart Targeting Screen & Ammo Counter -->
+  <rect x="290" y="150" width="100" height="40" rx="4" fill="#0b0f19" stroke="#00f0ff" stroke-width="2"/>
+  <text x="305" y="176" fill="#00f0ff" font-family="'Courier New', monospace" font-size="18" font-weight="bold">60 / 60</text>
+
+  <!-- Dual Grip System -->
+  <!-- Rear Pistol Grip -->
+  <polygon points="240,240 280,240 250,350 200,340" fill="#0f172a" stroke="url(#smgGold)" stroke-width="2.5"/>
+  <!-- Front Foregrip -->
+  <polygon points="460,240 490,240 470,330 440,320" fill="#0f172a" stroke="url(#smgGold)" stroke-width="2.5"/>
+
+  <!-- Extended Curved Magazine -->
+  <polygon points="310,240 360,240 340,370 290,360" fill="url(#smgGold)" stroke="#fff" stroke-width="1.5"/>
+
+  <!-- Integrated Suppressor & Smart Muzzle -->
+  <rect x="540" y="140" width="140" height="45" rx="6" fill="url(#smgBody)" stroke="url(#smgGold)" stroke-width="2.5"/>
+  <line x1="560" y1="162" x2="660" y2="162" stroke="#ff0055" stroke-width="3"/>
+
+  <!-- Holographic Reflex Sight -->
+  <polygon points="240,120 280,70 360,70 400,120" fill="none" stroke="url(#smgGold)" stroke-width="2.5"/>
+  <circle cx="320" cy="95" r="12" fill="none" stroke="#00f0ff" stroke-width="2"/>
+  <circle cx="320" cy="95" r="2" fill="#00f0ff"/>
+
+  <!-- Specs -->
+  <g font-family="'Courier New', monospace" font-size="12" fill="#f59e0b">
+    <text x="50" y="60">[ WEAPON: VIPER-PDW SMART SMG ]</text>
+    <text x="50" y="85">[ FIRE RATE: 1,400 RPM ]</text>
+    <text x="450" y="320">[ SMART-HOMING AMMO ]</text>
+  </g>
+</svg>

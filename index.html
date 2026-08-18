@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AKIRA // Cyberpunk Tactical Portfolio & Mecha Arsenal</title>
+  <meta name="description" content="Official portfolio of Akira: Cyber Operative, Mecha Pilot & Full-Stack Cybernetic Engineer. Featuring interactive tactical radar maps, mecha hangar specs, and advanced cyber weaponry.">
+  <meta name="keywords" content="Akira, Cyberpunk Portfolio, Mecha, Cyber Weapons, Tactical Map, Frontend Developer, Cybernetics">
+  <meta name="author" content="Akira">
+  <meta property="og:title" content="AKIRA // Cyberpunk Tactical Portfolio">
+  <meta property="og:description" content="Cyber Operative, Mecha Pilot & Full-Stack Cybernetic Engineer. Explore the tactical armory, mecha hangar, and live sector radar.">
+  <meta property="og:type" content="website">
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="styles/main.css">
+</head>
+<body class="intro-active">
+
+  <!-- Include Tactical SVG Symbols -->
+  <object type="image/svg+xml" data="assets/svg/tactical-icons.svg" style="display:none;"></object>
+
+  <!-- Background Gold Particle Matrix & Scanlines -->
+  <canvas id="gold-matrix-canvas"></canvas>
+  <div class="scanlines-overlay"></div>
+
+  <!-- ==========================================================================
+       CINEMATIC INTRO BOOT SCREEN
+       ========================================================================== -->
+  <div id="cyber-intro">
+    <div class="intro-modal-card">
+      <div class="intro-logo-badge">AKIRA</div>
+      <div class="intro-sub">// NEURAL LINK PROTOCOL v9.4 //</div>
+      
+      <div class="intro-progress-wrapper">
+        <div class="intro-progress-bar-bg">
+          <div id="intro-progress-bar" class="intro-progress-bar-fill"></div>
+        </div>
+        <div style="display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 0.8rem; color: var(--gold-bright); margin-top: 6px;">
+          <span>QUANTUM SYNC</span>
+          <span id="intro-progress-text">0%</span>
+        </div>
+      </div>
+
+      <div id="intro-console-logs" class="intro-logs-terminal"></div>
+
+      <div class="intro-actions">
+        <button id="intro-enter-btn" class="btn-intro-enter hidden">INITIALIZE SYSTEM</button>
+        <button id="intro-skip-btn" class="btn-intro-skip">BYPASS INTRO</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       TOP NAVIGATION & HAMBURGER MENU
+       ========================================================================== -->
+  <header class="cyber-header">
+    <div class="nav-container">
+      <a href="#hero" class="brand-logo">
+        <div class="brand-crest">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffd000" stroke-width="2">
+            <polygon points="12,2 4,7 6,18 12,22 18,18 20,7"/>
+            <circle cx="12" cy="11" r="3" fill="#ffd000"/>
+          </svg>
+        </div>
+        <div class="brand-text">AKI<span>RA</span></div>
+      </a>
+
+      <!-- Desktop Nav -->
+      <ul class="nav-desktop-links">
+        <li><a href="#hero" class="nav-item-link active">OVERVIEW</a></li>
+        <li><a href="#tactical-map" class="nav-item-link">TACTICAL MAP</a></li>
+        <li><a href="#mecha-hangar" class="nav-item-link">MECHA HANGAR</a></li>
+        <li><a href="#weapons-arsenal" class="nav-item-link">WEAPONS</a></li>
+        <li><a href="#dossier" class="nav-item-link">DOSSIER</a></li>
+        <li><a href="#contracts" class="nav-item-link">CONTRACTS</a></li>
+        <li><a href="#terminal" class="nav-item-link">COMMS</a></li>
+      </ul>
+
+      <!-- Controls & Hamburger Toggle -->
+      <div class="nav-right-controls">
+        <button id="sound-toggle-btn" class="btn-audio-ctrl" title="Toggle Sound SFX">
+          <span id="sound-toggle-text">SFX: ON</span>
+        </button>
+
+        <button id="hamburger-toggle" class="hamburger-btn" aria-label="Open Navigation Menu" aria-expanded="false">
+          <span class="ham-line"></span>
+          <span class="ham-line"></span>
+          <span class="ham-line"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Fullscreen / Cyber Drawer Navigation -->
+  <div id="nav-backdrop-overlay" class="nav-backdrop"></div>
+  <aside id="cyber-nav-drawer" class="cyber-drawer">
+    <div class="drawer-header">
+      <div class="drawer-title">AKIRA // HUD NAV</div>
+      <div class="drawer-hud-diag">SYSTEM: SECURE | SYNC: 100%</div>
+      <div id="hud-live-clock" style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--gold-bright); margin-top: 4px;"></div>
+    </div>
+
+    <ul class="drawer-nav-list">
+      <li><a href="#hero" class="drawer-nav-link"><span>01</span> OVERVIEW</a></li>
+      <li><a href="#tactical-map" class="drawer-nav-link"><span>02</span> TACTICAL MAP</a></li>
+      <li><a href="#mecha-hangar" class="drawer-nav-link"><span>03</span> MECHA HANGAR</a></li>
+      <li><a href="#weapons-arsenal" class="drawer-nav-link"><span>04</span> WEAPONS ARSENAL</a></li>
+      <li><a href="#dossier" class="drawer-nav-link"><span>05</span> OPERATIVE DOSSIER</a></li>
+      <li><a href="#contracts" class="drawer-nav-link"><span>06</span> MISSION CONTRACTS</a></li>
+      <li><a href="#terminal" class="drawer-nav-link"><span>07</span> ENCRYPTED COMMS</a></li>
+    </ul>
+
+    <div class="drawer-footer">
+      <div>AKIRA NEURAL NETWORK v9.4</div>
+      <div>LOCATION: SECTOR 07 HANGAR</div>
+    </div>
+  </aside>
+
+  <!-- ==========================================================================
+       HERO SECTION
+       ========================================================================== -->
+  <section id="hero" class="hero-section">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-content">
+          <div class="hero-callsign">
+            <span>●</span> CALLSIGN: [ AKIRA ] // CLASS-S MECHA OPERATIVE
+          </div>
+          <h1 class="hero-title">
+            CYBERNETIC <br>
+            <span class="name-highlight">ENGINEER &</span> <br>
+            PILOT
+          </h1>
+          <p class="hero-subtitle">QUANTUM ARCHITECT // MECHA TACTICIAN</p>
+          <p class="hero-description">
+            Pioneering next-generation full-stack cybernetics, heavy mecha systems, and autonomous combat algorithms. Operating from Neo-Tokyo Sector 07 with cutting-edge titanium-gold hardware.
+          </p>
+          <div class="hero-actions">
+            <a href="#tactical-map" class="btn-cyber-gold">EXPLORE SECTOR MAP</a>
+            <a href="#mecha-hangar" class="btn-cyber-outline">VIEW MECHA HANGAR</a>
+          </div>
+        </div>
+
+        <div class="hero-visual-frame">
+          <div class="avatar-hologram-box">
+            <span class="hologram-corner corner-tl"></span>
+            <span class="hologram-corner corner-tr"></span>
+            <span class="hologram-corner corner-bl"></span>
+            <span class="hologram-corner corner-br"></span>
+            <img src="assets/svg/cyber-avatar.svg" alt="Akira Cybernetic Avatar Oni Mask">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       TACTICAL MAP SECTION ("EFEK MAP")
+       ========================================================================== -->
+  <section id="tactical-map" class="section-block">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">[ RADAR SCANNER // SECTOR TELEMETRY ]</span>
+        <h2 class="section-title">NEO-TOKYO <span class="gold-glow-text">TACTICAL MAP</span></h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="tactical-map-layout">
+        <!-- Interactive Map Viewport -->
+        <div id="map-viewport" class="map-viewport">
+          <img src="assets/svg/map-sectors.svg" alt="Tactical Sector Map" class="map-svg-overlay">
+          <canvas id="radar-canvas"></canvas>
+
+          <!-- Interactive Sector Hotspot Nodes -->
+          <div class="map-sector-node active" style="top: 48%; left: 52%;" data-sector="s07">
+            <div class="node-ring">
+              <div class="node-pulse"></div>
+            </div>
+            <div class="node-label">SECTOR 07 [HQ]</div>
+          </div>
+
+          <div class="map-sector-node" style="top: 28%; left: 28%;" data-sector="s01">
+            <div class="node-ring">
+              <div class="node-pulse"></div>
+            </div>
+            <div class="node-label">SECTOR 01 [CITADEL]</div>
+          </div>
+
+          <div class="map-sector-node" style="top: 26%; left: 75%;" data-sector="s04">
+            <div class="node-ring">
+              <div class="node-pulse"></div>
+            </div>
+            <div class="node-label">SECTOR 04 [SPACEPORT]</div>
+          </div>
+
+          <div class="map-sector-node" style="top: 72%; left: 24%;" data-sector="s11">
+            <div class="node-ring">
+              <div class="node-pulse"></div>
+            </div>
+            <div class="node-label">SECTOR 11 [DATA VAULT]</div>
+          </div>
+
+          <div class="map-sector-node" style="top: 74%; left: 70%;" data-sector="s19">
+            <div class="node-ring">
+              <div class="node-pulse"></div>
+            </div>
+            <div class="node-label">SECTOR 19 [RANGE]</div>
+          </div>
+        </div>
+
+        <!-- Telemetry Sidebar -->
+        <div class="map-telemetry-panel">
+          <div class="telemetry-header">
+            <div class="telemetry-title">RADAR TELEMETRY</div>
+            <div id="map-coords-readout" class="coords-box">X:0580 | Y:0340 | [35.6762°N, 139.6503°E]</div>
+          </div>
+
+          <div class="sector-info-box">
+            <div id="sector-threat-badge" class="tactical-badge threat-secure">SECURE [LEVEL 0]</div>
+            <h3 id="sector-title-readout" style="font-size: 1.1rem; color: #fff; margin-bottom: 0.5rem;">SECTOR 07: AKIRA MECHA HANGAR</h3>
+            <p id="sector-desc-readout" class="sector-desc-text">
+              Akira's primary mobile bunker & customized mecha maintenance hangar. Houses RX-09 Ronin and Apex Railguns. High-security quantum encrypted perimeter.
+            </p>
+          </div>
+
+          <div style="border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 1rem;">
+            <div style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--gold-bright);">
+              CLICK ANY MAP NODE TO INSPECT SECTOR
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       MECHA HANGAR SECTION
+       ========================================================================== -->
+  <section id="mecha-hangar" class="section-block">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">[ HEAVY CHASSIS SPECIFICATIONS ]</span>
+        <h2 class="section-title">MECHA <span class="gold-glow-text">HANGAR BAY</span></h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="mecha-hangar-container">
+        <!-- Frame Selection Tabs -->
+        <div class="mecha-tab-nav">
+          <button class="mecha-tab-btn active" data-frame="ronin">FRAME 01: RX-09 RONIN</button>
+          <button class="mecha-tab-btn" data-frame="goliath">FRAME 02: TYPE-88 GOLIATH</button>
+          <button class="mecha-tab-btn" data-frame="valkyrie">FRAME 03: VX-03 VALKYRIE</button>
+        </div>
+
+        <!-- Mecha Interactive Display Grid -->
+        <div class="mecha-display-grid">
+          <div class="mecha-stage-box">
+            <img id="mecha-display-img" src="assets/svg/mecha-ronin.svg" alt="Cyberpunk Mecha Frame">
+          </div>
+
+          <div class="mecha-stats-panel">
+            <h3 id="mecha-title-display" class="mecha-title-tag">RX-09 RONIN [BALANCED ASSAULT]</h3>
+            <p id="mecha-tagline-display" class="mecha-desc-p">
+              High-agility tactical chassis engineered with gold-composite nanoweave and dual high-frequency plasma blade mounts.
+            </p>
+
+            <!-- Stat Meters -->
+            <div class="stat-meter-group">
+              <div class="stat-item-row">
+                <div class="stat-label-wrap">
+                  <span>ARMOR INTEGRITY</span>
+                  <span id="stat-val-armor">85%</span>
+                </div>
+                <div class="stat-bar-shell">
+                  <div id="stat-bar-armor" class="stat-bar-core" style="width: 85%;"></div>
+                </div>
+              </div>
+
+              <div class="stat-item-row">
+                <div class="stat-label-wrap">
+                  <span>AGILITY & THRUST</span>
+                  <span id="stat-val-speed">94%</span>
+                </div>
+                <div class="stat-bar-shell">
+                  <div id="stat-bar-speed" class="stat-bar-core" style="width: 94%;"></div>
+                </div>
+              </div>
+
+              <div class="stat-item-row">
+                <div class="stat-label-wrap">
+                  <span>FIREPOWER RATING</span>
+                  <span id="stat-val-firepower">88%</span>
+                </div>
+                <div class="stat-bar-shell">
+                  <div id="stat-bar-firepower" class="stat-bar-core" style="width: 88%;"></div>
+                </div>
+              </div>
+
+              <div class="stat-item-row">
+                <div class="stat-label-wrap">
+                  <span>REACTOR CORE STABILITY</span>
+                  <span id="stat-val-energy">96%</span>
+                </div>
+                <div class="stat-bar-shell">
+                  <div id="stat-bar-energy" class="stat-bar-core" style="width: 96%;"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Dynamic Specs Table -->
+            <div id="mecha-specs-list" class="specs-grid-box">
+              <div class="spec-row">
+                <span class="spec-label">FRAME WEIGHT</span>
+                <span class="spec-value">42.8 TONS</span>
+              </div>
+              <div class="spec-row">
+                <span class="spec-label">CORE REACTOR</span>
+                <span class="spec-value">HYPER-GOLD QUANTUM TACHYON</span>
+              </div>
+              <div class="spec-row">
+                <span class="spec-label">MAX VELOCITY</span>
+                <span class="spec-value">480 KM/H</span>
+              </div>
+              <div class="spec-row">
+                <span class="spec-label">PRIMARY WEAPON</span>
+                <span class="spec-value">HF-09 PLASMA KATANA</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       WEAPONS ARSENAL SECTION
+       ========================================================================== -->
+  <section id="weapons-arsenal" class="section-block">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">[ TACTICAL ARMORY // WEAPON SYSTEMS ]</span>
+        <h2 class="section-title">CYBER <span class="gold-glow-text">WEAPON ARSENAL</span></h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="weapons-grid">
+        <!-- Weapon 1: Murasama Katana -->
+        <div class="weapon-card">
+          <div>
+            <div class="weapon-card-header">
+              <span class="weapon-category">MELEE // HIGH-FREQUENCY</span>
+              <span class="tactical-badge threat-secure">ARMED</span>
+            </div>
+            <div class="weapon-svg-preview">
+              <img src="assets/svg/weapon-katana.svg" alt="HF-09 Murasama Plasma Katana">
+            </div>
+            <h3 class="weapon-name">MURASAMA HF-09</h3>
+            <p class="weapon-details">
+              4.8 THz high-frequency oscillating plasma katana capable of cutting through reinforced titanium mecha plating on contact.
+            </p>
+          </div>
+          <div class="weapon-footer-action">
+            <span style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--gold-bright);">ENERGY: PLASMA</span>
+            <button class="btn-test-fire" data-weapon="katana">TEST FIRE SFX</button>
+          </div>
+        </div>
+
+        <!-- Weapon 2: Apex Railgun -->
+        <div class="weapon-card">
+          <div>
+            <div class="weapon-card-header">
+              <span class="weapon-category">BALLISTIC // ELECTROMAGNETIC</span>
+              <span class="tactical-badge threat-elevated">CALIBRATED</span>
+            </div>
+            <div class="weapon-svg-preview">
+              <img src="assets/svg/weapon-railgun.svg" alt="Apex-9000 Heavy Railgun">
+            </div>
+            <h3 class="weapon-name">APEX-9000 HEAVY RAILGUN</h3>
+            <p class="weapon-details">
+              Hyper-velocity magnetic accelerator rifle firing 25mm solid tungsten-gold sabots at Mach 14.2 with sub-orbital range.
+            </p>
+          </div>
+          <div class="weapon-footer-action">
+            <span style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--gold-bright);">VELOCITY: MACH 14.2</span>
+            <button class="btn-test-fire" data-weapon="railgun">TEST FIRE SFX</button>
+          </div>
+        </div>
+
+        <!-- Weapon 3: Viper SMG -->
+        <div class="weapon-card">
+          <div>
+            <div class="weapon-card-header">
+              <span class="weapon-category">KINETIC // SMART HOMING</span>
+              <span class="tactical-badge threat-med">READY</span>
+            </div>
+            <div class="weapon-svg-preview">
+              <img src="assets/svg/weapon-smg.svg" alt="Viper PDW Smart SMG">
+            </div>
+            <h3 class="weapon-name">VIPER-PDW SMART SMG</h3>
+            <p class="weapon-details">
+              High-rate 1,400 RPM personal defense weapon integrated with autonomous optic tracking and micro-guided seeker projectiles.
+            </p>
+          </div>
+          <div class="weapon-footer-action">
+            <span style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--gold-bright);">ROF: 1,400 RPM</span>
+            <button class="btn-test-fire" data-weapon="smg">TEST FIRE SFX</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       OPERATIVE DOSSIER & SKILLS
+       ========================================================================== -->
+  <section id="dossier" class="section-block">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">[ BIOMETRICS & NEURAL AUGMENTATIONS ]</span>
+        <h2 class="section-title">OPERATIVE <span class="gold-glow-text">DOSSIER</span></h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="dossier-grid">
+        <!-- Biography / Role -->
+        <div class="tactical-card">
+          <div class="card-hud-label">
+            <span>// PROFILE: AKIRA</span>
+            <span>CLEARANCE: LEVEL 5</span>
+          </div>
+          <h3 style="font-size: 1.4rem; color: #fff; margin-bottom: 1rem;">CHIEF SYSTEM ARCHITECT & MECHA PILOT</h3>
+          <p style="color: var(--text-muted); margin-bottom: 1.2rem;">
+            Operating on the bleeding edge of software engineering, robotics control firmware, and tactical cyber warfare. Akira designs scalable distributed microservices, low-latency sensory networks, and custom mecha autopilot firmware.
+          </p>
+          <div style="display: flex; flex-direction: column; gap: 0.6rem; font-family: var(--font-mono); font-size: 0.85rem;">
+            <div><strong style="color: var(--gold-bright);">LOCATION:</strong> Neo-Tokyo District 07</div>
+            <div><strong style="color: var(--gold-bright);">NEURAL LINK:</strong> 99.84% Quantum Coherence</div>
+            <div><strong style="color: var(--gold-bright);">AFFILIATION:</strong> Autonomous Vanguard Unit</div>
+          </div>
+        </div>
+
+        <!-- Tech Stack & Cyberware -->
+        <div class="tactical-card">
+          <div class="card-hud-label">
+            <span>// NEURAL CYBERWARE & TECH STACK</span>
+            <span>ACTIVE PLUGINS</span>
+          </div>
+          <div class="skill-matrix-grid">
+            <div class="skill-chip">
+              <div class="skill-chip-title">TypeScript / JS</div>
+              <div class="skill-chip-level">TIER 1 [100%]</div>
+            </div>
+            <div class="skill-chip">
+              <div class="skill-chip-title">React / Next.js</div>
+              <div class="skill-chip-level">TIER 1 [98%]</div>
+            </div>
+            <div class="skill-chip">
+              <div class="skill-chip-title">Node / Rust</div>
+              <div class="skill-chip-level">TIER 1 [94%]</div>
+            </div>
+            <div class="skill-chip">
+              <div class="skill-chip-title">Canvas / WebGL</div>
+              <div class="skill-chip-level">TIER 1 [96%]</div>
+            </div>
+            <div class="skill-chip">
+              <div class="skill-chip-title">Cyber Security</div>
+              <div class="skill-chip-level">TIER 1 [92%]</div>
+            </div>
+            <div class="skill-chip">
+              <div class="skill-chip-title">Robotics / IoT</div>
+              <div class="skill-chip-level">TIER 1 [95%]</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       MISSION CONTRACTS (PORTFOLIO PROJECTS)
+       ========================================================================== -->
+  <section id="contracts" class="section-block">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">[ COMPLETED MISSIONS & DEPLOYMENTS ]</span>
+        <h2 class="section-title">MISSION <span class="gold-glow-text">CONTRACTS</span></h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="contracts-grid">
+        <!-- Contract 1 -->
+        <div class="contract-card">
+          <div>
+            <div class="contract-header">
+              <span class="tactical-badge threat-secure">DEPLOYED</span>
+              <span class="bounty-reward">BOUNTY: 50,000 CREDITS</span>
+            </div>
+            <h3 class="contract-title">Aegis Quantum Firewall</h3>
+            <p class="contract-desc">
+              Decentralized intrusion detection mesh network protecting orbital data hubs with autonomous real-time threat neutralization.
+            </p>
+            <div class="contract-tech-stack">
+              <span class="tech-tag">Rust</span>
+              <span class="tech-tag">WebAssembly</span>
+              <span class="tech-tag">Cryptography</span>
+            </div>
+          </div>
+          <div class="contract-footer-links">
+            <a href="#" class="contract-link">VIEW MISSION SPEC →</a>
+          </div>
+        </div>
+
+        <!-- Contract 2 -->
+        <div class="contract-card">
+          <div>
+            <div class="contract-header">
+              <span class="tactical-badge threat-med">ACTIVE</span>
+              <span class="bounty-reward">BOUNTY: 85,000 CREDITS</span>
+            </div>
+            <h3 class="contract-title">Ronin Telemetry HUD</h3>
+            <p class="contract-desc">
+              Low-latency cockpit heads-up display streaming 60fps sensor feeds, weapon telemetry, and radar pings directly to neural implants.
+            </p>
+            <div class="contract-tech-stack">
+              <span class="tech-tag">WebGL</span>
+              <span class="tech-tag">WebSockets</span>
+              <span class="tech-tag">React</span>
+            </div>
+          </div>
+          <div class="contract-footer-links">
+            <a href="#" class="contract-link">VIEW MISSION SPEC →</a>
+          </div>
+        </div>
+
+        <!-- Contract 3 -->
+        <div class="contract-card">
+          <div>
+            <div class="contract-header">
+              <span class="tactical-badge threat-elevated">CLASSIFIED</span>
+              <span class="bounty-reward">BOUNTY: 120,000 CREDITS</span>
+            </div>
+            <h3 class="contract-title">Valkyrie Autopilot Subsystem</h3>
+            <p class="contract-desc">
+              Autonomous neural-flight computer computing hypersonic trajectory vectors and orbital evasive maneuvers at Mach 8+.
+            </p>
+            <div class="contract-tech-stack">
+              <span class="tech-tag">Python AI</span>
+              <span class="tech-tag">C++ Embedded</span>
+              <span class="tech-tag">PyTorch</span>
+            </div>
+          </div>
+          <div class="contract-footer-links">
+            <a href="#" class="contract-link">VIEW MISSION SPEC →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       ENCRYPTED COMMS / TERMINAL CONTACT
+       ========================================================================== -->
+  <section id="terminal" class="section-block">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">[ ENCRYPTED SUB-SPACE FREQUENCY ]</span>
+        <h2 class="section-title">DISPATCH <span class="gold-glow-text">TRANSMISSION</span></h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="terminal-contact-box">
+        <div class="terminal-topbar">
+          <div class="terminal-dots">
+            <span class="dot dot-red"></span>
+            <span class="dot dot-yellow"></span>
+            <span class="dot dot-green"></span>
+          </div>
+          <div class="terminal-title-text">AKIRA_SECURE_COMMS_TERMINAL.sh</div>
+          <div style="font-family: var(--font-mono); font-size: 0.75rem; color: #4ade80;">256-BIT QUANTUM AES</div>
+        </div>
+
+        <div class="terminal-body">
+          <form id="cyber-contact-form">
+            <div class="form-group-cyber">
+              <label class="form-label-cyber" for="sender-callsign">OPERATIVE / SENDER CALLSIGN:</label>
+              <input type="text" id="sender-callsign" class="form-input-cyber" placeholder="Enter your identity / organization..." required>
+            </div>
+
+            <div class="form-group-cyber">
+              <label class="form-label-cyber" for="sender-email">QUANTUM COMMS RELAY (EMAIL):</label>
+              <input type="email" id="sender-email" class="form-input-cyber" placeholder="comms@your-domain.net" required>
+            </div>
+
+            <div class="form-group-cyber">
+              <label class="form-label-cyber" for="sender-message">TRANSMISSION DATA / CONTRACT DETAILS:</label>
+              <textarea id="sender-message" rows="4" class="form-textarea-cyber" placeholder="Write encrypted message packet here..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn-cyber-gold" style="width: 100%; justify-content: center;">
+              TRANSMIT ENCRYPTED BURST
+            </button>
+          </form>
+
+          <div id="terminal-send-status"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       FOOTER
+       ========================================================================== -->
+  <footer class="cyber-footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="brand-logo">
+          <div class="brand-crest">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffd000" stroke-width="2">
+              <polygon points="12,2 4,7 6,18 12,22 18,18 20,7"/>
+              <circle cx="12" cy="11" r="3" fill="#ffd000"/>
+            </svg>
+          </div>
+          <div class="brand-text">AKI<span>RA</span></div>
+        </div>
+
+        <div class="footer-telemetry">
+          © 2026 AKIRA CYBERNETICS // ALL RIGHTS RESERVED // SECTOR 07 HQ
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="scripts/audio.js"></script>
+  <script src="scripts/intro.js"></script>
+  <script src="scripts/map.js"></script>
+  <script src="scripts/arsenal.js"></script>
+  <script src="scripts/main.js"></script>
+</body>
+</html>

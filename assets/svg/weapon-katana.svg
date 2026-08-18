@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 300" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bladeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="30%" stop-color="#00f0ff"/>
+      <stop offset="70%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#ffd700"/>
+    </linearGradient>
+    <linearGradient id="hiltGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FDE047"/>
+      <stop offset="60%" stop-color="#D97706"/>
+      <stop offset="100%" stop-color="#78350F"/>
+    </linearGradient>
+    <filter id="bladeGlow">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Technical Background Grid -->
+  <g opacity="0.2" stroke="#f59e0b" stroke-width="1">
+    <line x1="50" y1="150" x2="950" y2="150" stroke-dasharray="6 6"/>
+    <circle cx="500" cy="150" r="100" fill="none" stroke-dasharray="4 4"/>
+  </g>
+
+  <!-- Katana Tsuka (Hilt / Grip) -->
+  <rect x="60" y="132" width="220" height="36" rx="4" fill="#0f172a" stroke="url(#hiltGold)" stroke-width="3"/>
+  <!-- Cyber Weave Tsukamaki Wrap -->
+  <g stroke="#f59e0b" stroke-width="3">
+    <line x1="80" y1="132" x2="110" y2="168"/>
+    <line x1="110" y1="132" x2="80" y2="168"/>
+    <line x1="120" y1="132" x2="150" y2="168"/>
+    <line x1="150" y1="132" x2="120" y2="168"/>
+    <line x1="160" y1="132" x2="190" y2="168"/>
+    <line x1="190" y1="132" x2="160" y2="168"/>
+    <line x1="200" y1="132" x2="230" y2="168"/>
+    <line x1="230" y1="132" x2="200" y2="168"/>
+    <line x1="240" y1="132" x2="270" y2="168"/>
+    <line x1="270" y1="132" x2="240" y2="168"/>
+  </g>
+
+  <!-- Kashira (Pommel Energy Port) -->
+  <polygon points="60,126 35,135 35,165 60,174" fill="url(#hiltGold)" stroke="#fff" stroke-width="1.5"/>
+  <circle cx="48" cy="150" r="6" fill="#00f0ff" filter="url(#bladeGlow)"/>
+
+  <!-- Tsuba (Handguard with Neon Accents) -->
+  <polygon points="280,105 305,115 305,185 280,195 270,185 270,115" fill="#1e293b" stroke="url(#hiltGold)" stroke-width="4"/>
+  <line x1="290" y1="115" x2="290" y2="185" stroke="#00f0ff" stroke-width="3" filter="url(#bladeGlow)"/>
+
+  <!-- Habaki (Blade Collar) -->
+  <polygon points="305,130 335,134 335,166 305,170" fill="url(#hiltGold)" stroke="#fff" stroke-width="1"/>
+
+  <!-- High-Frequency Plasma Monomolecular Blade -->
+  <path d="M 335,134 Q 650,132 910,140 Q 950,146 960,150 Q 850,166 335,166 Z" fill="#0f172a" stroke="url(#hiltGold)" stroke-width="2"/>
+  
+  <!-- High-Frequency Superheated Plasma Edge -->
+  <path d="M 335,166 Q 650,164 910,152 Q 950,150 960,150 Q 880,168 335,168 Z" fill="url(#bladeGrad)" filter="url(#bladeGlow)"/>
+  
+  <!-- Hamon Circuit Line (Cybernetic Temper Line) -->
+  <path d="M 340,150 L 400,150 L 415,142 L 430,150 L 500,150 L 520,140 L 540,150 L 650,150 L 670,142 L 700,150 L 800,148 L 820,142 L 860,150 L 930,150" fill="none" stroke="#00f0ff" stroke-width="2" filter="url(#bladeGlow)"/>
+
+  <!-- Spec Labels -->
+  <g font-family="'Courier New', monospace" font-size="11" fill="#f59e0b">
+    <text x="350" y="70">[ WEAPON: MURASAMA HF-09 ]</text>
+    <text x="350" y="90">[ FREQUENCY: 4.8 THz HYPER-OSCILLATION ]</text>
+    <text x="350" y="240">[ EDGE: MONOMOLECULAR GRAPHENE-TITANIUM ]</text>
+    <text x="750" y="240">[ THERMAL RATING: 3,200°C ]</text>
+  </g>
+</svg>

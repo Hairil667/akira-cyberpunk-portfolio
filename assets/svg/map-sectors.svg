@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="100%" height="100%">
+  <defs>
+    <linearGradient id="mapGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFE066"/>
+      <stop offset="100%" stop-color="#F59E0B"/>
+    </linearGradient>
+    <radialGradient id="radarSweep" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.3"/>
+      <stop offset="70%" stop-color="#f59e0b" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="mapGlow">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Background Coordinate Grid -->
+  <g stroke="#f59e0b" stroke-width="0.75" opacity="0.25">
+    <line x1="0" y1="100" x2="1200" y2="100"/>
+    <line x1="0" y1="200" x2="1200" y2="200"/>
+    <line x1="0" y1="300" x2="1200" y2="300"/>
+    <line x1="0" y1="400" x2="1200" y2="400"/>
+    <line x1="0" y1="500" x2="1200" y2="500"/>
+    <line x1="0" y1="600" x2="1200" y2="600"/>
+    <line x1="0" y1="700" x2="1200" y2="700"/>
+
+    <line x1="100" y1="0" x2="100" y2="800"/>
+    <line x1="200" y1="0" x2="200" y2="800"/>
+    <line x1="300" y1="0" x2="300" y2="800"/>
+    <line x1="400" y1="0" x2="400" y2="800"/>
+    <line x1="500" y1="0" x2="500" y2="800"/>
+    <line x1="600" y1="0" x2="600" y2="800"/>
+    <line x1="700" y1="0" x2="700" y2="800"/>
+    <line x1="800" y1="0" x2="800" y2="800"/>
+    <line x1="900" y1="0" x2="900" y2="800"/>
+    <line x1="1000" y1="0" x2="1000" y2="800"/>
+    <line x1="1100" y1="0" x2="1100" y2="800"/>
+  </g>
+
+  <!-- Concentric Radar Circles -->
+  <circle cx="600" cy="400" r="350" fill="none" stroke="#f59e0b" stroke-width="1.5" opacity="0.4" stroke-dasharray="6 6"/>
+  <circle cx="600" cy="400" r="250" fill="none" stroke="#00f0ff" stroke-width="1.5" opacity="0.5"/>
+  <circle cx="600" cy="400" r="150" fill="none" stroke="#f59e0b" stroke-width="1.5" opacity="0.6" stroke-dasharray="10 5"/>
+  <circle cx="600" cy="400" r="50" fill="url(#radarSweep)"/>
+
+  <!-- District Sector Polygonal Zones -->
+  <!-- Sector 07: Akira Hangar -->
+  <polygon points="450,280 650,220 720,380 580,480 430,420" fill="#f59e0b" fill-opacity="0.12" stroke="url(#mapGold)" stroke-width="2.5"/>
+  
+  <!-- Sector 01: Neo-Citadel Core -->
+  <polygon points="200,150 420,120 440,260 250,320 180,240" fill="#00f0ff" fill-opacity="0.08" stroke="#00f0ff" stroke-width="2"/>
+
+  <!-- Sector 04: Orbital Launch Spaceport -->
+  <polygon points="700,100 950,140 1020,300 820,320 680,210" fill="#ff0055" fill-opacity="0.08" stroke="#ff0055" stroke-width="2"/>
+
+  <!-- Sector 19: Testing Proving Grounds -->
+  <polygon points="620,520 880,460 980,620 780,720 590,660" fill="#f59e0b" fill-opacity="0.08" stroke="#f59e0b" stroke-width="2"/>
+
+  <!-- Sector 11: Cyber Matrix Data Vault -->
+  <polygon points="150,450 380,420 400,620 220,700 120,580" fill="#3b82f6" fill-opacity="0.08" stroke="#3b82f6" stroke-width="2"/>
+
+  <!-- Tactical Highway Corridors / Data Conduits -->
+  <path d="M 220,240 L 450,280 L 600,400 L 820,320 L 950,140" fill="none" stroke="#00f0ff" stroke-width="3" stroke-dasharray="8 4" filter="url(#mapGlow)"/>
+  <path d="M 220,700 L 400,620 L 600,400 L 780,720" fill="none" stroke="#f59e0b" stroke-width="3" stroke-dasharray="8 4" filter="url(#mapGlow)"/>
+
+  <!-- Sector Labels & Coordinates -->
+  <g font-family="'Courier New', monospace" font-size="13" font-weight="bold">
+    <text x="500" y="340" fill="#FFE066" filter="url(#mapGlow)">[ SECTOR 07: AKIRA MECHA HANGAR ]</text>
+    <text x="500" y="360" fill="#00f0ff">STATUS: ACTIVE HQ | DEFENSE: LEVEL 5</text>
+
+    <text x="210" y="210" fill="#00f0ff">[ SECTOR 01: CITADEL CORE ]</text>
+    <text x="730" y="200" fill="#ff0055">[ SECTOR 04: ORBITAL LIFT ]</text>
+    <text x="660" y="600" fill="#FFE066">[ SECTOR 19: PROVING GROUNDS ]</text>
+    <text x="170" y="550" fill="#3b82f6">[ SECTOR 11: DATA VAULT ]</text>
+  </g>
+</svg>

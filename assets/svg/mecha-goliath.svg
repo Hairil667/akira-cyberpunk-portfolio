@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 900" width="100%" height="100%">
+  <defs>
+    <linearGradient id="goldHeavy" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FDE047"/>
+      <stop offset="60%" stop-color="#D97706"/>
+      <stop offset="100%" stop-color="#78350F"/>
+    </linearGradient>
+    <linearGradient id="darkArmor" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#090d16"/>
+    </linearGradient>
+    <linearGradient id="crimsonEnergy" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ff0055"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+    <filter id="glowHeavy">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Heavy Shield / Shoulder Fortifications -->
+  <g id="heavy-pauldrons">
+    <polygon points="120,200 280,180 270,380 90,340" fill="url(#darkArmor)" stroke="url(#goldHeavy)" stroke-width="4"/>
+    <polygon points="130,220 220,200 210,340 100,310" fill="url(#goldHeavy)"/>
+    <polygon points="680,200 520,180 530,380 710,340" fill="url(#darkArmor)" stroke="url(#goldHeavy)" stroke-width="4"/>
+    <polygon points="670,220 580,200 590,340 700,310" fill="url(#goldHeavy)"/>
+    <!-- Quad Missile Pods Left -->
+    <circle cx="160" cy="240" r="8" fill="#ff0055" filter="url(#glowHeavy)"/>
+    <circle cx="185" cy="240" r="8" fill="#ff0055" filter="url(#glowHeavy)"/>
+    <circle cx="160" cy="270" r="8" fill="#ff0055" filter="url(#glowHeavy)"/>
+    <circle cx="185" cy="270" r="8" fill="#ff0055" filter="url(#glowHeavy)"/>
+    <!-- Quad Missile Pods Right -->
+    <circle cx="640" cy="240" r="8" fill="#ff0055" filter="url(#glowHeavy)"/>
+    <circle cx="615" cy="240" r="8" fill="#ff0055" filter="url(#glowHeavy)"/>
+    <circle cx="640" cy="270" r="8" fill="#ff0055" filter="url(#glowHeavy)"/>
+    <circle cx="615" cy="270" r="8" fill="#ff0055" filter="url(#glowHeavy)"/>
+  </g>
+
+  <!-- Massive Torso & Reinforced Reactor -->
+  <g id="goliath-torso">
+    <polygon points="270,180 530,180 560,380 400,520 240,380" fill="url(#darkArmor)" stroke="url(#goldHeavy)" stroke-width="4"/>
+    <!-- Core Blast Gate -->
+    <rect x="340" y="240" width="120" height="90" rx="8" fill="#0b0f19" stroke="#f59e0b" stroke-width="3"/>
+    <circle cx="400" cy="285" r="30" fill="url(#crimsonEnergy)" filter="url(#glowHeavy)"/>
+    <rect x="360" y="282" width="80" height="6" fill="#ffffff"/>
+    <line x1="400" y1="245" x2="400" y2="325" stroke="#ffffff" stroke-width="3"/>
+    <!-- Heavy Waist Plates -->
+    <polygon points="290,480 510,480 540,590 400,640 260,590" fill="url(#darkArmor)" stroke="url(#goldHeavy)" stroke-width="3"/>
+  </g>
+
+  <!-- Armored Head (Bunker Visor) -->
+  <g id="goliath-head">
+    <polygon points="350,130 450,130 470,180 330,180" fill="url(#darkArmor)" stroke="url(#goldHeavy)" stroke-width="3"/>
+    <rect x="360" y="145" width="80" height="14" fill="#000" stroke="#f59e0b" stroke-width="1.5"/>
+    <rect x="370" y="148" width="60" height="8" fill="#ff0055" filter="url(#glowHeavy)"/>
+  </g>
+
+  <!-- Dual Siege Cannons -->
+  <g id="siege-cannons">
+    <!-- Back Mounted Howitzer Cannons -->
+    <rect x="180" y="50" width="45" height="180" fill="url(#darkArmor)" stroke="url(#goldHeavy)" stroke-width="2"/>
+    <rect x="575" y="50" width="45" height="180" fill="url(#darkArmor)" stroke="url(#goldHeavy)" stroke-width="2"/>
+    <line x1="180" y1="90" x2="225" y2="90" stroke="#ff0055" stroke-width="3"/>
+    <line x1="575" y1="90" x2="620" y2="90" stroke="#ff0055" stroke-width="3"/>
+  </g>
+
+  <!-- Massive Legs & Hydraulic Stabilizers -->
+  <g id="goliath-legs">
+    <!-- Left Leg -->
+    <polygon points="260,560 220,720 330,730 350,560" fill="url(#darkArmor)" stroke="url(#goldHeavy)" stroke-width="3"/>
+    <polygon points="210,720 180,860 350,870 330,720" fill="url(#darkArmor)" stroke="url(#goldHeavy)" stroke-width="4"/>
+    <polygon points="150,850 370,850 360,885 140,885" fill="url(#goldHeavy)"/>
+    <!-- Right Leg -->
+    <polygon points="540,560 580,720 470,730 450,560" fill="url(#darkArmor)" stroke="url(#goldHeavy)" stroke-width="3"/>
+    <polygon points="590,720 620,860 450,870 470,720" fill="url(#darkArmor)" stroke="url(#goldHeavy)" stroke-width="4"/>
+    <polygon points="650,850 430,850 440,885 660,885" fill="url(#goldHeavy)"/>
+  </g>
+
+  <g id="hud-stats" font-family="'Courier New', monospace" font-size="12" fill="#f59e0b">
+    <text x="50" y="80">[ UNIT: TYPE-88 GOLIATH ]</text>
+    <text x="50" y="105">[ ROLE: HEAVY SIEGE ]</text>
+    <text x="50" y="130">[ SHIELD: 45,000 GIGA-JOULES ]</text>
+    <text x="560" y="80">[ ARTILLERY: TWIN VORTEX ]</text>
+    <text x="560" y="105">[ HYDRAULICS: TITANIUM-GOLD ]</text>
+  </g>
+</svg>
