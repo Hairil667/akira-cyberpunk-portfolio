@@ -66,9 +66,9 @@
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
       background-image: 
-        radial-gradient(circle at 50% 0%, rgba(245, 158, 11, 0.08) 0%, transparent 50%),
-        radial-gradient(circle at 10% 40%, rgba(56, 189, 248, 0.04) 0%, transparent 40%),
-        radial-gradient(circle at 90% 70%, rgba(245, 158, 11, 0.04) 0%, transparent 40%);
+        radial-gradient(circle at 50% 0%, rgba(245, 158, 11, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 10% 40%, rgba(56, 189, 248, 0.05) 0%, transparent 40%),
+        radial-gradient(circle at 90% 70%, rgba(245, 158, 11, 0.05) 0%, transparent 40%);
     }
 
     .container {
@@ -311,7 +311,7 @@
       min-height: 360px;
       max-height: 520px;
       border-radius: var(--radius-lg);
-      background: radial-gradient(circle at 50% 50%, rgba(20, 28, 48, 0.5) 0%, rgba(5, 7, 12, 0.95) 80%);
+      background: radial-gradient(circle at 50% 50%, rgba(20, 28, 48, 0.55) 0%, rgba(5, 7, 12, 0.98) 80%);
       border: 1px solid var(--border-light);
       overflow: hidden;
       margin: 1.5rem 0;
@@ -868,7 +868,7 @@
           APEX <span>GT-ONE</span>
         </h1>
         <p class="hero-subtitle">
-          Sculpted aerodynamic monocoque, real-time 3D Ferrari studio, and bespoke digital paint configurator.
+          Photorealistic 3D Ferrari supercar showroom with reflective studio floor, overhead LED softbox, and real-time paint configurator.
         </p>
       </div>
 
@@ -885,7 +885,7 @@
           <div class="config-group-title">BESPOKE EXTERIOR PAINT</div>
           <div class="swatches-row">
             <button class="swatch-btn active" data-color="#c41e3a" style="background: #c41e3a;" title="Rosso Corsa (Ferrari Red)"></button>
-            <button class="swatch-btn" data-color="#0a0c12" style="background: #0a0c12;" title="Obsidian Black"></button>
+            <button class="swatch-btn" data-color="#080a10" style="background: #080a10;" title="Obsidian Black"></button>
             <button class="swatch-btn" data-color="#cfd8dc" style="background: #cfd8dc;" title="Liquid Titanium"></button>
             <button class="swatch-btn" data-color="#f59e0b" style="background: #f59e0b;" title="Monaco Gold"></button>
             <button class="swatch-btn" data-color="#0284c7" style="background: #0284c7;" title="Riviera Cyan"></button>
@@ -1195,8 +1195,9 @@
     </div>
   </footer>
 
-  <!-- 3D Three.js Engine & Application Scripts -->
+  <!-- 3D Three.js Engine, Draco & Application Scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="scripts/DRACOLoader.js"></script>
   <script src="scripts/GLTFLoader.js"></script>
   <script src="scripts/car-audio.js"></script>
   <script src="scripts/car-3d.js"></script>
