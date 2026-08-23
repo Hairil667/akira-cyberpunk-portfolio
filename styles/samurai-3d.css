@@ -1,0 +1,341 @@
+/* ==========================================================================
+   SAMURAI 3D // 侍 // BUSHIDO DESIGN SYSTEM & STYLES
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Noto+Serif+JP:wght@400;700;900&family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&display=swap');
+
+:root {
+  /* Samurai Crimson & Gold Palette */
+  --bg-samurai: #08080c;
+  --bg-surface: #101118;
+  --bg-surface-elevated: #161824;
+  --bg-card: rgba(18, 19, 30, 0.88);
+
+  --crimson-primary: #e63946;
+  --crimson-bright: #ff2a40;
+  --crimson-glow: rgba(230, 57, 70, 0.5);
+  --crimson-dark: #7f1d1d;
+
+  --gold-samurai: #d4af37;
+  --gold-bright: #f59e0b;
+  --gold-glow: rgba(212, 175, 55, 0.4);
+
+  --sakura-pink: #ffb7c5;
+  --sakura-glow: rgba(255, 183, 197, 0.6);
+
+  --neon-cyan: #00f0ff;
+  --neon-cyan-glow: rgba(0, 240, 255, 0.4);
+
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --text-gold: #fbbf24;
+  --text-crimson: #f87171;
+
+  /* Typography */
+  --font-title: 'Cinzel', serif;
+  --font-kanji: 'Noto Serif JP', serif;
+  --font-body: 'Rajdhani', sans-serif;
+  --font-mono: 'Share Tech Mono', monospace;
+
+  /* Samurai Geometric Cuts */
+  --cut-sm: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+  --cut-md: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
+  --cut-lg: polygon(0 0, calc(100% - 22px) 0, 100% 22px, 100% 100%, 22px 100%, 0 calc(100% - 22px));
+}
+
+/* Background Canvas */
+#samurai-3d-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -2;
+  pointer-events: none;
+}
+
+/* Slash Overlay Canvas (for mouse slash effects) */
+#slash-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 999;
+  pointer-events: none;
+}
+
+/* Kanji Accent Emblems */
+.kanji-watermark {
+  position: absolute;
+  font-family: var(--font-kanji);
+  font-size: 8rem;
+  font-weight: 900;
+  color: rgba(230, 57, 70, 0.05);
+  user-select: none;
+  pointer-events: none;
+  z-index: 0;
+  line-height: 1;
+}
+
+.kanji-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-kanji);
+  font-weight: 700;
+  border: 1px solid var(--crimson-primary);
+  background: rgba(230, 57, 70, 0.12);
+  color: var(--crimson-bright);
+  padding: 2px 8px;
+  font-size: 0.85rem;
+  margin-right: 6px;
+  clip-path: var(--cut-sm);
+}
+
+.kanji-gold-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-kanji);
+  font-weight: 700;
+  border: 1px solid var(--gold-samurai);
+  background: rgba(212, 175, 55, 0.15);
+  color: var(--gold-bright);
+  padding: 2px 8px;
+  font-size: 0.85rem;
+  margin-right: 6px;
+  clip-path: var(--cut-sm);
+}
+
+/* 3D Hero Samurai Stage */
+.samurai-hero-stage {
+  position: relative;
+  width: 100%;
+  height: 480px;
+  max-width: 500px;
+  margin: 0 auto;
+  border: 1px solid rgba(230, 57, 70, 0.4);
+  background: radial-gradient(circle at center, rgba(230, 57, 70, 0.08) 0%, rgba(8, 8, 12, 0.95) 75%);
+  clip-path: var(--cut-lg);
+  overflow: hidden;
+  box-shadow: 0 0 35px rgba(230, 57, 70, 0.2), inset 0 0 25px rgba(212, 175, 55, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+#samurai-hero-canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+  cursor: grab;
+}
+
+#samurai-hero-canvas:active {
+  cursor: grabbing;
+}
+
+.hero-samurai-overlay {
+  position: absolute;
+  top: 14px;
+  left: 16px;
+  right: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  pointer-events: none;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--crimson-bright);
+  letter-spacing: 0.1em;
+  text-shadow: 0 0 8px var(--crimson-glow);
+}
+
+.hero-samurai-controls {
+  position: absolute;
+  bottom: 14px;
+  left: 14px;
+  right: 14px;
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  z-index: 5;
+}
+
+.btn-stance {
+  background: rgba(16, 17, 24, 0.9);
+  border: 1px solid rgba(230, 57, 70, 0.5);
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  padding: 6px 12px;
+  clip-path: var(--cut-sm);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-stance:hover, .btn-stance.active {
+  background: var(--crimson-primary);
+  color: #fff;
+  font-weight: 700;
+  border-color: var(--crimson-bright);
+  box-shadow: 0 0 15px var(--crimson-glow);
+}
+
+/* 3D Katana Forge Stage */
+.katana-forge-box {
+  position: relative;
+  min-height: 480px;
+  height: 100%;
+  background: radial-gradient(circle at center, rgba(30, 20, 25, 0.7) 0%, rgba(8, 8, 12, 0.95) 80%);
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  clip-path: var(--cut-md);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+#katana-3d-canvas {
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 420px;
+  display: block;
+  cursor: grab;
+}
+
+#katana-3d-canvas:active {
+  cursor: grabbing;
+}
+
+.katana-3d-hud {
+  position: absolute;
+  top: 14px;
+  left: 16px;
+  pointer-events: none;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--gold-bright);
+  text-shadow: 0 0 8px var(--gold-glow);
+  z-index: 4;
+}
+
+.katana-3d-toolbar {
+  position: absolute;
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+  z-index: 5;
+  width: 90%;
+}
+
+.btn-katana-tool {
+  background: rgba(16, 17, 24, 0.9);
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  color: var(--gold-bright);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  padding: 6px 14px;
+  clip-path: var(--cut-sm);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.btn-katana-tool:hover, .btn-katana-tool.active {
+  background: var(--gold-samurai);
+  color: #000;
+  font-weight: 700;
+  box-shadow: 0 0 15px var(--gold-glow);
+}
+
+/* Bushido 7 Virtues Cards */
+.bushido-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.25rem;
+  margin-top: 2rem;
+}
+
+.bushido-card {
+  background: var(--bg-card);
+  border: 1px solid rgba(230, 57, 70, 0.25);
+  border-left: 3px solid var(--crimson-primary);
+  padding: 1.5rem;
+  clip-path: var(--cut-md);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.bushido-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--gold-samurai);
+  border-left-color: var(--gold-bright);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(212, 175, 55, 0.15);
+}
+
+.bushido-kanji-big {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  font-family: var(--font-kanji);
+  font-size: 4.5rem;
+  color: rgba(230, 57, 70, 0.08);
+  font-weight: 900;
+  pointer-events: none;
+}
+
+.bushido-title {
+  font-family: var(--font-title);
+  font-size: 1.15rem;
+  color: #fff;
+  margin-bottom: 0.4rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.bushido-virtue-sub {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--crimson-bright);
+  margin-bottom: 0.8rem;
+  letter-spacing: 0.05em;
+}
+
+.bushido-desc {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* Katana Slash Notification Banner */
+.slash-hint-banner {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(230, 57, 70, 0.15);
+  border: 1px solid rgba(230, 57, 70, 0.4);
+  padding: 4px 12px;
+  clip-path: var(--cut-sm);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--sakura-pink);
+  margin-bottom: 1rem;
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+  .samurai-hero-stage {
+    height: 360px;
+  }
+  .katana-forge-box {
+    min-height: 380px;
+  }
+}
