@@ -2,80 +2,79 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>APEX MOTORS // Luxury 3D Hypercar Studio & Night Highway Configurator</title>
-  <meta name="description" content="Experience the Apex GT-One Hypercar in real-time WebGL 3D. 360° studio orbit, scissor doors, active aero spoiler, exhaust flame backfire, and bespoke paint customizer.">
-  <meta name="keywords" content="Apex Motors, Hypercar, 3D Car, Three.js, WebGL Car, Automotive Studio, Supercar Configurator">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>APEX MOTORS // Luxury High-Performance Automotive Studio</title>
+  <meta name="description" content="Experience the Apex GT-One in real-time 3D. Sleek aerodynamic design, 1,600 HP hybrid powertrain, and bespoke digital paint configurator.">
+  <meta name="keywords" content="Apex Motors, Hypercar, Supercar, Automotive Studio, 3D Car Configurator">
   <meta name="author" content="Apex Motors">
-  <meta property="og:title" content="APEX MOTORS // 3D Hypercar Studio">
-  <meta property="og:description" content="Configure the Apex GT-One in real-time WebGL 3D. 360° rotation, active aero, scissor doors, and night highway simulator.">
+  <meta property="og:title" content="APEX MOTORS // Luxury Automotive Studio">
+  <meta property="og:description" content="Configure the Apex GT-One in real-time 3D. 360° rotation, active aero, and bespoke paint options.">
   <meta property="og:type" content="website">
 
-  <!-- Main Stylesheets -->
+  <!-- Core Stylesheets -->
   <link rel="stylesheet" href="styles/main.css">
   <link rel="stylesheet" href="styles/car-3d.css">
 </head>
 <body>
 
-  <!-- 3D Global Night Highway Background Canvas -->
-  <canvas id="car-canvas-bg"></canvas>
-  <div class="studio-overlay"></div>
+  <!-- Ambient Top Glow -->
+  <div class="ambient-glow"></div>
 
   <!-- ==========================================================================
        TOP NAVIGATION BAR
        ========================================================================== -->
   <header class="header-nav">
-    <div class="nav-wrap">
-      <a href="#studio" class="brand-logo">
-        <div class="brand-emblem">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5">
+    <div class="nav-container">
+      <a href="#studio" class="brand-link">
+        <div class="brand-symbol">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#07090e" stroke-width="2.8">
             <polygon points="12 2 2 22 22 22"/>
           </svg>
         </div>
-        <div class="brand-name">APEX <span>MOTORS</span></div>
+        <div class="brand-title">APEX <span>MOTORS</span></div>
       </a>
 
       <!-- Desktop Links -->
-      <ul class="nav-links">
-        <li><a href="#studio" class="nav-link active">3D STUDIO</a></li>
-        <li><a href="#performance" class="nav-link">PERFORMANCE</a></li>
-        <li><a href="#models" class="nav-link">MODELS</a></li>
-        <li><a href="#engineering" class="nav-link">ENGINEERING</a></li>
-        <li><a href="#reserve" class="nav-link">RESERVE</a></li>
+      <ul class="nav-menu">
+        <li><a href="#studio" class="nav-item-link active">STUDIO</a></li>
+        <li><a href="#performance" class="nav-item-link">PERFORMANCE</a></li>
+        <li><a href="#models" class="nav-item-link">MODELS</a></li>
+        <li><a href="#engineering" class="nav-item-link">ENGINEERING</a></li>
+        <li><a href="#reserve" class="nav-item-link">COMMISSION</a></li>
       </ul>
 
-      <!-- Controls & Hamburger -->
+      <!-- Controls -->
       <div class="nav-actions">
-        <button id="sound-toggle-btn" class="btn-sound active" title="Toggle Sound SFX">
+        <button id="sound-toggle-btn" class="btn-audio active" title="Toggle Sound SFX">
           <span id="sound-toggle-text">SFX: ON</span>
         </button>
 
-        <button id="hamburger-toggle" class="hamburger-btn" aria-label="Open Menu">
-          <span class="ham-line"></span>
-          <span class="ham-line"></span>
-          <span class="ham-line"></span>
+        <button id="hamburger-toggle" class="menu-toggle-btn" aria-label="Open Menu">
+          <span class="menu-toggle-line"></span>
+          <span class="menu-toggle-line"></span>
+          <span class="menu-toggle-line"></span>
         </button>
       </div>
     </div>
   </header>
 
   <!-- Mobile Drawer -->
-  <div id="mobile-backdrop" class="mobile-nav-backdrop"></div>
-  <aside id="mobile-drawer" class="mobile-drawer">
+  <div id="mobile-backdrop" class="mobile-backdrop"></div>
+  <aside id="mobile-drawer" class="mobile-nav-panel">
     <div>
-      <div class="brand-name" style="font-size: 1.2rem; color: #fff;">APEX <span>MOTORS</span></div>
-      <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 4px;">Hypercar 3D Studio</p>
+      <div class="brand-title" style="font-size: 1.15rem; color: #fff;">APEX <span>MOTORS</span></div>
+      <p style="font-size: 0.82rem; color: var(--text-secondary); margin-top: 4px;">Hypercar Studio</p>
 
-      <ul class="mobile-drawer-links">
-        <li><a href="#studio" class="mobile-drawer-link">3D STUDIO</a></li>
-        <li><a href="#performance" class="mobile-drawer-link">PERFORMANCE</a></li>
-        <li><a href="#models" class="mobile-drawer-link">MODELS</a></li>
-        <li><a href="#engineering" class="mobile-drawer-link">ENGINEERING</a></li>
-        <li><a href="#reserve" class="mobile-drawer-link">RESERVE</a></li>
+      <ul class="mobile-links-list">
+        <li><a href="#studio" class="mobile-link">STUDIO</a></li>
+        <li><a href="#performance" class="mobile-link">PERFORMANCE</a></li>
+        <li><a href="#models" class="mobile-link">MODELS</a></li>
+        <li><a href="#engineering" class="mobile-link">ENGINEERING</a></li>
+        <li><a href="#reserve" class="mobile-link">COMMISSION</a></li>
       </ul>
     </div>
 
-    <div style="font-size: 0.78rem; color: var(--text-dark);">
+    <div style="font-size: 0.78rem; color: var(--text-muted);">
       © 2026 APEX AUTOMOTIVE AG
     </div>
   </aside>
@@ -83,72 +82,68 @@
   <!-- ==========================================================================
        HERO SECTION (3D STUDIO CONFIGURATOR)
        ========================================================================== -->
-  <section id="studio" class="hero-studio">
+  <section id="studio" class="hero-stage">
     <div class="container">
-      <div class="hero-studio-header">
-        <div class="hero-super-badge">
-          <span>⚡</span> HYPER-AERODYNAMIC V8 HYBRID // 1,600 HP
+      <div class="hero-header">
+        <div class="hero-pill">
+          <span>⚡</span> 1,600 HP HYBRID V8 // BESPOKE COMMISSION
         </div>
-        <h1 class="hero-car-title">
-          APEX <span style="color: var(--accent-gold-bright);">GT-ONE</span>
+        <h1 class="hero-title">
+          APEX <span>GT-ONE</span>
         </h1>
-        <p class="hero-car-subtitle">
-          Sculpted aerodynamic carbon monocoque, active scissor doors, laser LED matrix, and bespoke 3D WebGL configurator.
+        <p class="hero-subtitle">
+          Sculpted aerodynamic monocoque, active rear aero wing, and bespoke real-time 3D configurator.
         </p>
       </div>
 
       <!-- 3D Viewport Box -->
-      <div class="car-3d-stage-box">
-        <div class="car-3d-hint">DRAG 360° TO ROTATE • PINCH TO ZOOM</div>
+      <div class="car-viewer-container">
+        <div class="viewer-hint">DRAG 360° TO ROTATE • PINCH TO ZOOM</div>
         <canvas id="car-3d-canvas"></canvas>
       </div>
 
-      <!-- Interactive Customizer Dock -->
-      <div class="customizer-dock">
+      <!-- Configurator Controls Dock -->
+      <div class="config-dock">
         <!-- Paint Swatches -->
-        <div>
-          <div class="dock-section-title">BESPOKE EXTERIOR PAINT</div>
-          <div class="color-swatches-group">
-            <button class="color-swatch-btn active" data-color="#c41e3a" style="background: #c41e3a;" title="Ferrari Rosso Corsa"></button>
-            <button class="color-swatch-btn" data-color="#111317" style="background: #111317;" title="Obsidian Black"></button>
-            <button class="color-swatch-btn" data-color="#cfd8dc" style="background: #cfd8dc;" title="Liquid Titanium Silver"></button>
-            <button class="color-swatch-btn" data-color="#f59e0b" style="background: #f59e0b;" title="Monaco Gold"></button>
-            <button class="color-swatch-btn" data-color="#00f0ff" style="background: #00f0ff;" title="Cyber Blue"></button>
-            <button class="color-swatch-btn" data-color="#10b981" style="background: #10b981;" title="British Racing Green"></button>
-            <button class="color-swatch-btn" data-color="#1e1b8c" style="background: #1e1b8c;" title="Blu Pozzi"></button>
+        <div class="config-group">
+          <div class="config-group-title">BESPOKE EXTERIOR PAINT</div>
+          <div class="swatches-row">
+            <button class="swatch-btn active" data-color="#c41e3a" style="background: #c41e3a;" title="Carmine Red"></button>
+            <button class="swatch-btn" data-color="#0e1017" style="background: #0e1017;" title="Obsidian Black"></button>
+            <button class="swatch-btn" data-color="#cfd8dc" style="background: #cfd8dc;" title="Arctic Silver"></button>
+            <button class="swatch-btn" data-color="#f59e0b" style="background: #f59e0b;" title="Monaco Gold"></button>
+            <button class="swatch-btn" data-color="#0284c7" style="background: #0284c7;" title="Riviera Cyan"></button>
+            <button class="swatch-btn" data-color="#047857" style="background: #047857;" title="British Racing Green"></button>
           </div>
         </div>
 
-        <!-- Car Actions -->
-        <div>
-          <div class="dock-section-title">INTERACTIVE TELEMETRY</div>
-          <div class="dock-actions-group">
-            <button id="btn-drive-mode" class="btn-dock-action btn-drive-mode">
-              <span>🚀</span> ACCELERATE
-            </button>
-            <button id="btn-rev-engine" class="btn-dock-action">
+        <!-- Telemetry & Actions -->
+        <div class="config-group">
+          <div class="config-group-title">INTERACTIVE ACTIONS</div>
+          <div class="actions-row">
+            <button id="btn-rev" class="btn-dock">
               <span>🔊</span> REV V8
             </button>
-            <button id="btn-toggle-doors" class="btn-dock-action">
-              <span>🚪</span> SCISSOR DOORS
+            <button id="btn-lights" class="btn-dock active">
+              <span>💡</span> LIGHTS
             </button>
-            <button id="btn-toggle-lights" class="btn-dock-action active">
-              <span>💡</span> HEADLIGHTS
-            </button>
-            <button id="btn-toggle-wing" class="btn-dock-action">
+            <button id="btn-wing" class="btn-dock">
               <span>🪽</span> ACTIVE WING
+            </button>
+            <button id="btn-wheels" class="btn-dock">
+              <span>🏎️</span> WHEEL SPIN
             </button>
           </div>
         </div>
 
         <!-- Camera Angles -->
-        <div>
-          <div class="dock-section-title">STUDIO CAMERAS</div>
-          <div class="dock-actions-group">
-            <button class="btn-dock-action btn-cam-preset" data-view="front">FRONT 3/4</button>
-            <button class="btn-dock-action btn-cam-preset" data-view="side">PROFILE</button>
-            <button class="btn-dock-action btn-cam-preset" data-view="rear">REAR</button>
-            <button class="btn-dock-action btn-cam-preset" data-view="reset">RESET</button>
+        <div class="config-group">
+          <div class="config-group-title">STUDIO CAMERAS</div>
+          <div class="actions-row">
+            <button class="btn-dock btn-preset" data-view="front">FRONT 3/4</button>
+            <button class="btn-dock btn-preset" data-view="side">PROFILE</button>
+            <button class="btn-dock btn-preset" data-view="rear">REAR</button>
+            <button class="btn-dock btn-preset" data-view="reset">RESET</button>
           </div>
         </div>
       </div>
@@ -160,34 +155,35 @@
        ========================================================================== -->
   <section id="performance" class="section">
     <div class="container">
-      <div class="section-header">
-        <span class="section-tag">UNPRECEDENTED DYNAMICS</span>
-        <h2 class="section-title">PERFORMANCE METRICS</h2>
+      <div class="section-head">
+        <span class="section-badge">UNPRECEDENTED DYNAMICS</span>
+        <h2 class="section-heading">PERFORMANCE METRICS</h2>
+        <p class="section-desc">Engineered for extreme high-speed stability and instantaneous electric torque response.</p>
       </div>
 
-      <div class="specs-strip-grid">
-        <div class="spec-strip-card">
-          <div class="spec-strip-val">1.85 <span>s</span></div>
-          <div class="spec-strip-label">0 – 100 KM/H</div>
-          <div class="spec-strip-sub">Launch-controlled quad-motor electric boost</div>
+      <div class="telemetry-grid">
+        <div class="telemetry-card">
+          <div class="telemetry-number">1.85 <span>s</span></div>
+          <div class="telemetry-label">0 – 100 KM/H</div>
+          <div class="telemetry-desc">Launch-controlled quad-motor electric boost</div>
         </div>
 
-        <div class="spec-strip-card">
-          <div class="spec-strip-val">450 <span>km/h</span></div>
-          <div class="spec-strip-label">TOP VELOCITY</div>
-          <div class="spec-strip-sub">Low-drag aerodynamic aero mode configuration</div>
+        <div class="telemetry-card">
+          <div class="telemetry-number">450 <span>km/h</span></div>
+          <div class="telemetry-label">TOP VELOCITY</div>
+          <div class="telemetry-desc">Low-drag aerodynamic aero mode configuration</div>
         </div>
 
-        <div class="spec-strip-card">
-          <div class="spec-strip-val">1,600 <span>HP</span></div>
-          <div class="spec-strip-label">POWERTRAIN OUTPUT</div>
-          <div class="spec-strip-sub">Twin-Turbo Flat-Plane V8 + Tri-Motor Hybrid</div>
+        <div class="telemetry-card">
+          <div class="telemetry-number">1,600 <span>HP</span></div>
+          <div class="telemetry-label">POWERTRAIN OUTPUT</div>
+          <div class="telemetry-desc">Twin-Turbo Flat-Plane V8 + Tri-Motor Hybrid</div>
         </div>
 
-        <div class="spec-strip-card">
-          <div class="spec-strip-val">1,250 <span>kg</span></div>
-          <div class="spec-strip-label">AERO DOWNFORCE</div>
-          <div class="spec-strip-sub">Active hydraulic rear wing & venturi tunnels</div>
+        <div class="telemetry-card">
+          <div class="telemetry-number">1,250 <span>kg</span></div>
+          <div class="telemetry-label">AERO DOWNFORCE</div>
+          <div class="telemetry-desc">Active hydraulic rear wing & venturi tunnels</div>
         </div>
       </div>
     </div>
@@ -198,9 +194,10 @@
        ========================================================================== -->
   <section id="models" class="section">
     <div class="container">
-      <div class="section-header">
-        <span class="section-tag">THE LINEUP</span>
-        <h2 class="section-title">EXPLORE MODELS</h2>
+      <div class="section-head">
+        <span class="section-badge">THE LINEUP</span>
+        <h2 class="section-heading">EXPLORE MODELS</h2>
+        <p class="section-desc">Bespoke grand touring and circuit-focused hypercars tailored for individual collectors.</p>
       </div>
 
       <div class="models-grid">
@@ -208,27 +205,27 @@
         <div class="model-card">
           <div>
             <span class="model-badge">FLAGSHIP HYPER GT</span>
-            <h3 class="model-name">APEX GT-ONE</h3>
-            <p class="model-desc">
+            <h3 class="model-title">APEX GT-ONE</h3>
+            <p class="model-summary">
               The benchmark in hyper-luxury grand touring. Combines bespoke hand-stitched leather interiors with brutal track-ready hybrid performance.
             </p>
           </div>
           <div>
             <div class="model-stats-row">
-              <div class="model-stat-item">
-                <div class="model-stat-num">1,600 HP</div>
+              <div class="model-stat-col">
+                <div class="model-stat-val">1,600 HP</div>
                 <div class="model-stat-lbl">POWER</div>
               </div>
-              <div class="model-stat-item">
-                <div class="model-stat-num">1.85s</div>
+              <div class="model-stat-col">
+                <div class="model-stat-val">1.85s</div>
                 <div class="model-stat-lbl">0-100</div>
               </div>
-              <div class="model-stat-item">
-                <div class="model-stat-num">450 KM/H</div>
+              <div class="model-stat-col">
+                <div class="model-stat-val">450 KM/H</div>
                 <div class="model-stat-lbl">MAX SPEED</div>
               </div>
             </div>
-            <a href="#reserve" class="btn-primary" style="width: 100%; justify-content: center;">
+            <a href="#reserve" class="btn-gold" style="width: 100%;">
               RESERVE GT-ONE
             </a>
           </div>
@@ -237,30 +234,30 @@
         <!-- Model 2 -->
         <div class="model-card">
           <div>
-            <span class="model-badge" style="color: var(--accent-cyan); border-color: rgba(0, 240, 255, 0.4);">
+            <span class="model-badge" style="color: var(--accent-blue); border-color: rgba(56, 189, 248, 0.4);">
               TRACK ATTACK SPEC
             </span>
-            <h3 class="model-name">PHANTOM STRALE</h3>
-            <p class="model-desc">
+            <h3 class="model-title">PHANTOM STRALE</h3>
+            <p class="model-summary">
               Stripped for uncompromising lightweight agility. Full carbon fiber bodywork, radical swan-neck rear wing, and pushrod suspension.
             </p>
           </div>
           <div>
             <div class="model-stats-row">
-              <div class="model-stat-item">
-                <div class="model-stat-num">1,750 HP</div>
+              <div class="model-stat-col">
+                <div class="model-stat-val">1,750 HP</div>
                 <div class="model-stat-lbl">POWER</div>
               </div>
-              <div class="model-stat-item">
-                <div class="model-stat-num">1.75s</div>
+              <div class="model-stat-col">
+                <div class="model-stat-val">1.75s</div>
                 <div class="model-stat-lbl">0-100</div>
               </div>
-              <div class="model-stat-item">
-                <div class="model-stat-num">1,180 KG</div>
+              <div class="model-stat-col">
+                <div class="model-stat-val">1,180 KG</div>
                 <div class="model-stat-lbl">DRY WEIGHT</div>
               </div>
             </div>
-            <a href="#reserve" class="btn-secondary" style="width: 100%; justify-content: center;">
+            <a href="#reserve" class="btn-outline" style="width: 100%;">
               INQUIRE ALLOCATION
             </a>
           </div>
@@ -269,30 +266,30 @@
         <!-- Model 3 -->
         <div class="model-card">
           <div>
-            <span class="model-badge" style="color: #4ade80; border-color: rgba(74, 222, 128, 0.4);">
+            <span class="model-badge" style="color: var(--accent-emerald); border-color: rgba(16, 185, 129, 0.4);">
               ALL-ELECTRIC VISION
             </span>
-            <h3 class="model-name">ELEKTRA VISION</h3>
-            <p class="model-desc">
+            <h3 class="model-title">ELEKTRA VISION</h3>
+            <p class="model-summary">
               Next-generation solid-state battery architecture powering four independent torque-vectoring permanent magnet motors.
             </p>
           </div>
           <div>
             <div class="model-stats-row">
-              <div class="model-stat-item">
-                <div class="model-stat-num">2,000 HP</div>
+              <div class="model-stat-col">
+                <div class="model-stat-val">2,000 HP</div>
                 <div class="model-stat-lbl">POWER</div>
               </div>
-              <div class="model-stat-item">
-                <div class="model-stat-num">1.60s</div>
+              <div class="model-stat-col">
+                <div class="model-stat-val">1.60s</div>
                 <div class="model-stat-lbl">0-100</div>
               </div>
-              <div class="model-stat-item">
-                <div class="model-stat-num">650 KM</div>
+              <div class="model-stat-col">
+                <div class="model-stat-val">650 KM</div>
                 <div class="model-stat-lbl">RANGE</div>
               </div>
             </div>
-            <a href="#reserve" class="btn-secondary" style="width: 100%; justify-content: center;">
+            <a href="#reserve" class="btn-outline" style="width: 100%;">
               JOIN WAITLIST
             </a>
           </div>
@@ -306,56 +303,39 @@
        ========================================================================== -->
   <section id="engineering" class="section">
     <div class="container">
-      <div class="section-header">
-        <span class="section-tag">CUTTING-EDGE ARCHITECTURE</span>
-        <h2 class="section-title">ENGINEERING EXCELLENCE</h2>
+      <div class="section-head">
+        <span class="section-badge">CUTTING-EDGE ARCHITECTURE</span>
+        <h2 class="section-heading">ENGINEERING EXCELLENCE</h2>
+        <p class="section-desc">Formula 1-derived composite engineering and aerospace-grade powertrain cooling.</p>
       </div>
 
       <div class="engineering-grid">
-        <div class="eng-feature-list">
-          <div class="eng-feature-item">
-            <h4 class="eng-feature-title"><span>🛡️</span> Carbon Monocoque Core</h4>
-            <p class="eng-feature-desc">
-              Torsional rigidity of 65,000 Nm/degree using F1-grade autoclave pre-preg carbon fiber composite weave.
-            </p>
-          </div>
-
-          <div class="eng-feature-item">
-            <h4 class="eng-feature-title"><span>⚡</span> 800V High-Discharge Battery</h4>
-            <p class="eng-feature-desc">
-              Dielectric immersion-cooled battery cells capable of delivering 400 kW of instantaneous electrical punch.
-            </p>
-          </div>
-
-          <div class="eng-feature-item">
-            <h4 class="eng-feature-title"><span>🌪️</span> Active Ground-Effect Aero</h4>
-            <p class="eng-feature-desc">
-              Underbody venturi tunnels with active front flap actuators generating vacuum suction through high-speed turns.
-            </p>
-          </div>
+        <div class="eng-card">
+          <h4 class="eng-card-title"><span>🛡️</span> Carbon Monocoque Core</h4>
+          <p class="eng-card-desc">
+            Torsional rigidity of 65,000 Nm/degree using F1-grade autoclave pre-preg carbon fiber composite weave.
+          </p>
         </div>
 
-        <div class="eng-feature-list">
-          <div class="eng-feature-item">
-            <h4 class="eng-feature-title"><span>🏁</span> Carbon-Ceramic Matrix Brakes</h4>
-            <p class="eng-feature-desc">
-              420mm front rotors clamped by 8-piston titanium monobloc calipers, stopping from 100-0 km/h in just 28 meters.
-            </p>
-          </div>
+        <div class="eng-card">
+          <h4 class="eng-card-title"><span>⚡</span> 800V High-Discharge Architecture</h4>
+          <p class="eng-card-desc">
+            Dielectric immersion-cooled battery cells capable of delivering 400 kW of instantaneous electrical punch.
+          </p>
+        </div>
 
-          <div class="eng-feature-item">
-            <h4 class="eng-feature-title"><span>🧠</span> Neural Torque Vectoring</h4>
-            <p class="eng-feature-desc">
-              Real-time milli-second torque allocation across all four wheels with predictive lateral slip algorithms.
-            </p>
-          </div>
+        <div class="eng-card">
+          <h4 class="eng-card-title"><span>🌪️</span> Active Ground-Effect Aero</h4>
+          <p class="eng-card-desc">
+            Underbody venturi tunnels with active front flap actuators generating vacuum suction through high-speed turns.
+          </p>
+        </div>
 
-          <div class="eng-feature-item">
-            <h4 class="eng-feature-title"><span>🔊</span> Titanium Inconel Exhaust</h4>
-            <p class="eng-feature-desc">
-              3D-printed lightweight Inconel exhaust headers tuned to deliver an intoxicating 9,000 RPM symphonic roar.
-            </p>
-          </div>
+        <div class="eng-card">
+          <h4 class="eng-card-title"><span>🏁</span> Carbon-Ceramic Matrix Brakes</h4>
+          <p class="eng-card-desc">
+            420mm front rotors clamped by 8-piston titanium monobloc calipers, stopping from 100-0 km/h in just 28 meters.
+          </p>
         </div>
       </div>
     </div>
@@ -366,38 +346,39 @@
        ========================================================================== -->
   <section id="reserve" class="section">
     <div class="container">
-      <div class="section-header">
-        <span class="section-tag">COMMISSION YOUR VEHICLE</span>
-        <h2 class="section-title">BESPOKE ALLOCATION</h2>
+      <div class="section-head">
+        <span class="section-badge">COMMISSION YOUR VEHICLE</span>
+        <h2 class="section-heading">BESPOKE ALLOCATION</h2>
+        <p class="section-desc">Direct private consultation with our Chief Design & Engineering Concierge.</p>
       </div>
 
-      <div class="reserve-card">
+      <div class="reserve-box">
         <form id="reserve-form">
-          <div class="form-row">
-            <div class="form-group">
+          <div class="form-grid">
+            <div class="form-field">
               <label class="form-label" for="client-name">FULL NAME</label>
-              <input type="text" id="client-name" class="form-control" placeholder="Sir / Madam..." required>
+              <input type="text" id="client-name" class="form-input" placeholder="Sir / Madam..." required>
             </div>
 
-            <div class="form-group">
+            <div class="form-field">
               <label class="form-label" for="client-email">VIP EMAIL ADDRESS</label>
-              <input type="email" id="client-email" class="form-control" placeholder="client@luxury.com" required>
+              <input type="email" id="client-email" class="form-input" placeholder="client@luxury.com" required>
             </div>
           </div>
 
-          <div class="form-row">
-            <div class="form-group">
+          <div class="form-grid">
+            <div class="form-field">
               <label class="form-label" for="selected-model">MODEL ALLOCATION</label>
-              <select id="selected-model" class="form-control" style="cursor: pointer;">
+              <select id="selected-model" class="form-input" style="cursor: pointer;">
                 <option value="Apex GT-One">Apex GT-One (1,600 HP Hybrid)</option>
                 <option value="Phantom Strale">Phantom Strale (Track Attack Spec)</option>
                 <option value="Elektra Vision">Elektra Vision (All-Electric 2,000 HP)</option>
               </select>
             </div>
 
-            <div class="form-group">
+            <div class="form-field">
               <label class="form-label" for="delivery-region">DELIVERY REGION</label>
-              <select id="delivery-region" class="form-control" style="cursor: pointer;">
+              <select id="delivery-region" class="form-input" style="cursor: pointer;">
                 <option value="Europe">Europe / Monaco</option>
                 <option value="North America">North America / USA</option>
                 <option value="Asia Pacific">Asia Pacific / Tokyo / Singapore / Jakarta</option>
@@ -406,17 +387,17 @@
             </div>
           </div>
 
-          <div class="form-group">
+          <div class="form-field">
             <label class="form-label" for="bespoke-request">BESPOKE SPECIFICATIONS & CUSTOM REQUESTS</label>
-            <textarea id="bespoke-request" rows="3" class="form-control" placeholder="Specify custom paint, interior leather finish, carbon package, etc..."></textarea>
+            <textarea id="bespoke-request" rows="3" class="form-input" placeholder="Specify custom paint, interior leather finish, carbon package, etc..."></textarea>
           </div>
 
-          <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; font-size: 1rem;">
+          <button type="submit" class="btn-gold" style="width: 100%; font-size: 1rem;">
             SUBMIT ALLOCATION REQUEST
           </button>
         </form>
 
-        <div id="reserve-status" class="form-status-msg" style="display:none;"></div>
+        <div id="reserve-status" class="form-notify" style="display:none;"></div>
       </div>
     </div>
   </section>
@@ -426,24 +407,24 @@
        ========================================================================== -->
   <footer class="footer">
     <div class="container">
-      <div class="footer-content">
-        <div class="brand-logo">
-          <div class="brand-emblem">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5">
+      <div class="footer-inner">
+        <div class="brand-link">
+          <div class="brand-symbol">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#07090e" stroke-width="2.8">
               <polygon points="12 2 2 22 22 22"/>
             </svg>
           </div>
-          <div class="brand-name">APEX <span>MOTORS</span></div>
+          <div class="brand-title">APEX <span>MOTORS</span></div>
         </div>
 
         <div style="font-size: 0.85rem; color: var(--text-muted);">
-          © 2026 APEX AUTOMOTIVE AG // ALL RIGHTS RESERVED // KINETIC 3D STUDIO
+          © 2026 APEX AUTOMOTIVE AG // ALL RIGHTS RESERVED // KINETIC STUDIO
         </div>
       </div>
     </div>
   </footer>
 
-  <!-- 3D Three.js & Application Scripts -->
+  <!-- Three.js (r128) & Application Scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="scripts/car-audio.js"></script>
   <script src="scripts/car-3d.js"></script>
