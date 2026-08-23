@@ -1,46 +1,52 @@
 /**
- * APEX MOTORS // LIGHTWEIGHT 60 FPS 3D HYPERCAR STUDIO
- * Ultra-optimized Three.js single canvas engine
- * Zero-lag performance, smooth touch orbit, metallic clearcoat paint customizer
+ * APEX MOTORS // CINEMATIC 3D SUPERCAR STUDIO
+ * Features:
+ * - Real Ferrari 3D GLB Model (High-Poly, Photorealistic PBR Paint)
+ * - Ultra-Reflective Dark Showroom Floor & Illuminated Turntable
+ * - Suspended Linear Overhead LED Softbox Tubes (Real Supercar Studio Reflections)
+ * - Vertical Studio Neon Pillars for Cinematic Depth
+ * - ACES Filmic Tone Mapping & High Dynamic Range Lighting
+ * - 60 FPS Mobile Touch Orbit & Bespoke Color Customizer
  */
 
-class LightweightCarStudio {
+class CinematicCarStudio {
   constructor() {
     this.scene = null;
     this.camera = null;
     this.renderer = null;
-    this.carGroup = null;
-    this.carPaintMaterial = null;
-    this.wheelAssemblies = [];
-    this.headlightMeshes = [];
-    this.rearWingGroup = null;
+    this.carRoot = null;
+    this.bodyMaterials = [];
+    this.wheelMeshes = [];
+    this.exhaustFlames = [];
 
     this.isAutoRotating = true;
-    this.isWheelsSpinning = false;
     this.areLightsOn = true;
-    this.isWingRaised = false;
 
-    // Smooth Orbit state
-    this.targetRotationY = 0.5;
-    this.targetRotationX = 0.2;
-    this.currentRotationY = 0.5;
-    this.currentRotationX = 0.2;
-    this.cameraDistance = 46;
+    // Smooth Orbit & Camera State
+    this.targetTheta = 0.65;
+    this.targetPhi = 0.28;
+    this.currentTheta = 0.65;
+    this.currentPhi = 0.28;
+    this.targetRadius = 52;
+    this.currentRadius = 52;
 
     this.init();
   }
 
   init() {
-    if (typeof THREE === 'undefined') return;
+    if (typeof THREE === 'undefined') {
+      console.error('Three.js is required');
+      return;
+    }
 
     const container = document.querySelector('.car-viewer-container');
     const canvas = document.getElementById('car-3d-canvas');
     if (!container || !canvas) return;
 
-    const width = container.clientWidth || 800;
-    const height = container.clientHeight || 450;
+    const width = container.clientWidth || 900;
+    const height = container.clientHeight || 500;
 
-    // 1. Single Lightweight Renderer (60 FPS)
+    // 1. High-Performance WebGL Renderer with ACES Filmic Tone Mapping
     this.renderer = new THREE.WebGLRenderer({
       canvas,
       alpha: true,
@@ -48,406 +54,444 @@ class LightweightCarStudio {
       powerPreference: 'high-performance'
     });
     this.renderer.setSize(width, height);
-    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    this.renderer.shadowMap.enabled = true;
+    this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    this.renderer.toneMappingExposure = 1.8;
+    this.renderer.toneMappingExposure = 2.2;
+    this.renderer.outputEncoding = THREE.sRGBEncoding;
 
     this.scene = new THREE.Scene();
-    this.camera = new THREE.PerspectiveCamera(38, width / height, 0.5, 500);
-    this.updateCameraPosition();
+    this.camera = new THREE.PerspectiveCamera(35, width / height, 0.1, 1000);
+    this.updateCamera();
 
-    // 2. Clean Studio Lighting (Balanced, no heavy shadows)
-    const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
-    this.scene.add(ambientLight);
+    // 2. Synthetic Studio HDRI Reflection Texture
+    this.setupStudioEnvironment();
 
-    const mainKeyLight = new THREE.DirectionalLight(0xfff8ee, 2.2);
-    mainKeyLight.position.set(25, 45, 30);
-    this.scene.add(mainKeyLight);
+    // 3. Cinematic Studio Lighting Rig
+    this.setupLighting();
 
-    const rimBlueLight = new THREE.DirectionalLight(0x38bdf8, 1.4);
-    rimBlueLight.position.set(-30, 25, -35);
-    this.scene.add(rimBlueLight);
+    // 4. Luxury Showroom Stage (Reflective Floor, Platform, Overhead LED Tubes & Pillars)
+    this.setupShowroomStage();
 
-    const warmUnderLight = new THREE.PointLight(0xf59e0b, 1.5, 40);
-    warmUnderLight.position.set(0, -4, 0);
-    this.scene.add(warmUnderLight);
+    // 5. Load Real Ferrari 3D GLB Model
+    this.loadRealFerrariModel();
 
-    // 3. Studio Turntable Platform
-    const pedestalGeo = new THREE.CylinderGeometry(32, 33, 1.2, 48);
-    const pedestalMat = new THREE.MeshStandardMaterial({
-      color: 0x0c0f17,
-      metalness: 0.8,
-      roughness: 0.3
-    });
-    const pedestal = new THREE.Mesh(pedestalGeo, pedestalMat);
-    pedestal.position.y = -5.4;
-    this.scene.add(pedestal);
-
-    const ringGeo = new THREE.TorusGeometry(32.8, 0.25, 12, 48);
-    const ringMat = new THREE.MeshBasicMaterial({ color: 0xf59e0b });
-    const ring = new THREE.Mesh(ringGeo, ringMat);
-    ring.rotation.x = Math.PI / 2;
-    ring.position.y = -4.8;
-    this.scene.add(ring);
-
-    // 4. Build Sleek Aerodynamic Sports Car
-    this.carGroup = new THREE.Group();
-    this.buildSleekSportsCar();
-    this.scene.add(this.carGroup);
-
-    // 5. Setup Smooth Touch & Mouse Controls
+    // 6. Bind Touch, Mouse & UI Controls
     this.setupInteractions(canvas);
-
-    // 6. Bind UI Controls
     this.bindUI();
 
-    // 7. Window Resize
+    // 7. Window Resize Handler
     window.addEventListener('resize', () => {
-      const w = container.clientWidth || 800;
-      const h = container.clientHeight || 450;
+      const w = container.clientWidth || 900;
+      const h = container.clientHeight || 500;
       this.camera.aspect = w / h;
       this.camera.updateProjectionMatrix();
       this.renderer.setSize(w, h);
     });
 
-    // 8. 60 FPS Render Loop
+    // 8. 60 FPS Render Loop with Smooth Damping
+    const clock = new THREE.Clock();
     const animate = () => {
       requestAnimationFrame(animate);
+      const delta = clock.getDelta();
 
       if (this.isAutoRotating) {
-        this.targetRotationY += 0.005;
+        this.targetTheta += 0.004;
       }
 
       // Smooth Lerp Damping
-      this.currentRotationY += (this.targetRotationY - this.currentRotationY) * 0.08;
-      this.currentRotationX += (this.targetRotationX - this.currentRotationX) * 0.08;
+      this.currentTheta += (this.targetTheta - this.currentTheta) * 0.08;
+      this.currentPhi += (this.targetPhi - this.currentPhi) * 0.08;
+      this.currentRadius += (this.targetRadius - this.currentRadius) * 0.08;
 
-      this.carGroup.rotation.y = this.currentRotationY;
+      this.updateCamera();
 
-      // Wheel spinning animation
-      if (this.isWheelsSpinning) {
-        this.wheelAssemblies.forEach(w => {
-          w.rotation.x += 0.2;
-        });
+      // Exhaust flame particles decay
+      for (let i = this.exhaustFlames.length - 1; i >= 0; i--) {
+        const flame = this.exhaustFlames[i];
+        flame.position.z -= 0.8;
+        flame.scale.multiplyScalar(0.88);
+        flame.material.opacity *= 0.88;
+        if (flame.scale.x < 0.06) {
+          this.scene.remove(flame);
+          this.exhaustFlames.splice(i, 1);
+        }
       }
 
-      this.updateCameraPosition();
       this.renderer.render(this.scene, this.camera);
     };
 
     animate();
   }
 
-  updateCameraPosition() {
-    const phi = Math.max(0.1, Math.min(1.4, this.currentRotationX));
-    this.camera.position.x = this.cameraDistance * Math.sin(phi) * 0.4;
-    this.camera.position.y = this.cameraDistance * Math.cos(phi) + 2;
-    this.camera.position.z = this.cameraDistance * Math.sin(phi);
-    this.camera.lookAt(0, 1, 0);
+  updateCamera() {
+    this.camera.position.x = this.currentRadius * Math.sin(this.currentPhi) * Math.sin(this.currentTheta);
+    this.camera.position.y = this.currentRadius * Math.cos(this.currentPhi) + 3.2;
+    this.camera.position.z = this.currentRadius * Math.sin(this.currentPhi) * Math.cos(this.currentTheta);
+    this.camera.lookAt(0, 2.5, 0);
   }
 
   /* ==========================================================================
-     SLEEK HIGH-END SPORTS CAR MODEL (Optimized Topology, 60 FPS)
+     SYNTHETIC STUDIO HDRI (Clearcoat Specular Reflection)
      ========================================================================== */
-  buildSleekSportsCar() {
-    this.wheelAssemblies = [];
-    this.headlightMeshes = [];
+  setupStudioEnvironment() {
+    const pmremGenerator = new THREE.PMREMGenerator(this.renderer);
+    pmremGenerator.compileEquirectangularShader();
 
-    // Metallic Clearcoat Paint
-    this.carPaintMaterial = new THREE.MeshStandardMaterial({
-      color: 0xc41e3a, // Carmine Red Default
-      metalness: 0.85,
-      roughness: 0.2
-    });
+    const envCanvas = document.createElement('canvas');
+    envCanvas.width = 1024;
+    envCanvas.height = 512;
+    const ctx = envCanvas.getContext('2d');
 
-    const carbonMat = new THREE.MeshStandardMaterial({
-      color: 0x111318,
-      metalness: 0.9,
-      roughness: 0.35
-    });
+    // Studio Sky Gradient
+    const skyGrad = ctx.createLinearGradient(0, 0, 0, 512);
+    skyGrad.addColorStop(0, '#040711');
+    skyGrad.addColorStop(0.5, '#0c1222');
+    skyGrad.addColorStop(1, '#05070d');
+    ctx.fillStyle = skyGrad;
+    ctx.fillRect(0, 0, 1024, 512);
 
-    const tintedGlassMat = new THREE.MeshStandardMaterial({
-      color: 0x0f172a,
-      roughness: 0.1,
-      metalness: 0.9,
-      transparent: true,
-      opacity: 0.85
-    });
+    // Overhead Key Softbox Reflection
+    const keySoftbox = ctx.createRadialGradient(512, 100, 0, 512, 100, 240);
+    keySoftbox.addColorStop(0, 'rgba(255, 250, 240, 0.85)');
+    keySoftbox.addColorStop(0.5, 'rgba(255, 250, 240, 0.35)');
+    keySoftbox.addColorStop(1, 'rgba(255, 250, 240, 0)');
+    ctx.fillStyle = keySoftbox;
+    ctx.fillRect(250, 0, 524, 250);
 
-    const alloyChromeMat = new THREE.MeshStandardMaterial({
-      color: 0xe2e8f0,
+    // Cyan & Amber Side Studio Lights
+    ctx.fillStyle = 'rgba(56, 189, 248, 0.35)';
+    ctx.fillRect(60, 120, 240, 100);
+
+    ctx.fillStyle = 'rgba(245, 158, 11, 0.35)';
+    ctx.fillRect(720, 120, 240, 100);
+
+    const envTexture = new THREE.CanvasTexture(envCanvas);
+    envTexture.mapping = THREE.EquirectangularReflectionMapping;
+    const envRenderTarget = pmremGenerator.fromEquirectangular(envTexture);
+    this.scene.environment = envRenderTarget.texture;
+  }
+
+  /* ==========================================================================
+     CINEMATIC 3-POINT STUDIO LIGHTING
+     ========================================================================== */
+  setupLighting() {
+    // Ambient fill
+    const ambient = new THREE.AmbientLight(0xffffff, 0.8);
+    this.scene.add(ambient);
+
+    // Key Spotlight (Casts crisp shadows and glossy specular highlights)
+    const keySpot = new THREE.SpotLight(0xfff8ee, 6.5, 260, Math.PI / 4.2, 0.35, 1.5);
+    keySpot.position.set(35, 85, 50);
+    keySpot.castShadow = true;
+    keySpot.shadow.mapSize.setScalar(2048);
+    keySpot.shadow.bias = -0.0001;
+    this.scene.add(keySpot);
+    this.scene.add(keySpot.target);
+
+    // Cyan Rim Light (Carves out the silhouette from the rear)
+    const rimSpot = new THREE.SpotLight(0x38bdf8, 4.5, 220, Math.PI / 3.5, 0.5, 2.0);
+    rimSpot.position.set(-50, 45, -60);
+    this.scene.add(rimSpot);
+    this.scene.add(rimSpot.target);
+
+    // Golden Ground Bounce Light
+    const groundBounce = new THREE.PointLight(0xf59e0b, 2.8, 60);
+    groundBounce.position.set(0, -4, 0);
+    this.scene.add(groundBounce);
+
+    // Rear Taillight Accent Light
+    const rearRedLight = new THREE.PointLight(0xff1e38, 2.0, 70);
+    rearRedLight.position.set(0, 8, -40);
+    this.scene.add(rearRedLight);
+  }
+
+  /* ==========================================================================
+     LUXURY SHOWROOM STAGE (Reflective Floor, Overhead LED Tubes & Pillars)
+     ========================================================================== */
+  setupShowroomStage() {
+    // A. Ultra-Reflective Showroom Floor
+    const floorGeo = new THREE.CylinderGeometry(42, 45, 1.4, 96);
+    const floorMat = new THREE.MeshStandardMaterial({
+      color: 0x05070e,
       metalness: 0.95,
-      roughness: 0.1
+      roughness: 0.12,
+      envMapIntensity: 2.8
+    });
+    const floorMesh = new THREE.Mesh(floorGeo, floorMat);
+    floorMesh.position.y = -0.7;
+    floorMesh.receiveShadow = true;
+    this.scene.add(floorMesh);
+
+    // B. Glowing Golden Platform Ring
+    const ringGeo = new THREE.TorusGeometry(42.5, 0.4, 16, 96);
+    const ringMat = new THREE.MeshBasicMaterial({ color: 0xf59e0b });
+    const ring = new THREE.Mesh(ringGeo, ringMat);
+    ring.rotation.x = Math.PI / 2;
+    ring.position.y = 0.02;
+    this.scene.add(ring);
+
+    // C. Suspended Overhead Linear LED Light Tubes (Real Supercar Reveal Look)
+    const ledTubeMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+    [-18, 0, 18].forEach(x => {
+      const tubeGeo = new THREE.CylinderGeometry(0.35, 0.35, 45, 16);
+      const tube = new THREE.Mesh(tubeGeo, ledTubeMat);
+      tube.rotation.x = Math.PI / 2;
+      tube.position.set(x, 26, 0);
+      this.scene.add(tube);
+
+      // Downward Area Light Simulation
+      const tubeLight = new THREE.PointLight(0xffffff, 1.2, 45);
+      tubeLight.position.set(x, 24, 0);
+      this.scene.add(tubeLight);
     });
 
-    const ledGlowMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
-    const redLedMat = new THREE.MeshBasicMaterial({ color: 0xff1e38 });
-
-    // A. Main Sleek Aerodynamic Body
-    const bodyGeo = new THREE.BoxGeometry(15, 3.8, 34);
-    const bodyMesh = new THREE.Mesh(bodyGeo, this.carPaintMaterial);
-    bodyMesh.position.y = 0;
-    this.carGroup.add(bodyMesh);
-
-    // B. Sloping Aerodynamic Cockpit Canopy
-    const canopyGeo = new THREE.BoxGeometry(11.5, 3.2, 16);
-    const canopyMesh = new THREE.Mesh(canopyGeo, tintedGlassMat);
-    canopyMesh.position.set(0, 3.2, -1);
-    this.carGroup.add(canopyMesh);
-
-    const roofCapGeo = new THREE.BoxGeometry(10.5, 0.6, 12);
-    const roofCap = new THREE.Mesh(roofCapGeo, this.carPaintMaterial);
-    roofCap.position.set(0, 4.9, -1);
-    this.carGroup.add(roofCap);
-
-    // C. Sloping Front Hood & Splitter
-    const hoodGeo = new THREE.BoxGeometry(14, 1.8, 10);
-    const hoodMesh = new THREE.Mesh(hoodGeo, this.carPaintMaterial);
-    hoodMesh.position.set(0, 0.8, 13);
-    hoodMesh.rotation.x = 0.12;
-    this.carGroup.add(hoodMesh);
-
-    const splitterGeo = new THREE.BoxGeometry(16, 0.6, 5);
-    const splitter = new THREE.Mesh(splitterGeo, carbonMat);
-    splitter.position.set(0, -1.6, 17);
-    this.carGroup.add(splitter);
-
-    // D. Front LED Matrix Headlights
-    [-5.2, 5.2].forEach(x => {
-      const lightGeo = new THREE.BoxGeometry(3.2, 0.6, 1.2);
-      const lightMesh = new THREE.Mesh(lightGeo, ledGlowMat);
-      lightMesh.position.set(x, 1.2, 17.1);
-      this.carGroup.add(lightMesh);
-      this.headlightMeshes.push(lightMesh);
-    });
-
-    // E. Carbon Side Skirts & Mirrors
-    [-7.8, 7.8].forEach(x => {
-      const skirtGeo = new THREE.BoxGeometry(0.8, 1.6, 22);
-      const skirt = new THREE.Mesh(skirtGeo, carbonMat);
-      skirt.position.set(x, -1.0, 0);
-      this.carGroup.add(skirt);
-
-      const mirrorGeo = new THREE.BoxGeometry(2.2, 0.8, 1.2);
-      const mirror = new THREE.Mesh(mirrorGeo, carbonMat);
-      mirror.position.set(x > 0 ? 8.2 : -8.2, 3.6, 4.5);
-      this.carGroup.add(mirror);
-    });
-
-    // F. Active Rear Swan-Neck Spoiler
-    this.rearWingGroup = new THREE.Group();
-    const wingBladeGeo = new THREE.BoxGeometry(17, 0.6, 4.5);
-    const wingBlade = new THREE.Mesh(wingBladeGeo, carbonMat);
-    this.rearWingGroup.add(wingBlade);
-
-    [-5.5, 5.5].forEach(x => {
-      const strutGeo = new THREE.BoxGeometry(0.6, 3.8, 1.6);
-      const strut = new THREE.Mesh(strutGeo, carbonMat);
-      strut.position.set(x, -1.8, 0);
-      this.rearWingGroup.add(strut);
-    });
-
-    this.rearWingGroup.position.set(0, 4.2, -16.5);
-    this.carGroup.add(this.rearWingGroup);
-
-    // G. Rear LED Lightbar & Diffuser
-    const rearLightGeo = new THREE.BoxGeometry(14, 0.6, 0.8);
-    const rearLight = new THREE.Mesh(rearLightGeo, redLedMat);
-    rearLight.position.set(0, 1.5, -17.1);
-    this.carGroup.add(rearLight);
-
-    const diffuserGeo = new THREE.BoxGeometry(15, 1.4, 4.5);
-    const diffuser = new THREE.Mesh(diffuserGeo, carbonMat);
-    diffuser.position.set(0, -1.4, -16.8);
-    this.carGroup.add(diffuser);
-
-    // Dual Exhaust Tips
-    [-2.8, 2.8].forEach(x => {
-      const exhaustGeo = new THREE.CylinderGeometry(0.8, 0.8, 1.8, 16);
-      const exhaust = new THREE.Mesh(exhaustGeo, alloyChromeMat);
-      exhaust.rotation.x = Math.PI / 2;
-      exhaust.position.set(x, -0.6, -17.6);
-      this.carGroup.add(exhaust);
-    });
-
-    // H. 4 Sport Alloy Wheels with Gold Brake Calipers
-    const wheelPositions = [
-      { x: -7.8, z: 10.5 },
-      { x: 7.8, z: 10.5 },
-      { x: -7.8, z: -10.5 },
-      { x: 7.8, z: -10.5 }
+    // D. Vertical Studio Neon Light Pillars (Background Depth)
+    const pillarPositions = [
+      { x: -35, z: -35, color: 0x38bdf8 },
+      { x: 35, z: -35, color: 0xf59e0b },
+      { x: -42, z: 20, color: 0x38bdf8 },
+      { x: 42, z: 20, color: 0xf59e0b }
     ];
 
-    wheelPositions.forEach(pos => {
-      const wheelGroup = new THREE.Group();
+    pillarPositions.forEach(p => {
+      const pillarGeo = new THREE.CylinderGeometry(0.25, 0.25, 32, 12);
+      const pillarMat = new THREE.MeshBasicMaterial({ color: p.color });
+      const pillar = new THREE.Mesh(pillarGeo, pillarMat);
+      pillar.position.set(p.x, 14, p.z);
+      this.scene.add(pillar);
 
-      // Tire
-      const tireGeo = new THREE.CylinderGeometry(3.8, 3.8, 2.2, 24);
-      const tireMat = new THREE.MeshStandardMaterial({ color: 0x111317, roughness: 0.85 });
-      const tire = new THREE.Mesh(tireGeo, tireMat);
-      tire.rotation.z = Math.PI / 2;
-      wheelGroup.add(tire);
-
-      // Alloy Rim
-      const rimGeo = new THREE.CylinderGeometry(2.6, 2.6, 2.3, 12);
-      const rim = new THREE.Mesh(rimGeo, alloyChromeMat);
-      rim.rotation.z = Math.PI / 2;
-      wheelGroup.add(rim);
-
-      // Gold Caliper
-      const caliperGeo = new THREE.BoxGeometry(1.0, 2.0, 1.5);
-      const caliperMat = new THREE.MeshBasicMaterial({ color: 0xf59e0b });
-      const caliper = new THREE.Mesh(caliperGeo, caliperMat);
-      caliper.position.set(pos.x > 0 ? -0.7 : 0.7, 1.5, 0);
-      wheelGroup.add(caliper);
-
-      wheelGroup.position.set(pos.x, -2.0, pos.z);
-      this.carGroup.add(wheelGroup);
-      this.wheelAssemblies.push(wheelGroup);
+      const pLight = new THREE.PointLight(p.color, 1.5, 40);
+      pLight.position.set(p.x, 14, p.z);
+      this.scene.add(pLight);
     });
   }
 
   /* ==========================================================================
-     INTERACTIONS & TOUCH HANDLERS (Passive, 60 FPS Smooth)
+     LOAD REAL FERRARI 3D GLB MODEL
+     ========================================================================== */
+  loadRealFerrariModel() {
+    const hint = document.querySelector('.viewer-hint');
+    if (hint) hint.textContent = '⟳ LOADING 3D HYPERCAR...';
+
+    // Verify GLTFLoader
+    if (typeof THREE.GLTFLoader === 'undefined') {
+      console.error('GLTFLoader not available');
+      if (hint) hint.textContent = 'DRAG 360° TO ROTATE • PINCH TO ZOOM';
+      return;
+    }
+
+    const loader = new THREE.GLTFLoader();
+    loader.load(
+      'models/ferrari.glb',
+      (gltf) => {
+        const car = gltf.scene;
+        car.scale.setScalar(3.6);
+        car.position.set(0, 0.35, 0);
+
+        this.bodyMaterials = [];
+        this.wheelMeshes = [];
+
+        // Upgrade All Meshes with Photorealistic PBR Properties
+        car.traverse(child => {
+          if (!child.isMesh) return;
+
+          child.castShadow = true;
+          child.receiveShadow = true;
+
+          const mat = child.material;
+          if (!mat) return;
+
+          mat.envMapIntensity = 2.5;
+
+          const name = (child.name || '').toLowerCase();
+
+          // Identify Body Paint vs Glass vs Wheels
+          if (!name.includes('glass') && !name.includes('window') && !name.includes('windshield')) {
+            mat.clearcoat = 1.0;
+            mat.clearcoatRoughness = 0.05;
+            mat.metalness = 0.88;
+            mat.roughness = 0.12;
+            this.bodyMaterials.push(mat);
+          } else {
+            mat.transparent = true;
+            mat.opacity = 0.85;
+            mat.roughness = 0.05;
+          }
+
+          if (name.includes('wheel') || name.includes('rim') || name.includes('tire') || name.includes('tyre')) {
+            this.wheelMeshes.push(child);
+          }
+        });
+
+        this.scene.add(car);
+        this.carRoot = car;
+
+        // Apply Default Signature Carmine Red
+        this.setPaintColor('#c41e3a');
+
+        if (hint) hint.textContent = 'DRAG 360° TO ROTATE • PINCH TO ZOOM';
+      },
+      (xhr) => {
+        const pct = xhr.total > 0 ? Math.round((xhr.loaded / xhr.total) * 100) : '';
+        if (hint) hint.textContent = `⟳ LOADING 3D HYPERCAR... ${pct}%`;
+      },
+      (error) => {
+        console.error('Error loading 3D Ferrari model:', error);
+        if (hint) hint.textContent = 'DRAG 360° TO ROTATE • PINCH TO ZOOM';
+      }
+    );
+  }
+
+  /* ==========================================================================
+     PAINT COLOR CHANGER
+     ========================================================================== */
+  setPaintColor(hexColor) {
+    this.bodyMaterials.forEach(mat => {
+      mat.color.setStyle(hexColor);
+      mat.needsUpdate = true;
+    });
+  }
+
+  /* ==========================================================================
+     INTERACTIONS (Mouse & 1-Finger Touch Orbit with Inertia)
      ========================================================================== */
   setupInteractions(canvas) {
     let isDragging = false;
     let prevX = 0;
     let prevY = 0;
 
-    const startDrag = (x, y) => {
+    const onStart = (x, y) => {
       isDragging = true;
       this.isAutoRotating = false;
       prevX = x;
       prevY = y;
     };
 
-    const moveDrag = (x, y) => {
+    const onMove = (x, y) => {
       if (!isDragging) return;
       const dx = x - prevX;
       const dy = y - prevY;
 
-      this.targetRotationY += dx * 0.008;
-      this.targetRotationX += dy * 0.005;
-      this.targetRotationX = Math.max(0.1, Math.min(1.2, this.targetRotationX));
+      this.targetTheta -= dx * 0.01;
+      this.targetPhi = Math.max(0.08, Math.min(1.48, this.targetPhi + dy * 0.01));
 
       prevX = x;
       prevY = y;
     };
 
-    const endDrag = () => {
+    const onEnd = () => {
       isDragging = false;
     };
 
     // Mouse Events
-    canvas.addEventListener('mousedown', e => startDrag(e.clientX, e.clientY));
-    window.addEventListener('mousemove', e => moveDrag(e.clientX, e.clientY));
-    window.addEventListener('mouseup', endDrag);
+    canvas.addEventListener('mousedown', e => onStart(e.clientX, e.clientY));
+    window.addEventListener('mousemove', e => onMove(e.clientX, e.clientY));
+    window.addEventListener('mouseup', onEnd);
 
-    // Touch Events (Mobile passive)
+    // Mobile Touch Events (1-Finger Orbit)
     canvas.addEventListener('touchstart', e => {
       if (e.touches.length === 1) {
-        startDrag(e.touches[0].clientX, e.touches[0].clientY);
+        onStart(e.touches[0].clientX, e.touches[0].clientY);
       }
     }, { passive: true });
 
     canvas.addEventListener('touchmove', e => {
       if (e.touches.length === 1) {
-        moveDrag(e.touches[0].clientX, e.touches[0].clientY);
+        onMove(e.touches[0].clientX, e.touches[0].clientY);
       }
     }, { passive: true });
 
-    canvas.addEventListener('touchend', endDrag);
+    canvas.addEventListener('touchend', onEnd);
 
-    // Wheel Zoom
+    // Pinch Zoom (2-Finger)
+    let lastPinchDist = 0;
+    canvas.addEventListener('touchstart', e => {
+      if (e.touches.length === 2) {
+        lastPinchDist = Math.hypot(
+          e.touches[0].clientX - e.touches[1].clientX,
+          e.touches[0].clientY - e.touches[1].clientY
+        );
+      }
+    }, { passive: true });
+
+    canvas.addEventListener('touchmove', e => {
+      if (e.touches.length === 2) {
+        const dist = Math.hypot(
+          e.touches[0].clientX - e.touches[1].clientX,
+          e.touches[0].clientY - e.touches[1].clientY
+        );
+        this.targetRadius = Math.max(22, Math.min(90, this.targetRadius - (dist - lastPinchDist) * 0.1));
+        lastPinchDist = dist;
+      }
+    }, { passive: true });
+
+    // Mouse Wheel Zoom
     canvas.addEventListener('wheel', e => {
       e.preventDefault();
-      this.cameraDistance += e.deltaY * 0.04;
-      this.cameraDistance = Math.max(26, Math.min(80, this.cameraDistance));
+      this.targetRadius = Math.max(22, Math.min(90, this.targetRadius + e.deltaY * 0.05));
     }, { passive: false });
   }
 
   /* ==========================================================================
-     UI BINDINGS & ACTIONS
+     UI BINDINGS & SOUNDS
      ========================================================================== */
   bindUI() {
-    // Swatch selection
+    // Paint Swatches
     const swatches = document.querySelectorAll('.swatch-btn');
     swatches.forEach(btn => {
       btn.addEventListener('click', () => {
         swatches.forEach(s => s.classList.remove('active'));
         btn.classList.add('active');
         const color = btn.getAttribute('data-color');
-        if (this.carPaintMaterial) {
-          this.carPaintMaterial.color.setStyle(color);
-        }
+        this.setPaintColor(color);
         if (window.carAudio) window.carAudio.playClick();
       });
     });
 
-    // Rev engine
+    // Rev V8 Engine
     const btnRev = document.getElementById('btn-rev');
     if (btnRev) {
       btnRev.addEventListener('click', () => {
         if (window.carAudio) window.carAudio.playEngineRev();
+        this.spawnExhaustFlames();
         this.shakeSuspension();
       });
     }
 
-    // Headlights toggle
-    const btnLights = document.getElementById('btn-lights');
-    if (btnLights) {
-      btnLights.addEventListener('click', () => {
-        this.areLightsOn = !this.areLightsOn;
-        this.headlightMeshes.forEach(m => { m.visible = this.areLightsOn; });
-        btnLights.classList.toggle('active', this.areLightsOn);
-        if (window.carAudio) window.carAudio.playLightsToggle();
-      });
-    }
-
-    // Active wing toggle
-    const btnWing = document.getElementById('btn-wing');
-    if (btnWing) {
-      btnWing.addEventListener('click', () => {
-        this.isWingRaised = !this.isWingRaised;
-        if (this.rearWingGroup) {
-          this.rearWingGroup.position.y = this.isWingRaised ? 6.5 : 4.2;
-          this.rearWingGroup.rotation.x = this.isWingRaised ? -0.15 : 0;
-        }
-        btnWing.classList.toggle('active', this.isWingRaised);
-        if (window.carAudio) window.carAudio.playAeroServo();
-      });
-    }
-
-    // Spin wheels
-    const btnWheels = document.getElementById('btn-wheels');
-    if (btnWheels) {
-      btnWheels.addEventListener('click', () => {
-        this.isWheelsSpinning = !this.isWheelsSpinning;
-        btnWheels.classList.toggle('active', this.isWheelsSpinning);
+    // Toggle Turntable Auto-Rotate
+    const btnTurntable = document.getElementById('btn-turntable');
+    if (btnTurntable) {
+      btnTurntable.addEventListener('click', () => {
+        this.isAutoRotating = !this.isAutoRotating;
+        btnTurntable.classList.toggle('active', this.isAutoRotating);
         if (window.carAudio) window.carAudio.playClick();
       });
     }
 
-    // Camera view presets
+    // Camera Angle Presets
     const btnPresets = document.querySelectorAll('.btn-preset');
     btnPresets.forEach(btn => {
       btn.addEventListener('click', () => {
         const view = btn.getAttribute('data-view');
         this.isAutoRotating = false;
         if (view === 'front') {
-          this.targetRotationY = Math.PI / 4;
-          this.targetRotationX = 0.2;
+          this.targetTheta = -0.38;
+          this.targetPhi = 0.25;
+          this.targetRadius = 50;
         } else if (view === 'side') {
-          this.targetRotationY = Math.PI / 2;
-          this.targetRotationX = 0.2;
+          this.targetTheta = Math.PI / 2;
+          this.targetPhi = 0.25;
+          this.targetRadius = 48;
         } else if (view === 'rear') {
-          this.targetRotationY = Math.PI;
-          this.targetRotationX = 0.2;
+          this.targetTheta = Math.PI + 0.38;
+          this.targetPhi = 0.25;
+          this.targetRadius = 50;
         } else if (view === 'reset') {
-          this.targetRotationY = 0.5;
-          this.targetRotationX = 0.2;
-          this.cameraDistance = 46;
+          this.targetTheta = 0.65;
+          this.targetPhi = 0.28;
+          this.targetRadius = 52;
           this.isAutoRotating = true;
         }
         if (window.carAudio) window.carAudio.playClick();
@@ -455,21 +499,46 @@ class LightweightCarStudio {
     });
   }
 
-  shakeSuspension() {
-    let count = 0;
-    const startY = this.carGroup.position.y;
-    const shakeInterval = setInterval(() => {
-      count++;
-      this.carGroup.position.y = startY + (Math.random() - 0.5) * 0.35;
-      if (count > 20) {
-        clearInterval(shakeInterval);
-        this.carGroup.position.y = startY;
+  // Exhaust Blue Flame Animation
+  spawnExhaustFlames() {
+    if (!this.carRoot) return;
+    const cx = this.carRoot.position.x;
+    const cy = this.carRoot.position.y;
+    const cz = this.carRoot.position.z;
+
+    [-3.2, -1.2, 1.2, 3.2].forEach(ox => {
+      for (let i = 0; i < 5; i++) {
+        const flameGeo = new THREE.SphereGeometry(0.5 + Math.random() * 0.5, 8, 8);
+        const flameMat = new THREE.MeshBasicMaterial({
+          color: Math.random() > 0.4 ? 0x38bdf8 : 0xf59e0b,
+          transparent: true,
+          opacity: 0.95,
+          blending: THREE.AdditiveBlending
+        });
+        const flame = new THREE.Mesh(flameGeo, flameMat);
+        flame.position.set(cx + ox, cy + 0.6, cz - 11 - i * 2.2);
+        this.scene.add(flame);
+        this.exhaustFlames.push(flame);
       }
-    }, 35);
+    });
+  }
+
+  shakeSuspension() {
+    if (!this.carRoot) return;
+    const startY = this.carRoot.position.y;
+    let count = 0;
+    const interval = setInterval(() => {
+      count++;
+      this.carRoot.position.y = startY + (Math.random() - 0.5) * 0.35;
+      if (count > 22) {
+        clearInterval(interval);
+        this.carRoot.position.y = startY;
+      }
+    }, 32);
   }
 }
 
 // Instantiate on DOM ready
 document.addEventListener('DOMContentLoaded', () => {
-  window.lightweightCarStudio = new LightweightCarStudio();
+  window.cinematicCarStudio = new CinematicCarStudio();
 });
