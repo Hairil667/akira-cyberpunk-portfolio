@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>APEX MOTORS // Luxury 3D Hypercar Studio & Configurator</title>
-  <meta name="description" content="Experience the Apex GT-One in real-time WebGL 3D. Interactive hypercar studio, bespoke paint configurator, active aero telemetry, and 1,600 HP hybrid performance.">
+  <title>APEX MOTORS // Luxury 3D Hypercar Studio & Night Highway Configurator</title>
+  <meta name="description" content="Experience the Apex GT-One Hypercar in real-time WebGL 3D. 360° studio orbit, scissor doors, active aero spoiler, exhaust flame backfire, and bespoke paint customizer.">
   <meta name="keywords" content="Apex Motors, Hypercar, 3D Car, Three.js, WebGL Car, Automotive Studio, Supercar Configurator">
   <meta name="author" content="Apex Motors">
   <meta property="og:title" content="APEX MOTORS // 3D Hypercar Studio">
-  <meta property="og:description" content="Configure the Apex GT-One in real-time WebGL 3D. 360° rotation, active aero, and bespoke paint options.">
+  <meta property="og:description" content="Configure the Apex GT-One in real-time WebGL 3D. 360° rotation, active aero, scissor doors, and night highway simulator.">
   <meta property="og:type" content="website">
 
   <!-- Main Stylesheets -->
@@ -17,7 +17,7 @@
 </head>
 <body>
 
-  <!-- 3D Global Particles Background Canvas & Studio Lighting Overlay -->
+  <!-- 3D Global Night Highway Background Canvas -->
   <canvas id="car-canvas-bg"></canvas>
   <div class="studio-overlay"></div>
 
@@ -93,13 +93,13 @@
           APEX <span style="color: var(--accent-gold-bright);">GT-ONE</span>
         </h1>
         <p class="hero-car-subtitle">
-          Pure kinetic sculpture. Sculpted carbon monocoque, active aerodynamic wings, and zero-compromise racing DNA.
+          Sculpted aerodynamic carbon monocoque, active scissor doors, laser LED matrix, and bespoke 3D WebGL configurator.
         </p>
       </div>
 
       <!-- 3D Viewport Box -->
       <div class="car-3d-stage-box">
-        <div class="car-3d-hint">DRAG TO ORBIT 360° • PINCH TO ZOOM</div>
+        <div class="car-3d-hint">DRAG 360° TO ROTATE • PINCH TO ZOOM</div>
         <canvas id="car-3d-canvas"></canvas>
       </div>
 
@@ -122,17 +122,20 @@
         <div>
           <div class="dock-section-title">INTERACTIVE TELEMETRY</div>
           <div class="dock-actions-group">
+            <button id="btn-drive-mode" class="btn-dock-action btn-drive-mode">
+              <span>🚀</span> ACCELERATE
+            </button>
             <button id="btn-rev-engine" class="btn-dock-action">
-              <span>🔊</span> REV ENGINE
+              <span>🔊</span> REV V8
+            </button>
+            <button id="btn-toggle-doors" class="btn-dock-action">
+              <span>🚪</span> SCISSOR DOORS
             </button>
             <button id="btn-toggle-lights" class="btn-dock-action active">
               <span>💡</span> HEADLIGHTS
             </button>
             <button id="btn-toggle-wing" class="btn-dock-action">
-              <span>🚀</span> ACTIVE WING
-            </button>
-            <button id="btn-spin-wheels" class="btn-dock-action">
-              <span>🏎️</span> SPIN WHEELS
+              <span>🪽</span> ACTIVE WING
             </button>
           </div>
         </div>
