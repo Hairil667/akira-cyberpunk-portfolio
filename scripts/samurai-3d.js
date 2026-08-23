@@ -102,7 +102,7 @@ class Samurai3DSystem {
     }
     scene.add(sakuraGroup);
 
-    // B. Floating Glowing Lanterns / Spirit Wisps
+    // B. Floating Glowing Lanterns
     const lanterns = [];
     const lanternGeo = new THREE.CylinderGeometry(4, 5, 10, 8);
     const lanternMat = new THREE.MeshStandardMaterial({
@@ -140,13 +140,12 @@ class Samurai3DSystem {
       toriiGroup.add(col);
     });
 
-    // Top Beam (Kasagi)
+    // Beams
     const beam1Geo = new THREE.BoxGeometry(200, 10, 8);
     const beam1 = new THREE.Mesh(beam1Geo, toriiMat);
     beam1.position.set(0, 85, 0);
     toriiGroup.add(beam1);
 
-    // Secondary Beam (Nuki)
     const beam2Geo = new THREE.BoxGeometry(160, 6, 6);
     const beam2 = new THREE.Mesh(beam2Geo, toriiMat);
     beam2.position.set(0, 60, 0);
@@ -187,14 +186,13 @@ class Samurai3DSystem {
         p.mesh.rotation.x += p.rotSpeedX;
         p.mesh.rotation.y += p.rotSpeedY;
 
-        // Reset if petal falls off bottom
         if (p.mesh.position.y < -450) {
           p.mesh.position.y = 450;
           p.mesh.position.x = (Math.random() - 0.5) * 1200;
         }
       });
 
-      // Animate Lanterns floating gently
+      // Animate Lanterns
       lanterns.forEach(l => {
         l.mesh.position.y = l.baseY + Math.sin(time + l.offset) * 12;
         l.mesh.rotation.y += 0.005;
@@ -241,7 +239,7 @@ class Samurai3DSystem {
     camera.position.set(0, 0, 95);
 
     // Cinematic Lighting
-    const ambient = new THREE.AmbientLight(0x331122, 1.2);
+    const ambient = new THREE.AmbientLight(0x331122, 1.4);
     scene.add(ambient);
 
     const redLight = new THREE.PointLight(0xe63946, 2.5, 150);
@@ -295,7 +293,7 @@ class Samurai3DSystem {
     tehenMesh.rotation.x = Math.PI / 2;
     kabutoGroup.add(tehenMesh);
 
-    // 2. Golden Crescent Moon Horn (Maedate / Kuwagata)
+    // 2. Golden Crescent Moon Horn (Maedate)
     const hornCurve = new THREE.QuadraticBezierCurve3(
       new THREE.Vector3(-22, 18, 16),
       new THREE.Vector3(0, 36, 18),
@@ -305,14 +303,14 @@ class Samurai3DSystem {
     const hornMesh = new THREE.Mesh(hornGeo, goldSamuraiMat);
     kabutoGroup.add(hornMesh);
 
-    // Central Sun Crest Disc
+    // Central Sun Crest
     const crestGeo = new THREE.CylinderGeometry(4.5, 4.5, 1, 32);
     const crestMesh = new THREE.Mesh(crestGeo, goldSamuraiMat);
     crestMesh.position.set(0, 24, 17.5);
     crestMesh.rotation.x = Math.PI / 2;
     kabutoGroup.add(crestMesh);
 
-    // 3. Shikoro Neck Guard (Layered Curved Plates)
+    // 3. Shikoro Neck Guard
     [-2, -7, -12].forEach((y, idx) => {
       const plateGeo = new THREE.CylinderGeometry(20 + idx * 2.5, 22 + idx * 2.5, 3.5, 32, 1, true, Math.PI * 0.7, Math.PI * 1.6);
       const plateMesh = new THREE.Mesh(plateGeo, idx % 2 === 0 ? crimsonArmorMat : blackLacquerMat);
@@ -321,7 +319,7 @@ class Samurai3DSystem {
       kabutoGroup.add(plateMesh);
     });
 
-    // 4. Oni Mempo War Mask (Face & Fangs)
+    // 4. Oni Mempo War Mask
     const maskGeo = new THREE.BoxGeometry(16, 13, 10);
     const maskMesh = new THREE.Mesh(maskGeo, crimsonArmorMat);
     maskMesh.position.set(0, -2, 7);
@@ -336,7 +334,7 @@ class Samurai3DSystem {
       kabutoGroup.add(eyeMesh);
     });
 
-    // Oni Fangs / Teeth
+    // Oni Fangs
     [-2.5, 2.5].forEach(x => {
       const fangGeo = new THREE.ConeGeometry(0.9, 3.5, 8);
       const fangMesh = new THREE.Mesh(fangGeo, goldSamuraiMat);
@@ -345,7 +343,7 @@ class Samurai3DSystem {
       kabutoGroup.add(fangMesh);
     });
 
-    // 5. Dual Crossed Katanas behind the Helmet
+    // 5. Dual Crossed Katanas
     [-1, 1].forEach(side => {
       const bladeGeo = new THREE.BoxGeometry(1.4, 75, 0.4);
       const bladeMesh = new THREE.Mesh(bladeGeo, new THREE.MeshStandardMaterial({
@@ -357,7 +355,6 @@ class Samurai3DSystem {
       bladeMesh.rotation.z = side * 0.65;
       kabutoGroup.add(bladeMesh);
 
-      // Gold Tsuba Guard
       const tsubaGeo = new THREE.CylinderGeometry(3.5, 3.5, 0.8, 16);
       const tsubaMesh = new THREE.Mesh(tsubaGeo, goldSamuraiMat);
       tsubaMesh.position.set(side * 18, -20, -8);
@@ -365,7 +362,7 @@ class Samurai3DSystem {
       kabutoGroup.add(tsubaMesh);
     });
 
-    // 6. Floating Sakura Aura around the Mask
+    // 6. Floating Sakura Aura
     const auraCount = 60;
     const auraGeo = new THREE.BufferGeometry();
     const auraPos = new Float32Array(auraCount * 3);
@@ -525,11 +522,38 @@ class Samurai3DSystem {
     let autoRotate = true;
     let isWireframe = false;
 
-    // Build Katana 1: Murasama (妖刀村正)
+    // Blade Data for UI update
+    const bladeData = {
+      murasama: {
+        title: "妖刀村正 // MURASAMA HF-09 [DEMON BLADE]",
+        desc: "Forged in folded crimson tamahagane steel and tempered in high-frequency plasma. It oscillates at 4.8 THz, slicing through reinforced cyber armor like mist.",
+        sharpness: "99%",
+        hardness: "94%",
+        enchant: "96%",
+        speed: "98%"
+      },
+      raikiri: {
+        title: "雷切 // RAIKIRI TITANIUM [LIGHTNING BLADE]",
+        desc: "Tempered during high-voltage thunderstorms. Emits crackling 200,000-volt ionic arcs that electro-cut all digital defenses on contact.",
+        sharpness: "96%",
+        hardness: "98%",
+        enchant: "99%",
+        speed: "95%"
+      },
+      kusanagi: {
+        title: "草薙剣 // KUSANAGI SACRED GOLD [DIVINE BLADE]",
+        desc: "Ancient imperial golden heirloom resonating with pure Shinto spiritual energy. Cleanses corrupted algorithms and radiates divine brilliance.",
+        sharpness: "95%",
+        hardness: "92%",
+        enchant: "100%",
+        speed: "100%"
+      }
+    };
+
+    // Build Katana 1: Murasama
     const buildMurasama = () => {
       const g = new THREE.Group();
 
-      // Blade with curved hamon edge
       const bladeGeo = new THREE.BoxGeometry(1.6, 52, 0.35);
       const bladeMat = new THREE.MeshStandardMaterial({
         color: 0x111118,
@@ -542,27 +566,23 @@ class Samurai3DSystem {
       blade.position.y = 12;
       g.add(blade);
 
-      // Gold Dragon Habaki Collar
       const habakiGeo = new THREE.BoxGeometry(2.4, 3.5, 0.8);
       const habakiMat = new THREE.MeshStandardMaterial({ color: 0xd4af37, metalness: 0.95 });
       const habaki = new THREE.Mesh(habakiGeo, habakiMat);
       habaki.position.y = -14;
       g.add(habaki);
 
-      // Tsuba (Dragon Guard)
       const tsubaGeo = new THREE.CylinderGeometry(4.5, 4.5, 0.9, 8);
       const tsuba = new THREE.Mesh(tsubaGeo, habakiMat);
       tsuba.position.y = -16;
       g.add(tsuba);
 
-      // Tsuka Handle with Crimson Wrap
       const tsukaGeo = new THREE.CylinderGeometry(1.6, 1.6, 18, 16);
       const tsukaMat = new THREE.MeshStandardMaterial({ color: 0x880015, roughness: 0.6 });
       const tsuka = new THREE.Mesh(tsukaGeo, tsukaMat);
       tsuka.position.y = -25.5;
       g.add(tsuka);
 
-      // Kashira Pommel
       const kashiraGeo = new THREE.SphereGeometry(2, 16, 16);
       const kashira = new THREE.Mesh(kashiraGeo, habakiMat);
       kashira.position.y = -35;
@@ -571,11 +591,10 @@ class Samurai3DSystem {
       return g;
     };
 
-    // Build Katana 2: Raikiri Lightning (雷切)
+    // Build Katana 2: Raikiri
     const buildRaikiri = () => {
       const g = new THREE.Group();
 
-      // Cyan Titanium Blade
       const bladeGeo = new THREE.BoxGeometry(1.5, 54, 0.3);
       const bladeMat = new THREE.MeshStandardMaterial({
         color: 0x00f0ff,
@@ -588,7 +607,6 @@ class Samurai3DSystem {
       blade.position.y = 12;
       g.add(blade);
 
-      // Lightning Coils
       for (let i = -8; i <= 28; i += 12) {
         const ringGeo = new THREE.TorusGeometry(2.2, 0.4, 8, 24);
         const ringMat = new THREE.MeshBasicMaterial({ color: 0x00f0ff });
@@ -598,7 +616,6 @@ class Samurai3DSystem {
         g.add(ring);
       }
 
-      // Tsuba & Tsuka
       const tsubaGeo = new THREE.CylinderGeometry(4.5, 4.5, 0.8, 16);
       const tsubaMat = new THREE.MeshStandardMaterial({ color: 0x334155, metalness: 0.9 });
       const tsuba = new THREE.Mesh(tsubaGeo, tsubaMat);
@@ -614,7 +631,7 @@ class Samurai3DSystem {
       return g;
     };
 
-    // Build Katana 3: Kusanagi Sacred (草薙の剣)
+    // Build Katana 3: Kusanagi
     const buildKusanagi = () => {
       const g = new THREE.Group();
 
@@ -652,6 +669,32 @@ class Samurai3DSystem {
       if (type === 'murasama') swordHolder.add(buildMurasama());
       else if (type === 'raikiri') swordHolder.add(buildRaikiri());
       else if (type === 'kusanagi') swordHolder.add(buildKusanagi());
+
+      // Update UI Text & Meters
+      const info = bladeData[type];
+      if (info) {
+        const titleEl = document.getElementById('blade-title-display');
+        const descEl = document.getElementById('blade-desc-display');
+        const barSharpness = document.getElementById('blade-bar-sharpness');
+        const valSharpness = document.getElementById('blade-val-sharpness');
+        const barHardness = document.getElementById('blade-bar-hardness');
+        const valHardness = document.getElementById('blade-val-hardness');
+        const barEnchant = document.getElementById('blade-bar-enchant');
+        const valEnchant = document.getElementById('blade-val-enchant');
+        const barSpeed = document.getElementById('blade-bar-speed');
+        const valSpeed = document.getElementById('blade-val-speed');
+
+        if (titleEl) titleEl.textContent = info.title;
+        if (descEl) descEl.textContent = info.desc;
+        if (barSharpness) barSharpness.style.width = info.sharpness;
+        if (valSharpness) valSharpness.textContent = info.sharpness;
+        if (barHardness) barHardness.style.width = info.hardness;
+        if (valHardness) valHardness.textContent = info.hardness;
+        if (barEnchant) barEnchant.style.width = info.enchant;
+        if (valEnchant) valEnchant.textContent = info.enchant;
+        if (barSpeed) barSpeed.style.width = info.speed;
+        if (valSpeed) valSpeed.textContent = info.speed;
+      }
 
       setWireframe(isWireframe);
     };
@@ -691,7 +734,6 @@ class Samurai3DSystem {
           autoRotate = !autoRotate;
           btn.classList.toggle('active', autoRotate);
         } else if (action === 'slash') {
-          // Sword slash animation swing
           let swing = 0;
           const startRot = swordHolder.rotation.z;
           const swingInterval = setInterval(() => {
@@ -801,17 +843,12 @@ class Samurai3DSystem {
 
     const points = [];
     const sparks = [];
-    let isMouseDown = false;
     let lastSlashTime = 0;
-
-    window.addEventListener('mousedown', () => { isMouseDown = true; });
-    window.addEventListener('mouseup', () => { isMouseDown = false; });
 
     window.addEventListener('mousemove', (e) => {
       const pt = { x: e.clientX, y: e.clientY, age: 0, life: 18 };
       points.push(pt);
 
-      // Trigger slash sound on fast sweep
       if (points.length > 2) {
         const p1 = points[points.length - 1];
         const p2 = points[points.length - 2];
@@ -821,7 +858,6 @@ class Samurai3DSystem {
           lastSlashTime = now;
           if (window.samuraiAudio) window.samuraiAudio.playKatanaSlash();
 
-          // Spawn blade sparks
           for (let i = 0; i < 8; i++) {
             sparks.push({
               x: p1.x,
@@ -830,14 +866,13 @@ class Samurai3DSystem {
               vy: (Math.random() - 0.5) * 6,
               life: Math.random() * 20 + 10,
               maxLife: 30,
-              color: Math.random() > 0.5 ? '#ffb7c5' : '#ffd000'
+              color: Math.random() > 0.5 ? '#ffb7c5' : '#e5c07b'
             });
           }
         }
       }
     });
 
-    // Touch support for slash
     window.addEventListener('touchmove', (e) => {
       if (e.touches.length > 0) {
         points.push({
@@ -853,7 +888,6 @@ class Samurai3DSystem {
       requestAnimationFrame(renderSlash);
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Render Blade Arc Trail
       if (points.length > 1) {
         ctx.beginPath();
         ctx.moveTo(points[0].x, points[0].y);
@@ -864,19 +898,18 @@ class Samurai3DSystem {
           ctx.quadraticCurveTo(points[i - 1].x, points[i - 1].y, xc, yc);
         }
 
-        ctx.strokeStyle = 'rgba(255, 183, 197, 0.7)';
-        ctx.lineWidth = 4;
+        ctx.strokeStyle = 'rgba(255, 183, 197, 0.65)';
+        ctx.lineWidth = 3.5;
         ctx.lineCap = 'round';
         ctx.shadowColor = '#e63946';
-        ctx.shadowBlur = 12;
+        ctx.shadowBlur = 10;
         ctx.stroke();
 
         ctx.strokeStyle = 'rgba(255, 255, 255, 0.9)';
-        ctx.lineWidth = 1.5;
+        ctx.lineWidth = 1.2;
         ctx.stroke();
       }
 
-      // Update Points
       for (let i = points.length - 1; i >= 0; i--) {
         points[i].age++;
         if (points[i].age > points[i].life) {
@@ -884,7 +917,6 @@ class Samurai3DSystem {
         }
       }
 
-      // Render Sparks
       for (let i = sparks.length - 1; i >= 0; i--) {
         const s = sparks[i];
         s.x += s.vx;

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RONIN // 浪人 // 3D Samurai Master Portfolio & WebGL Forge</title>
+  <title>RONIN // 浪人 // 3D Samurai Master Portfolio & WebGL Dojo</title>
   <meta name="description" content="Official 3D Samurai portfolio of Akira: Code Ronin, WebGL Artisan & Full-Stack Architect. Featuring real-time 3D Samurai Kabuto, 3D Katana Forge, falling sakura storm, and the 7 Virtues of Bushido.">
   <meta name="keywords" content="Samurai, 3D Web, Three.js, Katana, Bushido, Japanese Aesthetic, WebGL, Frontend Developer, Akira">
   <meta name="author" content="Akira">
@@ -15,73 +15,42 @@
   <link rel="stylesheet" href="styles/main.css">
   <link rel="stylesheet" href="styles/samurai-3d.css">
 </head>
-<body class="intro-active">
+<body>
 
-  <!-- 3D Global Sakura Storm Background Canvas & Scanlines -->
+  <!-- 3D Global Sakura Storm Background Canvas & Slash Canvas -->
   <canvas id="samurai-3d-bg"></canvas>
   <canvas id="slash-canvas"></canvas>
   <div class="scanlines-overlay"></div>
 
   <!-- ==========================================================================
-       CINEMATIC SAMURAI INTRO BOOT SCREEN
-       ========================================================================== -->
-  <div id="cyber-intro">
-    <div class="intro-modal-card" style="border-color: var(--crimson-primary); box-shadow: 0 0 40px rgba(230, 57, 70, 0.3);">
-      <div class="intro-logo-badge" style="color: var(--crimson-bright); border-color: var(--crimson-primary); text-shadow: 0 0 15px var(--crimson-glow);">
-        浪人 // RONIN 3D
-      </div>
-      <div class="intro-sub" style="color: var(--gold-samurai);">// BUSHIDO PROTOCOL v9.4 // 侍の道 //</div>
-      
-      <div class="intro-progress-wrapper">
-        <div class="intro-progress-bar-bg" style="border-color: rgba(230, 57, 70, 0.3);">
-          <div id="intro-progress-bar" class="intro-progress-bar-fill" style="background: linear-gradient(90deg, #e63946, #d4af37);"></div>
-        </div>
-        <div style="display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 0.8rem; color: var(--gold-bright); margin-top: 6px;">
-          <span>KATANA FORGE SYNC</span>
-          <span id="intro-progress-text">0%</span>
-        </div>
-      </div>
-
-      <div id="intro-console-logs" class="intro-logs-terminal" style="border-color: rgba(230, 57, 70, 0.3); color: #ffb7c5;"></div>
-
-      <div class="intro-actions">
-        <button id="intro-enter-btn" class="btn-intro-enter hidden" style="background: var(--crimson-primary); border-color: var(--crimson-bright); color: #fff; box-shadow: 0 0 20px var(--crimson-glow);">
-          DRAW THE BLADE (ENTER 3D)
-        </button>
-        <button id="intro-skip-btn" class="btn-intro-skip">BYPASS INTRO</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ==========================================================================
        TOP NAVIGATION & HAMBURGER MENU
        ========================================================================== -->
-  <header class="cyber-header" style="border-bottom: 1px solid rgba(230, 57, 70, 0.3);">
+  <header class="cyber-header">
     <div class="nav-container">
       <a href="#hero" class="brand-logo">
-        <div class="brand-crest" style="border-color: var(--crimson-primary);">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#e63946" stroke-width="2">
-            <circle cx="12" cy="12" r="9" stroke="#d4af37"/>
+        <div class="brand-crest">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c5a059" stroke-width="2">
+            <circle cx="12" cy="12" r="9"/>
             <path d="M12 3v18M3 12h18"/>
             <circle cx="12" cy="12" r="3" fill="#e63946"/>
           </svg>
         </div>
-        <div class="brand-text" style="font-family: var(--font-title);">RO<span>NIN // 侍</span></div>
+        <div class="brand-text">RO<span>NIN // 侍</span></div>
       </a>
 
       <!-- Desktop Nav -->
       <ul class="nav-desktop-links">
         <li><a href="#hero" class="nav-item-link active"><span class="kanji-badge">道</span>DOJO</a></li>
         <li><a href="#blade-forge" class="nav-item-link"><span class="kanji-badge">鍛</span>KATANA FORGE</a></li>
-        <li><a href="#bushido" class="nav-item-link"><span class="kanji-badge">誉</span>BUSHIDO</a></li>
+        <li><a href="#bushido" class="nav-item-link"><span class="kanji-gold-badge">誉</span>BUSHIDO</a></li>
         <li><a href="#battles" class="nav-item-link"><span class="kanji-badge">戦</span>BATTLES</a></li>
         <li><a href="#tactical-map" class="nav-item-link"><span class="kanji-badge">図</span>CLAN MAP</a></li>
-        <li><a href="#terminal" class="nav-item-link"><span class="kanji-badge">令</span>DISPATCH</a></li>
+        <li><a href="#terminal" class="nav-item-link"><span class="kanji-gold-badge">令</span>DISPATCH</a></li>
       </ul>
 
       <!-- Controls & Hamburger Toggle -->
       <div class="nav-right-controls">
-        <button id="sound-toggle-btn" class="btn-audio-ctrl" title="Toggle Sound SFX" style="border-color: var(--crimson-primary); color: var(--crimson-bright);">
+        <button id="sound-toggle-btn" class="btn-audio-ctrl" title="Toggle Sound SFX">
           <span id="sound-toggle-text">SFX: ON</span>
         </button>
 
@@ -96,11 +65,13 @@
 
   <!-- Fullscreen Drawer Navigation -->
   <div id="nav-backdrop-overlay" class="nav-backdrop"></div>
-  <aside id="cyber-nav-drawer" class="cyber-drawer" style="border-left: 2px solid var(--crimson-primary);">
-    <div class="drawer-header" style="border-bottom: 1px solid rgba(230, 57, 70, 0.3);">
-      <div class="drawer-title" style="font-family: var(--font-title); color: var(--crimson-bright);">RONIN // 侍 HUD NAV</div>
-      <div class="drawer-hud-diag" style="color: var(--gold-samurai);">CLAN: SECTOR 07 | COHERENCE: 100%</div>
-      <div id="hud-live-clock" style="font-family: var(--font-mono); font-size: 0.75rem; color: #ffb7c5; margin-top: 4px;"></div>
+  <aside id="cyber-nav-drawer" class="cyber-drawer">
+    <div class="drawer-header">
+      <div class="drawer-title">RONIN // 侍 3D</div>
+      <div style="font-family: var(--font-sub); font-size: 0.95rem; color: var(--sakura-pink); margin-top: 4px;">
+        Sanctuary of the Code Master
+      </div>
+      <div id="hud-live-clock" style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--gold-bright); margin-top: 6px;"></div>
     </div>
 
     <ul class="drawer-nav-list">
@@ -112,9 +83,9 @@
       <li><a href="#terminal" class="drawer-nav-link"><span>06</span> RAVEN DISPATCH (伝令)</a></li>
     </ul>
 
-    <div class="drawer-footer" style="border-top: 1px solid rgba(230, 57, 70, 0.3); color: var(--gold-samurai);">
-      <div>RONIN CODEX v9.4 // 浪人</div>
-      <div>NEO-KYOTO SECTOR 07 SANCTUARY</div>
+    <div style="border-top: 1px solid var(--gold-border); padding-top: 1rem; font-size: 0.8rem; color: var(--text-muted);">
+      <div>RONIN 3D ZEN CODEX v9.4 // 浪人</div>
+      <div>KYOTO SANCTUARY SECTOR 07</div>
     </div>
   </aside>
 
@@ -125,42 +96,38 @@
     <div class="container">
       <div class="hero-grid">
         <div class="hero-content">
-          <div class="hero-callsign" style="border-left-color: var(--crimson-primary); color: var(--crimson-bright);">
-            <span>●</span> CALLSIGN: [ AKIRA // 浪人 ] // MASTER CODE SAMURAI
+          <div class="hero-callsign">
+            <span>●</span> 浪人 // [ AKIRA ] // MASTER CODE SAMURAI
           </div>
           
           <div class="slash-hint-banner">
-            <span>⚔️</span> <span>SWORD CURSOR ACTIVE // SLICE MOUSE FOR BLADE SFX</span>
+            <span>⚔️</span> <span>SWORD CURSOR ACTIVE — SLICE MOUSE FOR BLADE SFX</span>
           </div>
 
-          <h1 class="hero-title" style="font-family: var(--font-title);">
+          <h1 class="hero-title">
             MASTER OF THE <br>
-            <span class="name-highlight" style="color: var(--crimson-bright); text-shadow: 0 0 15px var(--crimson-glow);">DIGITAL KATANA</span> <br>
+            <span class="name-highlight">DIGITAL KATANA</span> <br>
             & 3D WEBGL
           </h1>
-          <p class="hero-subtitle" style="color: var(--gold-samurai);">WEB CRAFTSMAN // FULL-STACK ARCHITECT // 3D ARTISAN</p>
+          <p class="hero-subtitle">Software Artisan // Full-Stack Architect // 3D WebGL Creator</p>
           <p class="hero-description">
-            Forging high-performance digital experiences, interactive WebGL 3D worlds, and resilient architectures with the discipline, honor, and razor-sharp precision of the samurai code.
+            Crafting high-performance digital experiences, interactive 3D WebGL worlds, and resilient architectures with the discipline, honor, and razor-sharp precision of the samurai code.
           </p>
           <div class="hero-actions">
-            <a href="#blade-forge" class="btn-cyber-gold" style="background: var(--crimson-primary); border-color: var(--crimson-bright); color: #fff; box-shadow: 0 0 20px var(--crimson-glow);">
-              ENTER 3D FORGE
+            <a href="#blade-forge" class="btn-cyber-gold">
+              <span>⚔️</span> ENTER 3D FORGE
             </a>
-            <a href="#bushido" class="btn-cyber-outline" style="border-color: var(--gold-samurai); color: var(--gold-bright);">
-              SCROLL OF BUSHIDO
+            <a href="#bushido" class="btn-cyber-outline">
+              <span>📜</span> SCROLL OF BUSHIDO
             </a>
           </div>
         </div>
 
         <div class="hero-visual-frame">
           <div id="samurai-hero-stage" class="samurai-hero-stage">
-            <span class="hologram-corner corner-tl" style="border-color: var(--crimson-primary);"></span>
-            <span class="hologram-corner corner-tr" style="border-color: var(--crimson-primary);"></span>
-            <span class="hologram-corner corner-bl" style="border-color: var(--crimson-primary);"></span>
-            <span class="hologram-corner corner-br" style="border-color: var(--crimson-primary);"></span>
             <div class="hero-samurai-overlay">
               <span>[ 3D SAMURAI KABUTO ]</span>
-              <span>360° DRAG & ROTATE</span>
+              <span>360° DRAG TO ROTATE</span>
             </div>
             <canvas id="samurai-hero-canvas"></canvas>
             <div class="hero-samurai-controls">
@@ -180,11 +147,11 @@
   <section id="blade-forge" class="section-block">
     <div class="container">
       <div class="section-header">
-        <span class="section-tag" style="color: var(--crimson-bright);">[ THE MASTER ARMORY // 刀鍛冶 ]</span>
-        <h2 class="section-title" style="font-family: var(--font-title);">
-          3D KATANA <span class="gold-glow-text" style="color: var(--crimson-bright); text-shadow: 0 0 15px var(--crimson-glow);">BLADE FORGE</span>
+        <span class="section-tag">[ THE MASTER ARMORY // 刀鍛冶 ]</span>
+        <h2 class="section-title">
+          3D KATANA <span class="gold-glow-text">BLADE FORGE</span>
         </h2>
-        <div class="section-divider" style="background: linear-gradient(90deg, #e63946, #d4af37);"></div>
+        <div class="section-divider"></div>
       </div>
 
       <div class="mecha-hangar-container">
@@ -204,12 +171,8 @@
         <!-- 3D Blade Display Grid -->
         <div class="mecha-display-grid">
           <div class="katana-forge-box">
-            <span class="hologram-corner corner-tl" style="border-color: var(--gold-samurai);"></span>
-            <span class="hologram-corner corner-tr" style="border-color: var(--gold-samurai);"></span>
-            <span class="hologram-corner corner-bl" style="border-color: var(--gold-samurai);"></span>
-            <span class="hologram-corner corner-br" style="border-color: var(--gold-samurai);"></span>
             <div class="katana-3d-hud">3D KATANA INSPECTOR // 360° WEBGL</div>
-            <div class="mecha-3d-hint" style="border-left-color: var(--crimson-primary); color: #ffb7c5;">DRAG TO ROTATE • SCROLL TO ZOOM</div>
+            <div class="mecha-3d-hint">DRAG TO ROTATE • SCROLL TO ZOOM</div>
             <canvas id="katana-3d-canvas"></canvas>
             <div class="katana-3d-toolbar">
               <button class="btn-katana-tool" data-tool="wireframe">WIREFRAME</button>
@@ -219,8 +182,8 @@
             </div>
           </div>
 
-          <div class="mecha-stats-panel" style="border-color: rgba(230, 57, 70, 0.3);">
-            <h3 id="blade-title-display" class="mecha-title-tag" style="font-family: var(--font-title); color: #fff;">
+          <div class="mecha-stats-panel">
+            <h3 id="blade-title-display" class="mecha-title-tag">
               妖刀村正 // MURASAMA HF-09 [DEMON BLADE]
             </h3>
             <p id="blade-desc-display" class="mecha-desc-p">
@@ -232,46 +195,46 @@
               <div class="stat-item-row">
                 <div class="stat-label-wrap">
                   <span>SHARPNESS & CUTTING EDGE</span>
-                  <span id="blade-val-sharpness">99%</span>
+                  <span id="blade-val-sharpness" style="color: var(--vermilion-bright);">99%</span>
                 </div>
                 <div class="stat-bar-shell">
-                  <div id="blade-bar-sharpness" class="stat-bar-core" style="width: 99%; background: linear-gradient(90deg, #e63946, #ff2a40);"></div>
+                  <div id="blade-bar-sharpness" class="stat-bar-core" style="width: 99%;"></div>
                 </div>
               </div>
 
               <div class="stat-item-row">
                 <div class="stat-label-wrap">
                   <span>BLADE HARDNESS (HRC 68)</span>
-                  <span id="blade-val-hardness">94%</span>
+                  <span id="blade-val-hardness" style="color: var(--gold-bright);">94%</span>
                 </div>
                 <div class="stat-bar-shell">
-                  <div id="blade-bar-hardness" class="stat-bar-core" style="width: 94%; background: linear-gradient(90deg, #d4af37, #f59e0b);"></div>
+                  <div id="blade-bar-hardness" class="stat-bar-core" style="width: 94%;"></div>
                 </div>
               </div>
 
               <div class="stat-item-row">
                 <div class="stat-label-wrap">
                   <span>SOUL RESONANCE & ENCHANTMENT</span>
-                  <span id="blade-val-enchant">96%</span>
+                  <span id="blade-val-enchant" style="color: var(--sakura-pink);">96%</span>
                 </div>
                 <div class="stat-bar-shell">
-                  <div id="blade-bar-enchant" class="stat-bar-core" style="width: 96%; background: linear-gradient(90deg, #e63946, #00f0ff);"></div>
+                  <div id="blade-bar-enchant" class="stat-bar-core" style="width: 96%;"></div>
                 </div>
               </div>
 
               <div class="stat-item-row">
                 <div class="stat-label-wrap">
                   <span>SWING VELOCITY & BALANCE</span>
-                  <span id="blade-val-speed">98%</span>
+                  <span id="blade-val-speed" style="color: var(--gold-bright);">98%</span>
                 </div>
                 <div class="stat-bar-shell">
-                  <div id="blade-bar-speed" class="stat-bar-core" style="width: 98%; background: linear-gradient(90deg, #ffb7c5, #d4af37);"></div>
+                  <div id="blade-bar-speed" class="stat-bar-core" style="width: 98%;"></div>
                 </div>
               </div>
             </div>
 
             <!-- Dynamic Specs Table -->
-            <div class="specs-grid-box" style="border-color: rgba(230, 57, 70, 0.2);">
+            <div class="specs-grid-box">
               <div class="spec-row">
                 <span class="spec-label">STEEL COMPOSITION</span>
                 <span class="spec-value">FOLDED TAMAHAGANE & TITANIUM</span>
@@ -301,11 +264,11 @@
   <section id="bushido" class="section-block">
     <div class="container">
       <div class="section-header">
-        <span class="section-tag" style="color: var(--gold-bright);">[ THE 7 VIRTUES OF THE CODE SAMURAI // 武士道七徳 ]</span>
-        <h2 class="section-title" style="font-family: var(--font-title);">
-          THE SCROLL OF <span class="gold-glow-text" style="color: var(--gold-bright);">BUSHIDO</span>
+        <span class="section-tag">[ THE 7 VIRTUES OF THE CODE SAMURAI // 武士道七徳 ]</span>
+        <h2 class="section-title">
+          THE SCROLL OF <span class="gold-glow-text">BUSHIDO</span>
         </h2>
-        <div class="section-divider" style="background: linear-gradient(90deg, #d4af37, #e63946);"></div>
+        <div class="section-divider"></div>
       </div>
 
       <div class="bushido-grid">
@@ -388,79 +351,81 @@
   <section id="battles" class="section-block">
     <div class="container">
       <div class="section-header">
-        <span class="section-tag" style="color: var(--crimson-bright);">[ VICTORIOUS CAMPAIGNS & DEPLOYMENTS // 合戦録 ]</span>
-        <h2 class="section-title" style="font-family: var(--font-title);">
-          BATTLE <span class="gold-glow-text" style="color: var(--crimson-bright);">CHRONICLES</span>
+        <span class="section-tag">[ VICTORIOUS CAMPAIGNS & DEPLOYMENTS // 合戦録 ]</span>
+        <h2 class="section-title">
+          BATTLE <span class="gold-glow-text">CHRONICLES</span>
         </h2>
-        <div class="section-divider" style="background: linear-gradient(90deg, #e63946, #d4af37);"></div>
+        <div class="section-divider"></div>
       </div>
 
       <div class="contracts-grid">
         <!-- Battle 1 -->
-        <div class="contract-card" style="border-left-color: var(--crimson-primary);">
+        <div class="contract-card">
           <div>
             <div class="contract-header">
-              <span class="tactical-badge threat-secure" style="background: rgba(230, 57, 70, 0.2); color: var(--crimson-bright); border-color: var(--crimson-primary);">
-                VICTORIOUS
-              </span>
-              <span class="bounty-reward" style="color: var(--gold-bright);">HONOR: 60,000 KOKU</span>
+              <span class="tactical-badge">VICTORIOUS</span>
+              <span class="bounty-reward">HONOR: 60,000 KOKU</span>
             </div>
-            <h3 class="contract-title" style="font-family: var(--font-title);">Aegis Divine Shinto Firewall</h3>
+            <h3 class="contract-title">Aegis Divine Shinto Firewall</h3>
             <p class="contract-desc">
               Decentralized cybersecurity mesh protecting sovereign cloud clusters with autonomous threat neutralization algorithms.
             </p>
             <div class="contract-tech-stack">
-              <span class="tech-tag" style="border-color: rgba(230, 57, 70, 0.4); color: #ffb7c5;">Rust</span>
-              <span class="tech-tag" style="border-color: rgba(230, 57, 70, 0.4); color: #ffb7c5;">WebAssembly</span>
-              <span class="tech-tag" style="border-color: rgba(230, 57, 70, 0.4); color: #ffb7c5;">Crypto</span>
+              <span class="tech-tag">Rust</span>
+              <span class="tech-tag">WebAssembly</span>
+              <span class="tech-tag">Crypto</span>
             </div>
           </div>
           <div class="contract-footer-links">
-            <a href="#" class="contract-link" style="color: var(--gold-bright);">VIEW SCROLL SPEC →</a>
+            <a href="#" class="contract-link">VIEW SCROLL SPEC →</a>
           </div>
         </div>
 
         <!-- Battle 2 -->
-        <div class="contract-card" style="border-left-color: var(--crimson-primary);">
+        <div class="contract-card">
           <div>
             <div class="contract-header">
-              <span class="tactical-badge threat-med">ACTIVE BATTLE</span>
-              <span class="bounty-reward" style="color: var(--gold-bright);">HONOR: 95,000 KOKU</span>
+              <span class="tactical-badge" style="background: rgba(197, 160, 89, 0.15); border-color: var(--gold-leaf); color: var(--gold-bright);">
+                ACTIVE QUEST
+              </span>
+              <span class="bounty-reward">HONOR: 95,000 KOKU</span>
             </div>
-            <h3 class="contract-title" style="font-family: var(--font-title);">Raikiri 3D Tactical HUD</h3>
+            <h3 class="contract-title">Raikiri 3D Tactical HUD</h3>
             <p class="contract-desc">
               Real-time 3D WebGL sensor cockpit streaming 60fps telemetry, sword stance analytics, and clan radar feeds.
             </p>
             <div class="contract-tech-stack">
-              <span class="tech-tag" style="border-color: rgba(230, 57, 70, 0.4); color: #ffb7c5;">Three.js</span>
-              <span class="tech-tag" style="border-color: rgba(230, 57, 70, 0.4); color: #ffb7c5;">WebGL 3D</span>
-              <span class="tech-tag" style="border-color: rgba(230, 57, 70, 0.4); color: #ffb7c5;">React</span>
+              <span class="tech-tag">Three.js</span>
+              <span class="tech-tag">WebGL 3D</span>
+              <span class="tech-tag">React</span>
             </div>
           </div>
           <div class="contract-footer-links">
-            <a href="#" class="contract-link" style="color: var(--gold-bright);">VIEW SCROLL SPEC →</a>
+            <a href="#" class="contract-link">VIEW SCROLL SPEC →</a>
           </div>
         </div>
 
         <!-- Battle 3 -->
-        <div class="contract-card" style="border-left-color: var(--crimson-primary);">
+        <div class="contract-card">
           <div>
             <div class="contract-header">
-              <span class="tactical-badge threat-elevated">CLASSIFIED</span>
-              <span class="bounty-reward" style="color: var(--gold-bright);">HONOR: 150,000 KOKU</span>
+              <span class="tactical-badge" style="background: rgba(255, 183, 197, 0.15); border-color: var(--sakura-pink); color: var(--sakura-pink);">
+                SACRED MISSION
+              </span>
+              <span class="bounty-reward">HONOR: 150,000 KOKU</span>
             </div>
-            <h3 class="contract-title" style="font-family: var(--font-title);">Shadow Strike Autonomous AI</h3>
+            <h3 class="contract-title">Shadow Strike Autonomous AI</h3>
             <p class="contract-desc">
               Autonomous machine learning drone network calculating hypersonic evasive trajectories and precision target acquisition.
             </p>
             <div class="contract-tech-stack">
-              <span class="tech-tag" style="border-color: rgba(230, 57, 70, 0.4); color: #ffb7c5;">Python AI</span>
-              <span class="tech-tag" style="border-color: rgba(230, 57, 70, 0.4); color: #ffb7c5;">PyTorch</span>
-              <span class="tech-tag" style="border-color: rgba(230, 57, 70, 0.4); color: #ffb7c5;">C++</span>
+              <span class="tech-tag">Python AI</span>
+              <span class="tech-tag">PyTorch</span>
+              <span class="tech-tag">C++</span>
             </div>
           </div>
           <div class="contract-footer-links">
-            <a href="#" class="contract-link" style="color: var(--gold-bright);">VIEW SCROLL SPEC →</a>
+            <a href="#" class="contract-link">VIEW SCROLL SPEC →</a>
           </div>
         </div>
       </div>
@@ -473,69 +438,63 @@
   <section id="tactical-map" class="section-block">
     <div class="container">
       <div class="section-header">
-        <span class="section-tag" style="color: var(--gold-bright);">[ RADAR SCANNER // FEUDAL PROVINCES ]</span>
-        <h2 class="section-title" style="font-family: var(--font-title);">NEO-KYOTO <span class="gold-glow-text" style="color: var(--gold-bright);">CLAN MAP</span></h2>
-        <div class="section-divider" style="background: linear-gradient(90deg, #d4af37, #e63946);"></div>
+        <span class="section-tag">[ RADAR SCANNER // FEUDAL PROVINCES ]</span>
+        <h2 class="section-title">NEO-KYOTO <span class="gold-glow-text">CLAN MAP</span></h2>
+        <div class="section-divider"></div>
       </div>
 
       <div class="tactical-map-layout">
         <!-- Interactive Map Viewport -->
-        <div id="map-viewport" class="map-viewport" style="border-color: rgba(230, 57, 70, 0.3);">
-          <img src="assets/svg/map-sectors.svg" alt="Tactical Sector Map" class="map-svg-overlay">
+        <div id="map-viewport" class="map-viewport" style="background: rgba(10, 10, 14, 0.8); border: 1px solid var(--gold-border); border-radius: var(--radius-lg); position: relative; height: 380px; overflow: hidden;">
+          <img src="assets/svg/map-sectors.svg" alt="Tactical Sector Map" class="map-svg-overlay" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.6;">
           <canvas id="radar-canvas"></canvas>
 
           <!-- Interactive Hotspots -->
-          <div class="map-sector-node active" style="top: 48%; left: 52%;" data-sector="s07">
+          <div class="map-sector-node active" style="top: 48%; left: 52%; position: absolute;" data-sector="s07">
             <div class="node-ring"><div class="node-pulse"></div></div>
             <div class="node-label">SANCTUARY 07 [HQ]</div>
           </div>
 
-          <div class="map-sector-node" style="top: 28%; left: 28%;" data-sector="s01">
+          <div class="map-sector-node" style="top: 28%; left: 28%; position: absolute;" data-sector="s01">
             <div class="node-ring"><div class="node-pulse"></div></div>
             <div class="node-label">CITADEL 01 [FORTRESS]</div>
           </div>
 
-          <div class="map-sector-node" style="top: 26%; left: 75%;" data-sector="s04">
+          <div class="map-sector-node" style="top: 26%; left: 75%; position: absolute;" data-sector="s04">
             <div class="node-ring"><div class="node-pulse"></div></div>
             <div class="node-label">PORT 04 [FLEET]</div>
           </div>
 
-          <div class="map-sector-node" style="top: 72%; left: 24%;" data-sector="s11">
+          <div class="map-sector-node" style="top: 72%; left: 24%; position: absolute;" data-sector="s11">
             <div class="node-ring"><div class="node-pulse"></div></div>
             <div class="node-label">VAULT 11 [SCROLLS]</div>
           </div>
 
-          <div class="map-sector-node" style="top: 74%; left: 70%;" data-sector="s19">
+          <div class="map-sector-node" style="top: 74%; left: 70%; position: absolute;" data-sector="s19">
             <div class="node-ring"><div class="node-pulse"></div></div>
             <div class="node-label">RANGE 19 [DOJO]</div>
           </div>
         </div>
 
         <!-- Telemetry Sidebar -->
-        <div class="map-telemetry-panel" style="border-color: rgba(230, 57, 70, 0.3);">
-          <div class="telemetry-header">
-            <div class="telemetry-title" style="color: var(--crimson-bright);">PROVINCE TELEMETRY</div>
-            <div id="map-coords-readout" class="coords-box" style="border-color: var(--gold-samurai); color: var(--gold-bright);">
+        <div class="map-telemetry-panel" style="background: var(--bg-card); border: 1px solid var(--gold-border); border-radius: var(--radius-lg); padding: 1.8rem; margin-top: 1.5rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+            <div style="font-family: var(--font-display); color: var(--gold-bright); font-size: 1.1rem;">PROVINCE TELEMETRY</div>
+            <div id="map-coords-readout" style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--sakura-pink);">
               X:0580 | Y:0340 | [35.0116°N, 135.7681°E]
             </div>
           </div>
 
           <div class="sector-info-box">
-            <div id="sector-threat-badge" class="tactical-badge threat-secure" style="background: rgba(230, 57, 70, 0.15); color: var(--crimson-bright); border-color: var(--crimson-primary);">
+            <div id="sector-threat-badge" class="tactical-badge" style="display: inline-block; margin-bottom: 0.6rem;">
               SANCTUARY SECURE [LEVEL 0]
             </div>
-            <h3 id="sector-title-readout" style="font-size: 1.1rem; color: #fff; margin-bottom: 0.5rem; font-family: var(--font-title);">
+            <h3 id="sector-title-readout" style="font-size: 1.2rem; color: #fff; margin-bottom: 0.5rem;">
               SANCTUARY 07: RONIN BLADE FORGE
             </h3>
-            <p id="sector-desc-readout" class="sector-desc-text">
-              Primary sanctuary and master katana forge. Houses Murasama Demon Blades and high-frequency plasma whetstones. Encrypted Shinto barrier perimeter.
+            <p id="sector-desc-readout" class="sector-desc-text" style="color: var(--text-muted); font-size: 0.95rem;">
+              Primary sanctuary and master katana forge. Houses Murasama Demon Blades and high-frequency plasma whetstones. Protected by an encrypted Shinto barrier perimeter.
             </p>
-          </div>
-
-          <div style="border-top: 1px solid rgba(230, 57, 70, 0.2); padding-top: 1rem;">
-            <div style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--gold-bright);">
-              CLICK ANY MAP NODE TO INSPECT PROVINCE
-            </div>
           </div>
         </div>
       </div>
@@ -548,42 +507,37 @@
   <section id="terminal" class="section-block">
     <div class="container">
       <div class="section-header">
-        <span class="section-tag" style="color: var(--crimson-bright);">[ ENCRYPTED RAVEN BURST // 伝令発信 ]</span>
-        <h2 class="section-title" style="font-family: var(--font-title);">
-          SEND <span class="gold-glow-text" style="color: var(--crimson-bright);">RAVEN DISPATCH</span>
+        <span class="section-tag">[ ENCRYPTED RAVEN BURST // 伝令発信 ]</span>
+        <h2 class="section-title">
+          SEND <span class="gold-glow-text">RAVEN DISPATCH</span>
         </h2>
-        <div class="section-divider" style="background: linear-gradient(90deg, #e63946, #d4af37);"></div>
+        <div class="section-divider"></div>
       </div>
 
-      <div class="terminal-contact-box" style="border-color: rgba(230, 57, 70, 0.4);">
-        <div class="terminal-topbar" style="background: rgba(230, 57, 70, 0.15); border-bottom: 1px solid rgba(230, 57, 70, 0.3);">
-          <div class="terminal-dots">
-            <span class="dot dot-red"></span>
-            <span class="dot dot-yellow"></span>
-            <span class="dot dot-green"></span>
-          </div>
-          <div class="terminal-title-text" style="color: var(--crimson-bright);">RONIN_SECURE_DISPATCH.sh</div>
-          <div style="font-family: var(--font-mono); font-size: 0.75rem; color: #ffb7c5;">256-BIT SHINTO AES</div>
+      <div class="terminal-contact-box">
+        <div class="terminal-topbar">
+          <div class="terminal-title-text">RONIN_SECURE_DISPATCH</div>
+          <div style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--sakura-pink);">256-BIT SHINTO AES</div>
         </div>
 
         <div class="terminal-body">
           <form id="cyber-contact-form">
             <div class="form-group-cyber">
-              <label class="form-label-cyber" for="sender-callsign" style="color: var(--gold-bright);">WARRIOR / SENDER CALLSIGN:</label>
-              <input type="text" id="sender-callsign" class="form-input-cyber" placeholder="Enter your clan or identity..." required>
+              <label class="form-label-cyber" for="sender-callsign">WARRIOR / SENDER NAME:</label>
+              <input type="text" id="sender-callsign" class="form-input-cyber" placeholder="Enter your identity or organization..." required>
             </div>
 
             <div class="form-group-cyber">
-              <label class="form-label-cyber" for="sender-email" style="color: var(--gold-bright);">RAVEN COMMS RELAY (EMAIL):</label>
-              <input type="email" id="sender-email" class="form-input-cyber" placeholder="warrior@your-clan.jp" required>
+              <label class="form-label-cyber" for="sender-email">RAVEN COMMS RELAY (EMAIL):</label>
+              <input type="email" id="sender-email" class="form-input-cyber" placeholder="warrior@your-domain.com" required>
             </div>
 
             <div class="form-group-cyber">
-              <label class="form-label-cyber" for="sender-message" style="color: var(--gold-bright);">QUEST DATA / CONTRACT DISPATCH:</label>
+              <label class="form-label-cyber" for="sender-message">QUEST SCROLL / MESSAGE DETAILS:</label>
               <textarea id="sender-message" rows="4" class="form-textarea-cyber" placeholder="Inscribe your mission scroll here..." required></textarea>
             </div>
 
-            <button type="submit" class="btn-cyber-gold" style="width: 100%; justify-content: center; background: var(--crimson-primary); border-color: var(--crimson-bright); color: #fff; box-shadow: 0 0 20px var(--crimson-glow);">
+            <button type="submit" class="btn-cyber-gold" style="width: 100%; justify-content: center;">
               DISPATCH ENCRYPTED RAVEN
             </button>
           </form>
@@ -597,21 +551,22 @@
   <!-- ==========================================================================
        FOOTER
        ========================================================================== -->
-  <footer class="cyber-footer" style="border-top: 1px solid rgba(230, 57, 70, 0.3);">
+  <footer class="cyber-footer">
     <div class="container">
       <div class="footer-content">
         <div class="brand-logo">
-          <div class="brand-crest" style="border-color: var(--crimson-primary);">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e63946" stroke-width="2">
-              <circle cx="12" cy="12" r="9" stroke="#d4af37"/>
+          <div class="brand-crest">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c5a059" stroke-width="2">
+              <circle cx="12" cy="12" r="9"/>
               <path d="M12 3v18M3 12h18"/>
+              <circle cx="12" cy="12" r="3" fill="#e63946"/>
             </svg>
           </div>
-          <div class="brand-text" style="font-family: var(--font-title);">RO<span>NIN // 侍 3D</span></div>
+          <div class="brand-text">RO<span>NIN // 侍 3D</span></div>
         </div>
 
-        <div class="footer-telemetry" style="color: #ffb7c5;">
-          © 2026 RONIN SAMURAI // ALL RIGHTS RESERVED // BUSHIDO 3D WEBGL ENGINE
+        <div class="footer-telemetry">
+          © 2026 RONIN SAMURAI // ALL RIGHTS RESERVED // BUSHIDO 3D WEBGL DOJO
         </div>
       </div>
     </div>
@@ -620,7 +575,6 @@
   <!-- 3D Three.js & Application Scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="scripts/samurai-audio.js"></script>
-  <script src="scripts/intro.js"></script>
   <script src="scripts/map.js"></script>
   <script src="scripts/samurai-3d.js"></script>
   <script src="scripts/main.js"></script>
