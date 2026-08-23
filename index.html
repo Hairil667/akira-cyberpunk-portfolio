@@ -3,24 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AKIRA // Cyberpunk Tactical Portfolio & Mecha Arsenal</title>
-  <meta name="description" content="Official portfolio of Akira: Cyber Operative, Mecha Pilot & Full-Stack Cybernetic Engineer. Featuring interactive tactical radar maps, mecha hangar specs, and advanced cyber weaponry.">
-  <meta name="keywords" content="Akira, Cyberpunk Portfolio, Mecha, Cyber Weapons, Tactical Map, Frontend Developer, Cybernetics">
+  <title>AKIRA // 3D Cyberpunk Tactical Portfolio & Mecha Arsenal</title>
+  <meta name="description" content="Official 3D interactive portfolio of Akira: Cyber Operative, Mecha Pilot & Full-Stack Cybernetic Engineer. Featuring real-time WebGL Three.js mecha holograms, tactical radar, and 3D weapon systems.">
+  <meta name="keywords" content="Akira, 3D Web, Three.js, Cyberpunk Portfolio, Mecha, Cyber Weapons, Tactical Map, Frontend Developer, WebGL">
   <meta name="author" content="Akira">
-  <meta property="og:title" content="AKIRA // Cyberpunk Tactical Portfolio">
-  <meta property="og:description" content="Cyber Operative, Mecha Pilot & Full-Stack Cybernetic Engineer. Explore the tactical armory, mecha hangar, and live sector radar.">
+  <meta property="og:title" content="AKIRA // 3D Cyberpunk Tactical Portfolio">
+  <meta property="og:description" content="Interactive 3D Cyber Operative & Mecha Pilot Portfolio. Explore real-time WebGL mechas, holographic reactor core, and tactical arsenal.">
   <meta property="og:type" content="website">
 
-  <!-- Main Stylesheet -->
+  <!-- Main Stylesheets -->
   <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/cyber-3d.css">
 </head>
 <body class="intro-active">
 
   <!-- Include Tactical SVG Symbols -->
   <object type="image/svg+xml" data="assets/svg/tactical-icons.svg" style="display:none;"></object>
 
-  <!-- Background Gold Particle Matrix & Scanlines -->
-  <canvas id="gold-matrix-canvas"></canvas>
+  <!-- 3D Global Cyber Matrix Background Canvas & Scanlines -->
+  <canvas id="cyber-3d-bg"></canvas>
   <div class="scanlines-overlay"></div>
 
   <!-- ==========================================================================
@@ -28,7 +29,7 @@
        ========================================================================== -->
   <div id="cyber-intro">
     <div class="intro-modal-card">
-      <div class="intro-logo-badge">AKIRA</div>
+      <div class="intro-logo-badge">AKIRA 3D</div>
       <div class="intro-sub">// NEURAL LINK PROTOCOL v9.4 //</div>
       
       <div class="intro-progress-wrapper">
@@ -36,7 +37,7 @@
           <div id="intro-progress-bar" class="intro-progress-bar-fill"></div>
         </div>
         <div style="display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 0.8rem; color: var(--gold-bright); margin-top: 6px;">
-          <span>QUANTUM SYNC</span>
+          <span>3D QUANTUM SYNC</span>
           <span id="intro-progress-text">0%</span>
         </div>
       </div>
@@ -44,7 +45,7 @@
       <div id="intro-console-logs" class="intro-logs-terminal"></div>
 
       <div class="intro-actions">
-        <button id="intro-enter-btn" class="btn-intro-enter hidden">INITIALIZE SYSTEM</button>
+        <button id="intro-enter-btn" class="btn-intro-enter hidden">INITIALIZE 3D SYSTEM</button>
         <button id="intro-skip-btn" class="btn-intro-skip">BYPASS INTRO</button>
       </div>
     </div>
@@ -62,15 +63,15 @@
             <circle cx="12" cy="11" r="3" fill="#ffd000"/>
           </svg>
         </div>
-        <div class="brand-text">AKI<span>RA</span></div>
+        <div class="brand-text">AKI<span>RA 3D</span></div>
       </a>
 
       <!-- Desktop Nav -->
       <ul class="nav-desktop-links">
         <li><a href="#hero" class="nav-item-link active">OVERVIEW</a></li>
         <li><a href="#tactical-map" class="nav-item-link">TACTICAL MAP</a></li>
-        <li><a href="#mecha-hangar" class="nav-item-link">MECHA HANGAR</a></li>
-        <li><a href="#weapons-arsenal" class="nav-item-link">WEAPONS</a></li>
+        <li><a href="#mecha-hangar" class="nav-item-link">3D MECHA HANGAR</a></li>
+        <li><a href="#weapons-arsenal" class="nav-item-link">3D ARSENAL</a></li>
         <li><a href="#dossier" class="nav-item-link">DOSSIER</a></li>
         <li><a href="#contracts" class="nav-item-link">CONTRACTS</a></li>
         <li><a href="#terminal" class="nav-item-link">COMMS</a></li>
@@ -95,7 +96,7 @@
   <div id="nav-backdrop-overlay" class="nav-backdrop"></div>
   <aside id="cyber-nav-drawer" class="cyber-drawer">
     <div class="drawer-header">
-      <div class="drawer-title">AKIRA // HUD NAV</div>
+      <div class="drawer-title">AKIRA // 3D HUD NAV</div>
       <div class="drawer-hud-diag">SYSTEM: SECURE | SYNC: 100%</div>
       <div id="hud-live-clock" style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--gold-bright); margin-top: 4px;"></div>
     </div>
@@ -103,8 +104,8 @@
     <ul class="drawer-nav-list">
       <li><a href="#hero" class="drawer-nav-link"><span>01</span> OVERVIEW</a></li>
       <li><a href="#tactical-map" class="drawer-nav-link"><span>02</span> TACTICAL MAP</a></li>
-      <li><a href="#mecha-hangar" class="drawer-nav-link"><span>03</span> MECHA HANGAR</a></li>
-      <li><a href="#weapons-arsenal" class="drawer-nav-link"><span>04</span> WEAPONS ARSENAL</a></li>
+      <li><a href="#mecha-hangar" class="drawer-nav-link"><span>03</span> 3D MECHA HANGAR</a></li>
+      <li><a href="#weapons-arsenal" class="drawer-nav-link"><span>04</span> 3D ARSENAL</a></li>
       <li><a href="#dossier" class="drawer-nav-link"><span>05</span> OPERATIVE DOSSIER</a></li>
       <li><a href="#contracts" class="drawer-nav-link"><span>06</span> MISSION CONTRACTS</a></li>
       <li><a href="#terminal" class="drawer-nav-link"><span>07</span> ENCRYPTED COMMS</a></li>
@@ -117,37 +118,46 @@
   </aside>
 
   <!-- ==========================================================================
-       HERO SECTION
+       HERO SECTION (WITH 3D INTERACTIVE QUANTUM CORE)
        ========================================================================== -->
   <section id="hero" class="hero-section">
     <div class="container">
       <div class="hero-grid">
         <div class="hero-content">
           <div class="hero-callsign">
-            <span>●</span> CALLSIGN: [ AKIRA ] // CLASS-S MECHA OPERATIVE
+            <span>●</span> CALLSIGN: [ AKIRA ] // CLASS-S 3D MECHA OPERATIVE
           </div>
           <h1 class="hero-title">
             CYBERNETIC <br>
             <span class="name-highlight">ENGINEER &</span> <br>
-            PILOT
+            PILOT 3D
           </h1>
-          <p class="hero-subtitle">QUANTUM ARCHITECT // MECHA TACTICIAN</p>
+          <p class="hero-subtitle">QUANTUM ARCHITECT // MECHA TACTICIAN // WEBGL 3D</p>
           <p class="hero-description">
-            Pioneering next-generation full-stack cybernetics, heavy mecha systems, and autonomous combat algorithms. Operating from Neo-Tokyo Sector 07 with cutting-edge titanium-gold hardware.
+            Pioneering real-time 3D WebGL cybernetics, interactive mecha simulations, and autonomous combat algorithms. Operating from Neo-Tokyo Sector 07 with cutting-edge titanium-gold hardware.
           </p>
           <div class="hero-actions">
-            <a href="#tactical-map" class="btn-cyber-gold">EXPLORE SECTOR MAP</a>
-            <a href="#mecha-hangar" class="btn-cyber-outline">VIEW MECHA HANGAR</a>
+            <a href="#mecha-hangar" class="btn-cyber-gold">INSPECT 3D MECHA</a>
+            <a href="#tactical-map" class="btn-cyber-outline">EXPLORE TACTICAL MAP</a>
           </div>
         </div>
 
         <div class="hero-visual-frame">
-          <div class="avatar-hologram-box">
+          <div id="hero-3d-viewport" class="hero-3d-container">
             <span class="hologram-corner corner-tl"></span>
             <span class="hologram-corner corner-tr"></span>
             <span class="hologram-corner corner-bl"></span>
             <span class="hologram-corner corner-br"></span>
-            <img src="assets/svg/cyber-avatar.svg" alt="Akira Cybernetic Avatar Oni Mask">
+            <div class="hero-3d-overlay">
+              <span>[ 3D TACTICAL CORE ]</span>
+              <span>LIVE DRAG & ROTATE</span>
+            </div>
+            <canvas id="hero-3d-canvas"></canvas>
+            <div class="hero-3d-controls">
+              <button class="btn-3d-mode active" data-mode="quantum">QUANTUM</button>
+              <button class="btn-3d-mode" data-mode="overdrive">OVERDRIVE</button>
+              <button class="btn-3d-mode" data-mode="stealth">STEALTH</button>
+            </div>
           </div>
         </div>
       </div>
@@ -155,7 +165,7 @@
   </section>
 
   <!-- ==========================================================================
-       TACTICAL MAP SECTION ("EFEK MAP")
+       TACTICAL MAP SECTION
        ========================================================================== -->
   <section id="tactical-map" class="section-block">
     <div class="container">
@@ -234,28 +244,40 @@
   </section>
 
   <!-- ==========================================================================
-       MECHA HANGAR SECTION
+       MECHA HANGAR SECTION (WITH REAL-TIME 3D WEBGL VIEWER)
        ========================================================================== -->
   <section id="mecha-hangar" class="section-block">
     <div class="container">
       <div class="section-header">
-        <span class="section-tag">[ HEAVY CHASSIS SPECIFICATIONS ]</span>
-        <h2 class="section-title">MECHA <span class="gold-glow-text">HANGAR BAY</span></h2>
+        <span class="section-tag">[ HEAVY CHASSIS 3D SPECIFICATIONS ]</span>
+        <h2 class="section-title">3D MECHA <span class="gold-glow-text">HANGAR BAY</span></h2>
         <div class="section-divider"></div>
       </div>
 
       <div class="mecha-hangar-container">
         <!-- Frame Selection Tabs -->
         <div class="mecha-tab-nav">
-          <button class="mecha-tab-btn active" data-frame="ronin">FRAME 01: RX-09 RONIN</button>
-          <button class="mecha-tab-btn" data-frame="goliath">FRAME 02: TYPE-88 GOLIATH</button>
-          <button class="mecha-tab-btn" data-frame="valkyrie">FRAME 03: VX-03 VALKYRIE</button>
+          <button class="mecha-tab-btn active" data-frame="ronin">FRAME 01: RX-09 RONIN (3D)</button>
+          <button class="mecha-tab-btn" data-frame="goliath">FRAME 02: TYPE-88 GOLIATH (3D)</button>
+          <button class="mecha-tab-btn" data-frame="valkyrie">FRAME 03: VX-03 VALKYRIE (3D)</button>
         </div>
 
         <!-- Mecha Interactive Display Grid -->
         <div class="mecha-display-grid">
           <div class="mecha-stage-box">
-            <img id="mecha-display-img" src="assets/svg/mecha-ronin.svg" alt="Cyberpunk Mecha Frame">
+            <span class="hologram-corner corner-tl"></span>
+            <span class="hologram-corner corner-tr"></span>
+            <span class="hologram-corner corner-bl"></span>
+            <span class="hologram-corner corner-br"></span>
+            <div class="mecha-3d-hud">3D HANGAR BAY // 360° WEBGL INSPECT</div>
+            <div class="mecha-3d-hint">DRAG TO ROTATE • SCROLL TO ZOOM</div>
+            <canvas id="mecha-3d-canvas"></canvas>
+            <div class="mecha-3d-toolbar">
+              <button class="btn-mecha-3d-tool" data-tool="wireframe">WIREFRAME</button>
+              <button class="btn-mecha-3d-tool active" data-tool="autorotate">AUTO ROTATE</button>
+              <button class="btn-mecha-3d-tool" data-tool="explode">EXPLODED VIEW</button>
+              <button class="btn-mecha-3d-tool" data-tool="reset">RESET VIEW</button>
+            </div>
           </div>
 
           <div class="mecha-stats-panel">
@@ -333,12 +355,12 @@
   </section>
 
   <!-- ==========================================================================
-       WEAPONS ARSENAL SECTION
+       WEAPONS ARSENAL SECTION (WITH 3D INTERACTIVE INSPECT)
        ========================================================================== -->
   <section id="weapons-arsenal" class="section-block">
     <div class="container">
       <div class="section-header">
-        <span class="section-tag">[ TACTICAL ARMORY // WEAPON SYSTEMS ]</span>
+        <span class="section-tag">[ TACTICAL ARMORY // 3D WEAPON SYSTEMS ]</span>
         <h2 class="section-title">CYBER <span class="gold-glow-text">WEAPON ARSENAL</span></h2>
         <div class="section-divider"></div>
       </div>
@@ -360,7 +382,7 @@
             </p>
           </div>
           <div class="weapon-footer-action">
-            <span style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--gold-bright);">ENERGY: PLASMA</span>
+            <button class="btn-inspect-3d" data-weapon="katana">INSPECT 3D</button>
             <button class="btn-test-fire" data-weapon="katana">TEST FIRE SFX</button>
           </div>
         </div>
@@ -381,7 +403,7 @@
             </p>
           </div>
           <div class="weapon-footer-action">
-            <span style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--gold-bright);">VELOCITY: MACH 14.2</span>
+            <button class="btn-inspect-3d" data-weapon="railgun">INSPECT 3D</button>
             <button class="btn-test-fire" data-weapon="railgun">TEST FIRE SFX</button>
           </div>
         </div>
@@ -402,7 +424,7 @@
             </p>
           </div>
           <div class="weapon-footer-action">
-            <span style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--gold-bright);">ROF: 1,400 RPM</span>
+            <button class="btn-inspect-3d" data-weapon="smg">INSPECT 3D</button>
             <button class="btn-test-fire" data-weapon="smg">TEST FIRE SFX</button>
           </div>
         </div>
@@ -430,7 +452,7 @@
           </div>
           <h3 style="font-size: 1.4rem; color: #fff; margin-bottom: 1rem;">CHIEF SYSTEM ARCHITECT & MECHA PILOT</h3>
           <p style="color: var(--text-muted); margin-bottom: 1.2rem;">
-            Operating on the bleeding edge of software engineering, robotics control firmware, and tactical cyber warfare. Akira designs scalable distributed microservices, low-latency sensory networks, and custom mecha autopilot firmware.
+            Operating on the bleeding edge of 3D software engineering, robotics control firmware, and tactical cyber warfare. Akira designs scalable distributed microservices, WebGL 3D graphics, and custom mecha autopilot firmware.
           </p>
           <div style="display: flex; flex-direction: column; gap: 0.6rem; font-family: var(--font-mono); font-size: 0.85rem;">
             <div><strong style="color: var(--gold-bright);">LOCATION:</strong> Neo-Tokyo District 07</div>
@@ -447,23 +469,23 @@
           </div>
           <div class="skill-matrix-grid">
             <div class="skill-chip">
-              <div class="skill-chip-title">TypeScript / JS</div>
+              <div class="skill-chip-title">Three.js / WebGL 3D</div>
               <div class="skill-chip-level">TIER 1 [100%]</div>
             </div>
             <div class="skill-chip">
-              <div class="skill-chip-title">React / Next.js</div>
+              <div class="skill-chip-title">TypeScript / JS</div>
               <div class="skill-chip-level">TIER 1 [98%]</div>
+            </div>
+            <div class="skill-chip">
+              <div class="skill-chip-title">React / Next.js</div>
+              <div class="skill-chip-level">TIER 1 [95%]</div>
             </div>
             <div class="skill-chip">
               <div class="skill-chip-title">Node / Rust</div>
               <div class="skill-chip-level">TIER 1 [94%]</div>
             </div>
             <div class="skill-chip">
-              <div class="skill-chip-title">Canvas / WebGL</div>
-              <div class="skill-chip-level">TIER 1 [96%]</div>
-            </div>
-            <div class="skill-chip">
-              <div class="skill-chip-title">Cyber Security</div>
+              <div class="skill-chip-title">Shader / GLSL</div>
               <div class="skill-chip-level">TIER 1 [92%]</div>
             </div>
             <div class="skill-chip">
@@ -517,13 +539,13 @@
               <span class="tactical-badge threat-med">ACTIVE</span>
               <span class="bounty-reward">BOUNTY: 85,000 CREDITS</span>
             </div>
-            <h3 class="contract-title">Ronin Telemetry HUD</h3>
+            <h3 class="contract-title">Ronin 3D Cockpit Telemetry</h3>
             <p class="contract-desc">
-              Low-latency cockpit heads-up display streaming 60fps sensor feeds, weapon telemetry, and radar pings directly to neural implants.
+              Real-time 3D WebGL cockpit heads-up display streaming 60fps sensor feeds, weapon telemetry, and radar pings.
             </p>
             <div class="contract-tech-stack">
-              <span class="tech-tag">WebGL</span>
-              <span class="tech-tag">WebSockets</span>
+              <span class="tech-tag">Three.js</span>
+              <span class="tech-tag">WebGL 3D</span>
               <span class="tech-tag">React</span>
             </div>
           </div>
@@ -608,6 +630,28 @@
   </section>
 
   <!-- ==========================================================================
+       3D WEAPON INSPECTION MODAL
+       ========================================================================== -->
+  <div id="weapon-3d-modal" class="modal-3d-backdrop">
+    <div class="modal-3d-window">
+      <div class="modal-3d-header">
+        <div id="modal-3d-weapon-title" class="modal-3d-title">3D TACTICAL INSPECTION</div>
+        <button id="modal-3d-close-btn" class="modal-3d-close">CLOSE [ESC]</button>
+      </div>
+      <div class="modal-3d-body">
+        <canvas id="weapon-3d-canvas"></canvas>
+        <div class="modal-3d-controls">
+          <div class="modal-3d-controls-left">
+            <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--gold-bright);">
+              DRAG TO ROTATE 360° // REAL-TIME 3D WEBGL
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
        FOOTER
        ========================================================================== -->
   <footer class="cyber-footer">
@@ -620,21 +664,23 @@
               <circle cx="12" cy="11" r="3" fill="#ffd000"/>
             </svg>
           </div>
-          <div class="brand-text">AKI<span>RA</span></div>
+          <div class="brand-text">AKI<span>RA 3D</span></div>
         </div>
 
         <div class="footer-telemetry">
-          © 2026 AKIRA CYBERNETICS // ALL RIGHTS RESERVED // SECTOR 07 HQ
+          © 2026 AKIRA CYBERNETICS // ALL RIGHTS RESERVED // 3D WEBGL ENGINE
         </div>
       </div>
     </div>
   </footer>
 
-  <!-- Scripts -->
+  <!-- 3D Three.js Library & Application Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="scripts/audio.js"></script>
   <script src="scripts/intro.js"></script>
   <script src="scripts/map.js"></script>
   <script src="scripts/arsenal.js"></script>
+  <script src="scripts/cyber-3d.js"></script>
   <script src="scripts/main.js"></script>
 </body>
 </html>
