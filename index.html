@@ -3,58 +3,54 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RONIN // 浪人 // 3D Samurai Master Portfolio & WebGL Dojo</title>
-  <meta name="description" content="Official 3D Samurai portfolio of Akira: Code Ronin, WebGL Artisan & Full-Stack Architect. Featuring real-time 3D Samurai Kabuto, 3D Katana Forge, falling sakura storm, and the 7 Virtues of Bushido.">
-  <meta name="keywords" content="Samurai, 3D Web, Three.js, Katana, Bushido, Japanese Aesthetic, WebGL, Frontend Developer, Akira">
-  <meta name="author" content="Akira">
-  <meta property="og:title" content="RONIN // 浪人 // 3D Samurai Portfolio">
-  <meta property="og:description" content="Explore the 3D Samurai Dojo, interactive Katana forge, falling sakura storm, and the Scroll of Bushido.">
+  <title>APEX MOTORS // Luxury 3D Hypercar Studio & Configurator</title>
+  <meta name="description" content="Experience the Apex GT-One in real-time WebGL 3D. Interactive hypercar studio, bespoke paint configurator, active aero telemetry, and 1,600 HP hybrid performance.">
+  <meta name="keywords" content="Apex Motors, Hypercar, 3D Car, Three.js, WebGL Car, Automotive Studio, Supercar Configurator">
+  <meta name="author" content="Apex Motors">
+  <meta property="og:title" content="APEX MOTORS // 3D Hypercar Studio">
+  <meta property="og:description" content="Configure the Apex GT-One in real-time WebGL 3D. 360° rotation, active aero, and bespoke paint options.">
   <meta property="og:type" content="website">
 
   <!-- Main Stylesheets -->
   <link rel="stylesheet" href="styles/main.css">
-  <link rel="stylesheet" href="styles/samurai-3d.css">
+  <link rel="stylesheet" href="styles/car-3d.css">
 </head>
 <body>
 
-  <!-- 3D Global Sakura Storm Background Canvas & Slash Canvas -->
-  <canvas id="samurai-3d-bg"></canvas>
-  <canvas id="slash-canvas"></canvas>
-  <div class="scanlines-overlay"></div>
+  <!-- 3D Global Particles Background Canvas & Studio Lighting Overlay -->
+  <canvas id="car-canvas-bg"></canvas>
+  <div class="studio-overlay"></div>
 
   <!-- ==========================================================================
-       TOP NAVIGATION & HAMBURGER MENU
+       TOP NAVIGATION BAR
        ========================================================================== -->
-  <header class="cyber-header">
-    <div class="nav-container">
-      <a href="#hero" class="brand-logo">
-        <div class="brand-crest">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c5a059" stroke-width="2">
-            <circle cx="12" cy="12" r="9"/>
-            <path d="M12 3v18M3 12h18"/>
-            <circle cx="12" cy="12" r="3" fill="#e63946"/>
+  <header class="header-nav">
+    <div class="nav-wrap">
+      <a href="#studio" class="brand-logo">
+        <div class="brand-emblem">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5">
+            <polygon points="12 2 2 22 22 22"/>
           </svg>
         </div>
-        <div class="brand-text">RO<span>NIN // 侍</span></div>
+        <div class="brand-name">APEX <span>MOTORS</span></div>
       </a>
 
-      <!-- Desktop Nav -->
-      <ul class="nav-desktop-links">
-        <li><a href="#hero" class="nav-item-link active"><span class="kanji-badge">道</span>DOJO</a></li>
-        <li><a href="#blade-forge" class="nav-item-link"><span class="kanji-badge">鍛</span>KATANA FORGE</a></li>
-        <li><a href="#bushido" class="nav-item-link"><span class="kanji-gold-badge">誉</span>BUSHIDO</a></li>
-        <li><a href="#battles" class="nav-item-link"><span class="kanji-badge">戦</span>BATTLES</a></li>
-        <li><a href="#tactical-map" class="nav-item-link"><span class="kanji-badge">図</span>CLAN MAP</a></li>
-        <li><a href="#terminal" class="nav-item-link"><span class="kanji-gold-badge">令</span>DISPATCH</a></li>
+      <!-- Desktop Links -->
+      <ul class="nav-links">
+        <li><a href="#studio" class="nav-link active">3D STUDIO</a></li>
+        <li><a href="#performance" class="nav-link">PERFORMANCE</a></li>
+        <li><a href="#models" class="nav-link">MODELS</a></li>
+        <li><a href="#engineering" class="nav-link">ENGINEERING</a></li>
+        <li><a href="#reserve" class="nav-link">RESERVE</a></li>
       </ul>
 
-      <!-- Controls & Hamburger Toggle -->
-      <div class="nav-right-controls">
-        <button id="sound-toggle-btn" class="btn-audio-ctrl" title="Toggle Sound SFX">
+      <!-- Controls & Hamburger -->
+      <div class="nav-actions">
+        <button id="sound-toggle-btn" class="btn-sound active" title="Toggle Sound SFX">
           <span id="sound-toggle-text">SFX: ON</span>
         </button>
 
-        <button id="hamburger-toggle" class="hamburger-btn" aria-label="Open Navigation Menu" aria-expanded="false">
+        <button id="hamburger-toggle" class="hamburger-btn" aria-label="Open Menu">
           <span class="ham-line"></span>
           <span class="ham-line"></span>
           <span class="ham-line"></span>
@@ -63,487 +59,360 @@
     </div>
   </header>
 
-  <!-- Fullscreen Drawer Navigation -->
-  <div id="nav-backdrop-overlay" class="nav-backdrop"></div>
-  <aside id="cyber-nav-drawer" class="cyber-drawer">
-    <div class="drawer-header">
-      <div class="drawer-title">RONIN // 侍 3D</div>
-      <div style="font-family: var(--font-sub); font-size: 0.95rem; color: var(--sakura-pink); margin-top: 4px;">
-        Sanctuary of the Code Master
-      </div>
-      <div id="hud-live-clock" style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--gold-bright); margin-top: 6px;"></div>
+  <!-- Mobile Drawer -->
+  <div id="mobile-backdrop" class="mobile-nav-backdrop"></div>
+  <aside id="mobile-drawer" class="mobile-drawer">
+    <div>
+      <div class="brand-name" style="font-size: 1.2rem; color: #fff;">APEX <span>MOTORS</span></div>
+      <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 4px;">Hypercar 3D Studio</p>
+
+      <ul class="mobile-drawer-links">
+        <li><a href="#studio" class="mobile-drawer-link">3D STUDIO</a></li>
+        <li><a href="#performance" class="mobile-drawer-link">PERFORMANCE</a></li>
+        <li><a href="#models" class="mobile-drawer-link">MODELS</a></li>
+        <li><a href="#engineering" class="mobile-drawer-link">ENGINEERING</a></li>
+        <li><a href="#reserve" class="mobile-drawer-link">RESERVE</a></li>
+      </ul>
     </div>
 
-    <ul class="drawer-nav-list">
-      <li><a href="#hero" class="drawer-nav-link"><span>01</span> THE DOJO (道場)</a></li>
-      <li><a href="#blade-forge" class="drawer-nav-link"><span>02</span> 3D KATANA FORGE (鍛冶)</a></li>
-      <li><a href="#bushido" class="drawer-nav-link"><span>03</span> SCROLL OF BUSHIDO (武士道)</a></li>
-      <li><a href="#battles" class="drawer-nav-link"><span>04</span> BATTLE CHRONICLES (合戦)</a></li>
-      <li><a href="#tactical-map" class="drawer-nav-link"><span>05</span> PROVINCE MAP (絵図)</a></li>
-      <li><a href="#terminal" class="drawer-nav-link"><span>06</span> RAVEN DISPATCH (伝令)</a></li>
-    </ul>
-
-    <div style="border-top: 1px solid var(--gold-border); padding-top: 1rem; font-size: 0.8rem; color: var(--text-muted);">
-      <div>RONIN 3D ZEN CODEX v9.4 // 浪人</div>
-      <div>KYOTO SANCTUARY SECTOR 07</div>
+    <div style="font-size: 0.78rem; color: var(--text-dark);">
+      © 2026 APEX AUTOMOTIVE AG
     </div>
   </aside>
 
   <!-- ==========================================================================
-       HERO SECTION (THE DOJO // 3D SAMURAI KABUTO & ONI MASK)
+       HERO SECTION (3D STUDIO CONFIGURATOR)
        ========================================================================== -->
-  <section id="hero" class="hero-section">
+  <section id="studio" class="hero-studio">
     <div class="container">
-      <div class="hero-grid">
-        <div class="hero-content">
-          <div class="hero-callsign">
-            <span>●</span> 浪人 // [ AKIRA ] // MASTER CODE SAMURAI
-          </div>
-          
-          <div class="slash-hint-banner">
-            <span>⚔️</span> <span>SWORD CURSOR ACTIVE — SLICE MOUSE FOR BLADE SFX</span>
-          </div>
-
-          <h1 class="hero-title">
-            MASTER OF THE <br>
-            <span class="name-highlight">DIGITAL KATANA</span> <br>
-            & 3D WEBGL
-          </h1>
-          <p class="hero-subtitle">Software Artisan // Full-Stack Architect // 3D WebGL Creator</p>
-          <p class="hero-description">
-            Crafting high-performance digital experiences, interactive 3D WebGL worlds, and resilient architectures with the discipline, honor, and razor-sharp precision of the samurai code.
-          </p>
-          <div class="hero-actions">
-            <a href="#blade-forge" class="btn-cyber-gold">
-              <span>⚔️</span> ENTER 3D FORGE
-            </a>
-            <a href="#bushido" class="btn-cyber-outline">
-              <span>📜</span> SCROLL OF BUSHIDO
-            </a>
-          </div>
+      <div class="hero-studio-header">
+        <div class="hero-super-badge">
+          <span>⚡</span> HYPER-AERODYNAMIC V8 HYBRID // 1,600 HP
         </div>
-
-        <div class="hero-visual-frame">
-          <div id="samurai-hero-stage" class="samurai-hero-stage">
-            <div class="hero-samurai-overlay">
-              <span>[ 3D SAMURAI KABUTO ]</span>
-              <span>360° DRAG TO ROTATE</span>
-            </div>
-            <canvas id="samurai-hero-canvas"></canvas>
-            <div class="hero-samurai-controls">
-              <button class="btn-stance active" data-stance="iaijutsu">IAIJUTSU</button>
-              <button class="btn-stance" data-stance="bloodoath">BLOOD OATH</button>
-              <button class="btn-stance" data-stance="goldendawn">GOLDEN DAWN</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==========================================================================
-       3D KATANA FORGE (THE DOJO // 鍛冶場)
-       ========================================================================== -->
-  <section id="blade-forge" class="section-block">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-tag">[ THE MASTER ARMORY // 刀鍛冶 ]</span>
-        <h2 class="section-title">
-          3D KATANA <span class="gold-glow-text">BLADE FORGE</span>
-        </h2>
-        <div class="section-divider"></div>
+        <h1 class="hero-car-title">
+          APEX <span style="color: var(--accent-gold-bright);">GT-ONE</span>
+        </h1>
+        <p class="hero-car-subtitle">
+          Pure kinetic sculpture. Sculpted carbon monocoque, active aerodynamic wings, and zero-compromise racing DNA.
+        </p>
       </div>
 
-      <div class="mecha-hangar-container">
-        <!-- Blade Selection Tabs -->
-        <div class="mecha-tab-nav">
-          <button class="mecha-tab-btn blade-tab-btn active" data-blade="murasama">
-            <span class="kanji-badge">妖</span> MURASAMA (DEMON BLADE)
-          </button>
-          <button class="mecha-tab-btn blade-tab-btn" data-blade="raikiri">
-            <span class="kanji-badge">雷</span> RAIKIRI (LIGHTNING BLADE)
-          </button>
-          <button class="mecha-tab-btn blade-tab-btn" data-blade="kusanagi">
-            <span class="kanji-gold-badge">神</span> KUSANAGI (SACRED BLADE)
-          </button>
-        </div>
-
-        <!-- 3D Blade Display Grid -->
-        <div class="mecha-display-grid">
-          <div class="katana-forge-box">
-            <div class="katana-3d-hud">3D KATANA INSPECTOR // 360° WEBGL</div>
-            <div class="mecha-3d-hint">DRAG TO ROTATE • SCROLL TO ZOOM</div>
-            <canvas id="katana-3d-canvas"></canvas>
-            <div class="katana-3d-toolbar">
-              <button class="btn-katana-tool" data-tool="wireframe">WIREFRAME</button>
-              <button class="btn-katana-tool active" data-tool="autorotate">AUTO ROTATE</button>
-              <button class="btn-katana-tool" data-tool="slash">KATANA SLASH</button>
-              <button class="btn-katana-tool" data-tool="reset">RESET VIEW</button>
-            </div>
-          </div>
-
-          <div class="mecha-stats-panel">
-            <h3 id="blade-title-display" class="mecha-title-tag">
-              妖刀村正 // MURASAMA HF-09 [DEMON BLADE]
-            </h3>
-            <p id="blade-desc-display" class="mecha-desc-p">
-              Forged in folded crimson tamahagane steel and tempered in high-frequency plasma. It oscillates at 4.8 THz, slicing through reinforced cyber armor like mist.
-            </p>
-
-            <!-- Stat Meters -->
-            <div class="stat-meter-group">
-              <div class="stat-item-row">
-                <div class="stat-label-wrap">
-                  <span>SHARPNESS & CUTTING EDGE</span>
-                  <span id="blade-val-sharpness" style="color: var(--vermilion-bright);">99%</span>
-                </div>
-                <div class="stat-bar-shell">
-                  <div id="blade-bar-sharpness" class="stat-bar-core" style="width: 99%;"></div>
-                </div>
-              </div>
-
-              <div class="stat-item-row">
-                <div class="stat-label-wrap">
-                  <span>BLADE HARDNESS (HRC 68)</span>
-                  <span id="blade-val-hardness" style="color: var(--gold-bright);">94%</span>
-                </div>
-                <div class="stat-bar-shell">
-                  <div id="blade-bar-hardness" class="stat-bar-core" style="width: 94%;"></div>
-                </div>
-              </div>
-
-              <div class="stat-item-row">
-                <div class="stat-label-wrap">
-                  <span>SOUL RESONANCE & ENCHANTMENT</span>
-                  <span id="blade-val-enchant" style="color: var(--sakura-pink);">96%</span>
-                </div>
-                <div class="stat-bar-shell">
-                  <div id="blade-bar-enchant" class="stat-bar-core" style="width: 96%;"></div>
-                </div>
-              </div>
-
-              <div class="stat-item-row">
-                <div class="stat-label-wrap">
-                  <span>SWING VELOCITY & BALANCE</span>
-                  <span id="blade-val-speed" style="color: var(--gold-bright);">98%</span>
-                </div>
-                <div class="stat-bar-shell">
-                  <div id="blade-bar-speed" class="stat-bar-core" style="width: 98%;"></div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Dynamic Specs Table -->
-            <div class="specs-grid-box">
-              <div class="spec-row">
-                <span class="spec-label">STEEL COMPOSITION</span>
-                <span class="spec-value">FOLDED TAMAHAGANE & TITANIUM</span>
-              </div>
-              <div class="spec-row">
-                <span class="spec-label">HAMON PATTERN</span>
-                <span class="spec-value">MIDARE-BA (FLAMING BLADE)</span>
-              </div>
-              <div class="spec-row">
-                <span class="spec-label">PRIMARY TECHNIQUE</span>
-                <span class="spec-value">IAIJUTSU FLASH SLASH (居合術)</span>
-              </div>
-              <div class="spec-row">
-                <span class="spec-label">WEIGHT & NAGASA</span>
-                <span class="spec-value">1.15 KG // 73.2 CM</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==========================================================================
-       SCROLL OF BUSHIDO (THE 7 VIRTUES & TECHNICAL EXCELLENCE // 武士道)
-       ========================================================================== -->
-  <section id="bushido" class="section-block">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-tag">[ THE 7 VIRTUES OF THE CODE SAMURAI // 武士道七徳 ]</span>
-        <h2 class="section-title">
-          THE SCROLL OF <span class="gold-glow-text">BUSHIDO</span>
-        </h2>
-        <div class="section-divider"></div>
+      <!-- 3D Viewport Box -->
+      <div class="car-3d-stage-box">
+        <div class="car-3d-hint">DRAG TO ORBIT 360° • PINCH TO ZOOM</div>
+        <canvas id="car-3d-canvas"></canvas>
       </div>
 
-      <div class="bushido-grid">
-        <!-- Virtue 1: Gi (義) -->
-        <div class="bushido-card">
-          <div class="bushido-kanji-big">義</div>
-          <h3 class="bushido-title"><span class="kanji-badge">義</span> GI // RECTITUDE</h3>
-          <div class="bushido-virtue-sub">CLEAN ARCHITECTURE & SYSTEM DESIGN</div>
-          <p class="bushido-desc">
-            Writing unambiguous, morally sound, and maintainable software. Building resilient microservices, robust design patterns, and clean decoupled systems.
-          </p>
-        </div>
-
-        <!-- Virtue 2: Yu (勇) -->
-        <div class="bushido-card">
-          <div class="bushido-kanji-big">勇</div>
-          <h3 class="bushido-title"><span class="kanji-badge">勇</span> YU // COURAGE</h3>
-          <div class="bushido-virtue-sub">3D WEBGL & SHADER INNOVATION</div>
-          <p class="bushido-desc">
-            Fearlessly pushing boundaries with WebGL, Three.js, and GLSL shaders. Turning complex mathematics into breathtaking interactive 3D browser experiences.
-          </p>
-        </div>
-
-        <!-- Virtue 3: Jin (仁) -->
-        <div class="bushido-card">
-          <div class="bushido-kanji-big">仁</div>
-          <h3 class="bushido-title"><span class="kanji-badge">仁</span> JIN // BENEVOLENCE</h3>
-          <div class="bushido-virtue-sub">USER-CENTRIC UI/UX CRAFTSMANSHIP</div>
-          <p class="bushido-desc">
-            Designing with empathy for users. Intuitive navigation, accessibility, responsive ergonomics, and delightful micro-interactions.
-          </p>
-        </div>
-
-        <!-- Virtue 4: Rei (礼) -->
-        <div class="bushido-card">
-          <div class="bushido-kanji-big">礼</div>
-          <h3 class="bushido-title"><span class="kanji-badge">礼</span> REI // RESPECT</h3>
-          <div class="bushido-virtue-sub">TYPESCRIPT & STRICT CODE STANDARDS</div>
-          <p class="bushido-desc">
-            Respecting fellow developers through type safety, comprehensive documentation, atomic commits, and meticulous code reviews.
-          </p>
-        </div>
-
-        <!-- Virtue 5: Makoto (誠) -->
-        <div class="bushido-card">
-          <div class="bushido-kanji-big">誠</div>
-          <h3 class="bushido-title"><span class="kanji-badge">誠</span> MAKOTO // HONESTY</h3>
-          <div class="bushido-virtue-sub">60FPS PERFORMANCE & ZERO-LATENCY</div>
-          <p class="bushido-desc">
-            Honest benchmarking, GPU optimization, minimal bundle footprints, and lightning-fast loading speeds across mobile and desktop.
-          </p>
-        </div>
-
-        <!-- Virtue 6: Meiyo (名誉) -->
-        <div class="bushido-card">
-          <div class="bushido-kanji-big">名</div>
-          <h3 class="bushido-title"><span class="kanji-badge">名</span> MEIYO // HONOR</h3>
-          <div class="bushido-virtue-sub">CYBER SECURITY & DATA DEFENSE</div>
-          <p class="bushido-desc">
-            Protecting client data and intellectual property with unyielding integrity, AES quantum encryption, and defensive coding practices.
-          </p>
-        </div>
-
-        <!-- Virtue 7: Chugi (忠義) -->
-        <div class="bushido-card">
-          <div class="bushido-kanji-big">忠</div>
-          <h3 class="bushido-title"><span class="kanji-badge">忠</span> CHUGI // LOYALTY</h3>
-          <div class="bushido-virtue-sub">DEV-OPS & MISSION RELIABILITY</div>
-          <p class="bushido-desc">
-            Unwavering dedication to mission success. 99.99% uptime, automated CI/CD deployment pipelines, and dependable cloud infrastructure.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==========================================================================
-       BATTLE CHRONICLES (COMPLETED QUESTS & PROJECTS // 合戦録)
-       ========================================================================== -->
-  <section id="battles" class="section-block">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-tag">[ VICTORIOUS CAMPAIGNS & DEPLOYMENTS // 合戦録 ]</span>
-        <h2 class="section-title">
-          BATTLE <span class="gold-glow-text">CHRONICLES</span>
-        </h2>
-        <div class="section-divider"></div>
-      </div>
-
-      <div class="contracts-grid">
-        <!-- Battle 1 -->
-        <div class="contract-card">
-          <div>
-            <div class="contract-header">
-              <span class="tactical-badge">VICTORIOUS</span>
-              <span class="bounty-reward">HONOR: 60,000 KOKU</span>
-            </div>
-            <h3 class="contract-title">Aegis Divine Shinto Firewall</h3>
-            <p class="contract-desc">
-              Decentralized cybersecurity mesh protecting sovereign cloud clusters with autonomous threat neutralization algorithms.
-            </p>
-            <div class="contract-tech-stack">
-              <span class="tech-tag">Rust</span>
-              <span class="tech-tag">WebAssembly</span>
-              <span class="tech-tag">Crypto</span>
-            </div>
-          </div>
-          <div class="contract-footer-links">
-            <a href="#" class="contract-link">VIEW SCROLL SPEC →</a>
+      <!-- Interactive Customizer Dock -->
+      <div class="customizer-dock">
+        <!-- Paint Swatches -->
+        <div>
+          <div class="dock-section-title">BESPOKE EXTERIOR PAINT</div>
+          <div class="color-swatches-group">
+            <button class="color-swatch-btn active" data-color="#111317" style="background: #111317;" title="Obsidian Black"></button>
+            <button class="color-swatch-btn" data-color="#cfd8dc" style="background: #cfd8dc;" title="Liquid Titanium"></button>
+            <button class="color-swatch-btn" data-color="#e63946" style="background: #e63946;" title="Rosso Corsa Red"></button>
+            <button class="color-swatch-btn" data-color="#f59e0b" style="background: #f59e0b;" title="Monaco Gold"></button>
+            <button class="color-swatch-btn" data-color="#00f0ff" style="background: #00f0ff;" title="Cyber Electric Blue"></button>
+            <button class="color-swatch-btn" data-color="#10b981" style="background: #10b981;" title="British Racing Green"></button>
           </div>
         </div>
 
-        <!-- Battle 2 -->
-        <div class="contract-card">
-          <div>
-            <div class="contract-header">
-              <span class="tactical-badge" style="background: rgba(197, 160, 89, 0.15); border-color: var(--gold-leaf); color: var(--gold-bright);">
-                ACTIVE QUEST
-              </span>
-              <span class="bounty-reward">HONOR: 95,000 KOKU</span>
-            </div>
-            <h3 class="contract-title">Raikiri 3D Tactical HUD</h3>
-            <p class="contract-desc">
-              Real-time 3D WebGL sensor cockpit streaming 60fps telemetry, sword stance analytics, and clan radar feeds.
-            </p>
-            <div class="contract-tech-stack">
-              <span class="tech-tag">Three.js</span>
-              <span class="tech-tag">WebGL 3D</span>
-              <span class="tech-tag">React</span>
-            </div>
-          </div>
-          <div class="contract-footer-links">
-            <a href="#" class="contract-link">VIEW SCROLL SPEC →</a>
-          </div>
-        </div>
-
-        <!-- Battle 3 -->
-        <div class="contract-card">
-          <div>
-            <div class="contract-header">
-              <span class="tactical-badge" style="background: rgba(255, 183, 197, 0.15); border-color: var(--sakura-pink); color: var(--sakura-pink);">
-                SACRED MISSION
-              </span>
-              <span class="bounty-reward">HONOR: 150,000 KOKU</span>
-            </div>
-            <h3 class="contract-title">Shadow Strike Autonomous AI</h3>
-            <p class="contract-desc">
-              Autonomous machine learning drone network calculating hypersonic evasive trajectories and precision target acquisition.
-            </p>
-            <div class="contract-tech-stack">
-              <span class="tech-tag">Python AI</span>
-              <span class="tech-tag">PyTorch</span>
-              <span class="tech-tag">C++</span>
-            </div>
-          </div>
-          <div class="contract-footer-links">
-            <a href="#" class="contract-link">VIEW SCROLL SPEC →</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==========================================================================
-       TACTICAL PROVINCE CLAN MAP (藩国絵図)
-       ========================================================================== -->
-  <section id="tactical-map" class="section-block">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-tag">[ RADAR SCANNER // FEUDAL PROVINCES ]</span>
-        <h2 class="section-title">NEO-KYOTO <span class="gold-glow-text">CLAN MAP</span></h2>
-        <div class="section-divider"></div>
-      </div>
-
-      <div class="tactical-map-layout">
-        <!-- Interactive Map Viewport -->
-        <div id="map-viewport" class="map-viewport" style="background: rgba(10, 10, 14, 0.8); border: 1px solid var(--gold-border); border-radius: var(--radius-lg); position: relative; height: 380px; overflow: hidden;">
-          <img src="assets/svg/map-sectors.svg" alt="Tactical Sector Map" class="map-svg-overlay" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.6;">
-          <canvas id="radar-canvas"></canvas>
-
-          <!-- Interactive Hotspots -->
-          <div class="map-sector-node active" style="top: 48%; left: 52%; position: absolute;" data-sector="s07">
-            <div class="node-ring"><div class="node-pulse"></div></div>
-            <div class="node-label">SANCTUARY 07 [HQ]</div>
-          </div>
-
-          <div class="map-sector-node" style="top: 28%; left: 28%; position: absolute;" data-sector="s01">
-            <div class="node-ring"><div class="node-pulse"></div></div>
-            <div class="node-label">CITADEL 01 [FORTRESS]</div>
-          </div>
-
-          <div class="map-sector-node" style="top: 26%; left: 75%; position: absolute;" data-sector="s04">
-            <div class="node-ring"><div class="node-pulse"></div></div>
-            <div class="node-label">PORT 04 [FLEET]</div>
-          </div>
-
-          <div class="map-sector-node" style="top: 72%; left: 24%; position: absolute;" data-sector="s11">
-            <div class="node-ring"><div class="node-pulse"></div></div>
-            <div class="node-label">VAULT 11 [SCROLLS]</div>
-          </div>
-
-          <div class="map-sector-node" style="top: 74%; left: 70%; position: absolute;" data-sector="s19">
-            <div class="node-ring"><div class="node-pulse"></div></div>
-            <div class="node-label">RANGE 19 [DOJO]</div>
-          </div>
-        </div>
-
-        <!-- Telemetry Sidebar -->
-        <div class="map-telemetry-panel" style="background: var(--bg-card); border: 1px solid var(--gold-border); border-radius: var(--radius-lg); padding: 1.8rem; margin-top: 1.5rem;">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-            <div style="font-family: var(--font-display); color: var(--gold-bright); font-size: 1.1rem;">PROVINCE TELEMETRY</div>
-            <div id="map-coords-readout" style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--sakura-pink);">
-              X:0580 | Y:0340 | [35.0116°N, 135.7681°E]
-            </div>
-          </div>
-
-          <div class="sector-info-box">
-            <div id="sector-threat-badge" class="tactical-badge" style="display: inline-block; margin-bottom: 0.6rem;">
-              SANCTUARY SECURE [LEVEL 0]
-            </div>
-            <h3 id="sector-title-readout" style="font-size: 1.2rem; color: #fff; margin-bottom: 0.5rem;">
-              SANCTUARY 07: RONIN BLADE FORGE
-            </h3>
-            <p id="sector-desc-readout" class="sector-desc-text" style="color: var(--text-muted); font-size: 0.95rem;">
-              Primary sanctuary and master katana forge. Houses Murasama Demon Blades and high-frequency plasma whetstones. Protected by an encrypted Shinto barrier perimeter.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==========================================================================
-       RAVEN DISPATCH (ENCRYPTED COMMS // 伝令)
-       ========================================================================== -->
-  <section id="terminal" class="section-block">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-tag">[ ENCRYPTED RAVEN BURST // 伝令発信 ]</span>
-        <h2 class="section-title">
-          SEND <span class="gold-glow-text">RAVEN DISPATCH</span>
-        </h2>
-        <div class="section-divider"></div>
-      </div>
-
-      <div class="terminal-contact-box">
-        <div class="terminal-topbar">
-          <div class="terminal-title-text">RONIN_SECURE_DISPATCH</div>
-          <div style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--sakura-pink);">256-BIT SHINTO AES</div>
-        </div>
-
-        <div class="terminal-body">
-          <form id="cyber-contact-form">
-            <div class="form-group-cyber">
-              <label class="form-label-cyber" for="sender-callsign">WARRIOR / SENDER NAME:</label>
-              <input type="text" id="sender-callsign" class="form-input-cyber" placeholder="Enter your identity or organization..." required>
-            </div>
-
-            <div class="form-group-cyber">
-              <label class="form-label-cyber" for="sender-email">RAVEN COMMS RELAY (EMAIL):</label>
-              <input type="email" id="sender-email" class="form-input-cyber" placeholder="warrior@your-domain.com" required>
-            </div>
-
-            <div class="form-group-cyber">
-              <label class="form-label-cyber" for="sender-message">QUEST SCROLL / MESSAGE DETAILS:</label>
-              <textarea id="sender-message" rows="4" class="form-textarea-cyber" placeholder="Inscribe your mission scroll here..." required></textarea>
-            </div>
-
-            <button type="submit" class="btn-cyber-gold" style="width: 100%; justify-content: center;">
-              DISPATCH ENCRYPTED RAVEN
+        <!-- Car Actions -->
+        <div>
+          <div class="dock-section-title">INTERACTIVE TELEMETRY</div>
+          <div class="dock-actions-group">
+            <button id="btn-rev-engine" class="btn-dock-action">
+              <span>🔊</span> REV ENGINE
             </button>
-          </form>
-
-          <div id="terminal-send-status"></div>
+            <button id="btn-toggle-lights" class="btn-dock-action active">
+              <span>💡</span> HEADLIGHTS
+            </button>
+            <button id="btn-toggle-wing" class="btn-dock-action">
+              <span>🚀</span> ACTIVE WING
+            </button>
+            <button id="btn-spin-wheels" class="btn-dock-action">
+              <span>🏎️</span> SPIN WHEELS
+            </button>
+          </div>
         </div>
+
+        <!-- Camera Angles -->
+        <div>
+          <div class="dock-section-title">STUDIO CAMERAS</div>
+          <div class="dock-actions-group">
+            <button class="btn-dock-action btn-cam-preset" data-view="front">FRONT 3/4</button>
+            <button class="btn-dock-action btn-cam-preset" data-view="side">PROFILE</button>
+            <button class="btn-dock-action btn-cam-preset" data-view="rear">REAR</button>
+            <button class="btn-dock-action btn-cam-preset" data-view="reset">RESET</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       PERFORMANCE SECTION
+       ========================================================================== -->
+  <section id="performance" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">UNPRECEDENTED DYNAMICS</span>
+        <h2 class="section-title">PERFORMANCE METRICS</h2>
+      </div>
+
+      <div class="specs-strip-grid">
+        <div class="spec-strip-card">
+          <div class="spec-strip-val">1.85 <span>s</span></div>
+          <div class="spec-strip-label">0 – 100 KM/H</div>
+          <div class="spec-strip-sub">Launch-controlled quad-motor electric boost</div>
+        </div>
+
+        <div class="spec-strip-card">
+          <div class="spec-strip-val">450 <span>km/h</span></div>
+          <div class="spec-strip-label">TOP VELOCITY</div>
+          <div class="spec-strip-sub">Low-drag aerodynamic aero mode configuration</div>
+        </div>
+
+        <div class="spec-strip-card">
+          <div class="spec-strip-val">1,600 <span>HP</span></div>
+          <div class="spec-strip-label">POWERTRAIN OUTPUT</div>
+          <div class="spec-strip-sub">Twin-Turbo Flat-Plane V8 + Tri-Motor Hybrid</div>
+        </div>
+
+        <div class="spec-strip-card">
+          <div class="spec-strip-val">1,250 <span>kg</span></div>
+          <div class="spec-strip-label">AERO DOWNFORCE</div>
+          <div class="spec-strip-sub">Active hydraulic rear wing & venturi tunnels</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       MODEL LINEUP
+       ========================================================================== -->
+  <section id="models" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">THE LINEUP</span>
+        <h2 class="section-title">EXPLORE MODELS</h2>
+      </div>
+
+      <div class="models-grid">
+        <!-- Model 1 -->
+        <div class="model-card">
+          <div>
+            <span class="model-badge">FLAGSHIP HYPER GT</span>
+            <h3 class="model-name">APEX GT-ONE</h3>
+            <p class="model-desc">
+              The benchmark in hyper-luxury grand touring. Combines bespoke hand-stitched leather interiors with brutal track-ready hybrid performance.
+            </p>
+          </div>
+          <div>
+            <div class="model-stats-row">
+              <div class="model-stat-item">
+                <div class="model-stat-num">1,600 HP</div>
+                <div class="model-stat-lbl">POWER</div>
+              </div>
+              <div class="model-stat-item">
+                <div class="model-stat-num">1.85s</div>
+                <div class="model-stat-lbl">0-100</div>
+              </div>
+              <div class="model-stat-item">
+                <div class="model-stat-num">450 KM/H</div>
+                <div class="model-stat-lbl">MAX SPEED</div>
+              </div>
+            </div>
+            <a href="#reserve" class="btn-primary" style="width: 100%; justify-content: center;">
+              RESERVE GT-ONE
+            </a>
+          </div>
+        </div>
+
+        <!-- Model 2 -->
+        <div class="model-card">
+          <div>
+            <span class="model-badge" style="color: var(--accent-cyan); border-color: rgba(0, 240, 255, 0.4);">
+              TRACK ATTACK SPEC
+            </span>
+            <h3 class="model-name">PHANTOM STRALE</h3>
+            <p class="model-desc">
+              Stripped for uncompromising lightweight agility. Full carbon fiber bodywork, radical swan-neck rear wing, and pushrod suspension.
+            </p>
+          </div>
+          <div>
+            <div class="model-stats-row">
+              <div class="model-stat-item">
+                <div class="model-stat-num">1,750 HP</div>
+                <div class="model-stat-lbl">POWER</div>
+              </div>
+              <div class="model-stat-item">
+                <div class="model-stat-num">1.75s</div>
+                <div class="model-stat-lbl">0-100</div>
+              </div>
+              <div class="model-stat-item">
+                <div class="model-stat-num">1,180 KG</div>
+                <div class="model-stat-lbl">DRY WEIGHT</div>
+              </div>
+            </div>
+            <a href="#reserve" class="btn-secondary" style="width: 100%; justify-content: center;">
+              INQUIRE ALLOCATION
+            </a>
+          </div>
+        </div>
+
+        <!-- Model 3 -->
+        <div class="model-card">
+          <div>
+            <span class="model-badge" style="color: #4ade80; border-color: rgba(74, 222, 128, 0.4);">
+              ALL-ELECTRIC VISION
+            </span>
+            <h3 class="model-name">ELEKTRA VISION</h3>
+            <p class="model-desc">
+              Next-generation solid-state battery architecture powering four independent torque-vectoring permanent magnet motors.
+            </p>
+          </div>
+          <div>
+            <div class="model-stats-row">
+              <div class="model-stat-item">
+                <div class="model-stat-num">2,000 HP</div>
+                <div class="model-stat-lbl">POWER</div>
+              </div>
+              <div class="model-stat-item">
+                <div class="model-stat-num">1.60s</div>
+                <div class="model-stat-lbl">0-100</div>
+              </div>
+              <div class="model-stat-item">
+                <div class="model-stat-num">650 KM</div>
+                <div class="model-stat-lbl">RANGE</div>
+              </div>
+            </div>
+            <a href="#reserve" class="btn-secondary" style="width: 100%; justify-content: center;">
+              JOIN WAITLIST
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       ENGINEERING INNOVATIONS
+       ========================================================================== -->
+  <section id="engineering" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">CUTTING-EDGE ARCHITECTURE</span>
+        <h2 class="section-title">ENGINEERING EXCELLENCE</h2>
+      </div>
+
+      <div class="engineering-grid">
+        <div class="eng-feature-list">
+          <div class="eng-feature-item">
+            <h4 class="eng-feature-title"><span>🛡️</span> Carbon Monocoque Core</h4>
+            <p class="eng-feature-desc">
+              Torsional rigidity of 65,000 Nm/degree using F1-grade autoclave pre-preg carbon fiber composite weave.
+            </p>
+          </div>
+
+          <div class="eng-feature-item">
+            <h4 class="eng-feature-title"><span>⚡</span> 800V High-Discharge Battery</h4>
+            <p class="eng-feature-desc">
+              Dielectric immersion-cooled battery cells capable of delivering 400 kW of instantaneous electrical punch.
+            </p>
+          </div>
+
+          <div class="eng-feature-item">
+            <h4 class="eng-feature-title"><span>🌪️</span> Active Ground-Effect Aero</h4>
+            <p class="eng-feature-desc">
+              Underbody venturi tunnels with active front flap actuators generating vacuum suction through high-speed turns.
+            </p>
+          </div>
+        </div>
+
+        <div class="eng-feature-list">
+          <div class="eng-feature-item">
+            <h4 class="eng-feature-title"><span>🏁</span> Carbon-Ceramic Matrix Brakes</h4>
+            <p class="eng-feature-desc">
+              420mm front rotors clamped by 8-piston titanium monobloc calipers, stopping from 100-0 km/h in just 28 meters.
+            </p>
+          </div>
+
+          <div class="eng-feature-item">
+            <h4 class="eng-feature-title"><span>🧠</span> Neural Torque Vectoring</h4>
+            <p class="eng-feature-desc">
+              Real-time milli-second torque allocation across all four wheels with predictive lateral slip algorithms.
+            </p>
+          </div>
+
+          <div class="eng-feature-item">
+            <h4 class="eng-feature-title"><span>🔊</span> Titanium Inconel Exhaust</h4>
+            <p class="eng-feature-desc">
+              3D-printed lightweight Inconel exhaust headers tuned to deliver an intoxicating 9,000 RPM symphonic roar.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       RESERVATION / INQUIRY
+       ========================================================================== -->
+  <section id="reserve" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">COMMISSION YOUR VEHICLE</span>
+        <h2 class="section-title">BESPOKE ALLOCATION</h2>
+      </div>
+
+      <div class="reserve-card">
+        <form id="reserve-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="client-name">FULL NAME</label>
+              <input type="text" id="client-name" class="form-control" placeholder="Sir / Madam..." required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="client-email">VIP EMAIL ADDRESS</label>
+              <input type="email" id="client-email" class="form-control" placeholder="client@luxury.com" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="selected-model">MODEL ALLOCATION</label>
+              <select id="selected-model" class="form-control" style="cursor: pointer;">
+                <option value="Apex GT-One">Apex GT-One (1,600 HP Hybrid)</option>
+                <option value="Phantom Strale">Phantom Strale (Track Attack Spec)</option>
+                <option value="Elektra Vision">Elektra Vision (All-Electric 2,000 HP)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="delivery-region">DELIVERY REGION</label>
+              <select id="delivery-region" class="form-control" style="cursor: pointer;">
+                <option value="Europe">Europe / Monaco</option>
+                <option value="North America">North America / USA</option>
+                <option value="Asia Pacific">Asia Pacific / Tokyo / Singapore / Jakarta</option>
+                <option value="Middle East">Middle East / Dubai</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="bespoke-request">BESPOKE SPECIFICATIONS & CUSTOM REQUESTS</label>
+            <textarea id="bespoke-request" rows="3" class="form-control" placeholder="Specify custom paint, interior leather finish, carbon package, etc..."></textarea>
+          </div>
+
+          <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; font-size: 1rem;">
+            SUBMIT ALLOCATION REQUEST
+          </button>
+        </form>
+
+        <div id="reserve-status" class="form-status-msg" style="display:none;"></div>
       </div>
     </div>
   </section>
@@ -551,22 +420,20 @@
   <!-- ==========================================================================
        FOOTER
        ========================================================================== -->
-  <footer class="cyber-footer">
+  <footer class="footer">
     <div class="container">
       <div class="footer-content">
         <div class="brand-logo">
-          <div class="brand-crest">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c5a059" stroke-width="2">
-              <circle cx="12" cy="12" r="9"/>
-              <path d="M12 3v18M3 12h18"/>
-              <circle cx="12" cy="12" r="3" fill="#e63946"/>
+          <div class="brand-emblem">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5">
+              <polygon points="12 2 2 22 22 22"/>
             </svg>
           </div>
-          <div class="brand-text">RO<span>NIN // 侍 3D</span></div>
+          <div class="brand-name">APEX <span>MOTORS</span></div>
         </div>
 
-        <div class="footer-telemetry">
-          © 2026 RONIN SAMURAI // ALL RIGHTS RESERVED // BUSHIDO 3D WEBGL DOJO
+        <div style="font-size: 0.85rem; color: var(--text-muted);">
+          © 2026 APEX AUTOMOTIVE AG // ALL RIGHTS RESERVED // KINETIC 3D STUDIO
         </div>
       </div>
     </div>
@@ -574,9 +441,8 @@
 
   <!-- 3D Three.js & Application Scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script src="scripts/samurai-audio.js"></script>
-  <script src="scripts/map.js"></script>
-  <script src="scripts/samurai-3d.js"></script>
+  <script src="scripts/car-audio.js"></script>
+  <script src="scripts/car-3d.js"></script>
   <script src="scripts/main.js"></script>
 </body>
 </html>
