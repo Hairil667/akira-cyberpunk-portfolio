@@ -1,79 +1,77 @@
 /**
- * APEX MOTORS // MAIN APPLICATION SCRIPT
+ * JARVIS // MAIN APP CONTROLLER
+ * Mobile drawer, audio toggle, form handler, HUD animations
  */
 document.addEventListener('DOMContentLoaded', () => {
-  // 1. Mobile Drawer Navigation
-  const hamburgerBtn = document.getElementById('hamburger-toggle');
-  const mobileDrawer = document.getElementById('mobile-drawer');
-  const navBackdrop = document.getElementById('mobile-backdrop');
-  const drawerLinks = document.querySelectorAll('.mobile-drawer-link');
+  // Mobile Drawer
+  const hamburger = document.getElementById('hamburger-toggle');
+  const drawer = document.getElementById('mobile-drawer');
+  const backdrop = document.getElementById('mobile-backdrop');
 
-  function toggleDrawer(forceClose = false) {
-    if (window.carAudio) window.carAudio.playClick();
-    const isOpen = forceClose ? false : !mobileDrawer.classList.contains('open');
-    mobileDrawer.classList.toggle('open', isOpen);
-    navBackdrop.classList.toggle('open', isOpen);
-  }
+  const toggleDrawer = () => {
+    const isOpen = drawer.classList.toggle('open');
+    backdrop.classList.toggle('open', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  };
 
-  if (hamburgerBtn) {
-    hamburgerBtn.addEventListener('click', () => toggleDrawer());
-  }
+  if (hamburger) hamburger.addEventListener('click', toggleDrawer);
+  if (backdrop) backdrop.addEventListener('click', toggleDrawer);
 
-  if (navBackdrop) {
-    navBackdrop.addEventListener('click', () => toggleDrawer(true));
-  }
-
-  drawerLinks.forEach(link => {
-    link.addEventListener('click', () => toggleDrawer(true));
+  document.querySelectorAll('.mobile-link').forEach(link => {
+    link.addEventListener('click', () => {
+      if (drawer.classList.contains('open')) toggleDrawer();
+    });
   });
 
-  // 2. Audio Toggle
+  // Audio Toggle
   const soundBtn = document.getElementById('sound-toggle-btn');
   const soundText = document.getElementById('sound-toggle-text');
-
   if (soundBtn) {
     soundBtn.addEventListener('click', () => {
+      const isActive = soundBtn.classList.toggle('active');
+      if (soundText) soundText.textContent = isActive ? 'SFX: ON' : 'SFX: OFF';
       if (window.carAudio) {
-        const isEnabled = window.carAudio.toggleSound();
-        if (soundText) soundText.textContent = isEnabled ? "SFX: ON" : "SFX: OFF";
-        soundBtn.classList.toggle('active', isEnabled);
-        if (isEnabled) window.carAudio.playClick();
+        window.carAudio.enabled = isActive;
+        if (isActive) window.carAudio.init();
       }
     });
   }
 
-  // 3. Reservation / Configurator Form
-  const reserveForm = document.getElementById('reserve-form');
-  const reserveStatus = document.getElementById('reserve-status');
-
-  if (reserveForm) {
-    reserveForm.addEventListener('submit', (e) => {
+  // Reserve Form
+  const form = document.getElementById('reserve-form');
+  const status = document.getElementById('reserve-status');
+  if (form) {
+    form.addEventListener('submit', e => {
       e.preventDefault();
-      if (window.carAudio) window.carAudio.playClick();
-
-      const name = document.getElementById('client-name').value || 'Client';
-      const model = document.getElementById('selected-model').value || 'Apex GT-One';
-
-      if (reserveStatus) {
-        reserveStatus.textContent = `CONFIGURING ${model.toUpperCase()} ALLOCATION FOR ${name.toUpperCase()}...`;
-        reserveStatus.className = "form-status-msg";
-        reserveStatus.style.display = "block";
-
-        setTimeout(() => {
-          if (window.carAudio) window.carAudio.playEngineRev();
-          reserveStatus.textContent = `ALLOCATION RESERVED: Welcome to the Apex Circle, ${name}. Our concierge will contact you shortly.`;
-          reserveStatus.className = "form-status-msg success";
-          reserveForm.reset();
-        }, 1200);
+      if (status) {
+        status.className = 'form-notify success';
+        status.textContent = '✓ JARVIS: Allocation request transmitted. Concierge will respond within 24 hours.';
+        status.style.display = 'block';
       }
+      setTimeout(() => form.reset(), 1500);
     });
   }
 
-  // 4. Button Hover SFX
-  const interactiveElements = document.querySelectorAll('button, a, .spec-strip-card, .model-card, .eng-feature-item');
-  interactiveElements.forEach(el => {
-    el.addEventListener('mouseenter', () => {
-      if (window.carAudio) window.carAudio.playHover();
+  // Jarvis Boot Sequence Animation
+  const bootScreen = document.getElementById('jarvis-boot');
+  if (bootScreen) {
+    const lines = bootScreen.querySelectorAll('.boot-line');
+    lines.forEach((line, i) => {
+      line.style.animationDelay = (i * 0.3) + 's';
     });
-  });
+    setTimeout(() => {
+      bootScreen.classList.add('boot-done');
+    }, lines.length * 300 + 1200);
+  }
+
+  // Live Clock
+  const clockEl = document.getElementById('jarvis-clock');
+  if (clockEl) {
+    const updateClock = () => {
+      const now = new Date();
+      clockEl.textContent = now.toISOString().replace('T', ' // ').substring(0, 22) + ' UTC';
+    };
+    updateClock();
+    setInterval(updateClock, 1000);
+  }
 });
